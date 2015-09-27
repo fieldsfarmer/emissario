@@ -1,0 +1,41 @@
+CREATE DATABASE IF NOT EXISTS cs411_emissario;
+
+USE cs411_emissario;
+
+CREATE TABLE IF NOT EXISTS User (
+	ID BIGINT NOT NULL AUTO_INCREMENT,
+    First_Name VARCHAR(100) NOT NULL,
+    Last_Name VARCHAR(100) NULL,
+    Email VARCHAR(100) NOT NULL,
+    `Password` CHAR(255) NOT NULL,
+    City VARCHAR(100) NULL,
+    State VARCHAR(100) NULL,
+    Country VARCHAR(100) NULL,
+    Phone VARCHAR(100) NULL,
+    Created_On DATETIME NULL,
+    Modified_On DATETIME NULL,
+    PRIMARY KEY (ID)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS Travel_Plan (
+	ID BIGINT NOT NULL AUTO_INCREMENT,
+    User_ID BIGINT NOT NULL,
+    Origin_City VARCHAR(100) NULL,
+    Origin_Country VARCHAR(100) NULL,
+    Destination_City VARCHAR(100) NULL,
+    Destination_Country VARCHAR(100) NULL,
+    Travel_Date DATE NULL,
+    Created_On DATETIME NULL,
+    Modified_On DATETIME NULL,
+    PRIMARY KEY (ID),
+    FOREIGN KEY (User_ID) REFERENCES User (ID)
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS Friend (
+	User_ID1 BIGINT NOT NULL,
+    User_ID2 BIGINT NOT NULL,
+    Pending BIT NOT NULL DEFAULT 1,
+    Created_On DATETIME NULL,
+    Modified_On DATETIME NULL,
+    PRIMARY KEY (User_ID1, User_ID2)
+) ENGINE=InnoDB;
