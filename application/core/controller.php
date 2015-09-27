@@ -44,6 +44,7 @@ class Controller
 
     public function loadModels()
     {
+    	require APP . '/core/model.php';
     	require APP . '/models/friendModel.php';
     	// create new "model" (and pass the database connection)
     	$this->beans["friendModel"] = new FriendModel($this->db);
@@ -52,8 +53,9 @@ class Controller
 
     public function loadServices()
     {
+    	require APP . '/core/service.php';
     	require APP . '/services/friendService.php';
-    	$this->beans["friendService"] = new FriendService(array("friendModel" => $this->beans["friendModel"]));
+    	$this->beans["friendService"] = new FriendService($this->beans);
     }
 
 }
