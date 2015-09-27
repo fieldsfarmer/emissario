@@ -11,15 +11,10 @@ class Controller
     public $db = null;
 
     /**
-     * @var null Models
+     * @var null Beans
      */
-    public $models = null;
+    public $beans = array();
 
-    /**
-     * @var null Services
-     */
-    public $services = null;
-    
     /**
      * Whenever a controller is created, open a database connection too. The idea behind is to have ONE connection
      * that can be used by multiple models (there are frameworks that open one connection per model).
@@ -47,31 +42,18 @@ class Controller
         $this->db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS, $options);
     }
 
-    /**
-     * Loads the models.
-     * @return array models
-     */
     public function loadModels()
     {
     	require APP . '/models/friendModel.php';
     	// create new "model" (and pass the database connection)
-    	$this->models = array(
-    			"friendModel" => new FriendModel($this->db)
-    	);
+    	$this->beans["friendModel"] = new FriendModel($this->db);
     }
     
-    /**
-     * Loads the services.
-     * @return array services
-     */
+
     public function loadServices()
     {
     	require APP . '/services/friendService.php';
-    	$this->services = array(
-    		"friendService" => new FriendService(array(
-    				"friendModel" => $this->models["friendModel"]
-    			))
-    	);
+    	$this->beans["friendService"] = new FriendService(array("friendModel" => $this->beans["friendModel"]));
     }
 
 }
