@@ -49,6 +49,6 @@ if (defined('URL_SUB_FOLDER')) {
  */
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost:3306');
-define('DB_NAME', 'cs411_emissario');
-define('DB_USER', 'cs411_webapp');
+define('DB_NAME', 'emissari_cs411');
+define('DB_USER', 'emissari_webapp');
 define('DB_PASS', 'cic411');
