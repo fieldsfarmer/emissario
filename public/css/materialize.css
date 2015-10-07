@@ -2211,8 +2211,11 @@ table {
 thead {
   border-bottom: 1px solid #d0d0d0; }
 
+th {
+  text-transform: uppercase;}
+
 td, th {
-  padding: 15px 5px;
+  padding: 10px 5px;
   display: table-cell;
   text-align: left;
   vertical-align: middle;
@@ -5034,7 +5037,6 @@ nav ul a span.badge {
 
 .container {
   margin: 0 auto;
-  max-width: 1280px;
   width: 90%; }
 
 /*@media only screen and (min-width : 601px) {
@@ -5258,12 +5260,14 @@ nav ul a span.badge {
 
 nav {
   color: #00acc1;
+  text-transform: uppercase;
   width: 100%;
   height: 35px;
   line-height: 35px;
   margin: 30px 0; }
   nav a {
-    color: #00acc1; }
+    color: #00acc1;
+    text-transform: uppercase; }
   nav .nav-wrapper {
     position: relative;
     height: 100%; }
@@ -5284,8 +5288,9 @@ nav {
       line-height: 35px; }
   nav .brand-logo {
     color: #00acc1;
+    text-transform: none;
     display: inline-block;
-    font-size: 2.1rem;
+    font-size: 2.5rem;
     padding: 0;
     white-space: nowrap; }
     nav .brand-logo.center {
@@ -5338,10 +5343,11 @@ nav {
       nav ul li.active a {
       	color: #616161; }
     nav ul a {
-      font-size: 1rem;
+      font-size: 1.1rem;
       color: #00acc1;
+      text-transform: uppercase;
       display: block;
-      padding: 0 50px 0 0; }
+      padding: 0 15px 0 0; }
     nav ul.left {
       float: left; }
   nav .input-field {
@@ -5358,14 +5364,15 @@ nav {
       top: 0;
       left: 0; }
       nav .input-field label i {
-        color: rgba(92, 107, 192, 0.7);
+        color: rgba(0, 172, 193, 0.7);
         -webkit-transition: color .3s;
         -moz-transition: color .3s;
         -o-transition: color .3s;
         -ms-transition: color .3s;
         transition: color .3s; }
       nav .input-field label.active i {
-        color: #00acc1; }
+        color: #00acc1;
+        text-transform: uppercase; }
       nav .input-field label.active {
         -webkit-transform: translateY(0);
         -moz-transform: translateY(0);
@@ -7022,7 +7029,7 @@ select {
 
 .side-nav {
   position: fixed;
-  width: 130px;
+  width: 170px;
   left: -105%;
   top: 0;
   margin: 0;
@@ -7043,15 +7050,17 @@ select {
   .side-nav li {
     float: none;
     padding: 0 15px;
-    border: none; }
+    border: none;
+    width: 170px; }
     .side-nav li:hover {
       background-color: #ddd; }
     .side-nav li.active {
       border: none;}
   .side-nav a {
     color: #00acc1;
+    text-transform: uppercase;
     display: block;
-    font-size: 1rem;
+    font-size: 1.1rem;
     height: 64px;
     line-height: 64px;
     padding: 0 15px; }
@@ -7066,7 +7075,8 @@ select {
 .side-nav.fixed a {
   display: block;
   padding: 0 15px;
-  color: #00acc1; }
+  color: #00acc1;
+  text-transform: uppercase; }
 
 .side-nav.fixed {
   left: 0;

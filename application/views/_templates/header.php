@@ -8,10 +8,20 @@ if (!$this) {
     exit(header('HTTP/1.0 403 Forbidden'));
 }
 
-$views = "friends,travels,wishes,messages,helps";
+$views = array(
+		"user" => "Profile",
+		"friends" => "Friends",
+		"travels" => "Travels",
+		"wishes" => "Wishes",
+		"messages" => "Messages",
+		"helps" => "Help Others"
+	);
 
-$pathInfoArray = explode("/", $_SERVER["PATH_INFO"]);
-$activeView = $pathInfoArray[1];
+$activeView = "";
+if (array_key_exists("PATH_INFO", $_SERVER)) {
+	$pathInfoArray = explode("/", $_SERVER["PATH_INFO"]);
+	$activeView = $pathInfoArray[1];
+}
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -35,21 +45,27 @@ $activeView = $pathInfoArray[1];
         <!-- navigation -->
 		<nav>
 			<div class="nav-wrapper">
-				<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+				<a href="#" data-activates="nav-mobile" class="button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
 				<a href="<?php echo URL_WITH_INDEX_FILE; ?>" class="brand-logo left">Emissario</a>
-				<ul id="nav-normal" class="left hide-on-med-and-down">
-					<?php foreach (explode(",", $views) as $view) { ?>
+				<ul id="nav-normal" class="left hide-on-small-only">
+					<?php foreach ($views as $view => $viewTitle) { ?>
 						<li <?php if (strcasecmp($activeView,$view) == 0): ?>class="active"<?php endif ?>>
-							<a href="<?php echo URL_WITH_INDEX_FILE . $view; ?>"><?php echo strtoupper($view) ?></a>
+							<a href="<?php echo URL_WITH_INDEX_FILE . $view; ?>"><?php echo $viewTitle ?></a>
 						</li>
 					<?php } ?>
+					<li>
+						<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
+					</li>
 				</ul>
 				<ul id="nav-mobile" class="side-nav">
-					<?php foreach (explode(",", $views) as $view) { ?>
+					<?php foreach ($views as $view => $viewTitle) { ?>
 						<li <?php if (strcasecmp($activeView,$view) == 0): ?>class="active"<?php endif ?>>
-							<a href="<?php echo URL_WITH_INDEX_FILE . $view; ?>"><?php echo strtoupper($view) ?></a>
+							<a href="<?php echo URL_WITH_INDEX_FILE . $view; ?>"><?php echo $viewTitle ?></a>
 						</li>
 					<?php } ?>
+					<li>
+						<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
+					</li>
 				</ul>
 			</div>
 		</nav>

@@ -49,6 +49,7 @@ class Controller
     	require APP . '/models/helpModel.php';
     	require APP . '/models/messageModel.php';
     	require APP . '/models/travelModel.php';
+    	require APP . '/models/userModel.php';
     	require APP . '/models/wishModel.php';
 
     	// create new "model" (and pass the database connection)
@@ -56,6 +57,7 @@ class Controller
     	$this->beans["helpModel"] = new HelpModel($this->db);
     	$this->beans["messageModel"] = new MessageModel($this->db);
     	$this->beans["travelModel"] = new TravelModel($this->db);
+    	$this->beans["userModel"] = new UserModel($this->db);
     	$this->beans["wishModel"] = new WishModel($this->db);
     }
 
@@ -66,12 +68,14 @@ class Controller
     	require APP . '/services/helpService.php';
     	require APP . '/services/messageService.php';
     	require APP . '/services/travelService.php';
+    	require APP . '/services/userService.php';
     	require APP . '/services/wishService.php';
 
     	$this->beans["friendService"] = new FriendService($this->beans);
     	$this->beans["helpService"] = new HelpService($this->beans);
     	$this->beans["messageService"] = new MessageService($this->beans);
     	$this->beans["travelService"] = new TravelService($this->beans);
+    	$this->beans["userService"] = new UserService($this->beans);
     	$this->beans["wishService"] = new WishService($this->beans);
     }
 }
