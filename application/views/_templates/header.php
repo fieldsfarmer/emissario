@@ -8,6 +8,11 @@ if (!$this) {
     exit(header('HTTP/1.0 403 Forbidden'));
 }
 
+$views = "friends,travels,wishes,messages,helps";
+
+$pathInfoArray = explode("/", $_SERVER["PATH_INFO"]);
+$activeView = $pathInfoArray[1];
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,18 +26,31 @@ if (!$this) {
     <!-- See more here: http://stackoverflow.com/q/2105327/1114320 -->
 
     <!-- CSS -->
-    <link href="<?php echo URL; ?>public/css/style.css" rel="stylesheet">
+	<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+	<link href="<?php echo URL; ?>public/css/materialize.css" rel="stylesheet" type="text/css" media="screen,projection" />
 </head>
-<body>
+<body class="grey lighten-5 grey-text text-darken-2">
     <!-- header -->
     <div class="container">
-        <h1>Emissario</h1>
         <!-- navigation -->
-        <div class="navigation">
-            <ul>
-                <!-- same like "home" or "home/index" -->
-                <li><a href="<?php echo URL_WITH_INDEX_FILE; ?>"><?php echo URL_WITH_INDEX_FILE; ?>home</a></li>
-                <li><a href="<?php echo URL_WITH_INDEX_FILE; ?>friends/"><?php echo URL_WITH_INDEX_FILE; ?>friends/index</a></li>
-            </ul>
-        </div>
+		<nav>
+			<div class="nav-wrapper">
+				<a href="#" data-activates="nav-mobile" class="button-collapse"><i class="material-icons">menu</i></a>
+				<a href="<?php echo URL_WITH_INDEX_FILE; ?>" class="brand-logo left">Emissario</a>
+				<ul id="nav-normal" class="left hide-on-med-and-down">
+					<?php foreach (explode(",", $views) as $view) { ?>
+						<li <?php if (strcasecmp($activeView,$view) == 0): ?>class="active"<?php endif ?>>
+							<a href="<?php echo URL_WITH_INDEX_FILE . $view; ?>"><?php echo strtoupper($view) ?></a>
+						</li>
+					<?php } ?>
+				</ul>
+				<ul id="nav-mobile" class="side-nav">
+					<?php foreach (explode(",", $views) as $view) { ?>
+						<li <?php if (strcasecmp($activeView,$view) == 0): ?>class="active"<?php endif ?>>
+							<a href="<?php echo URL_WITH_INDEX_FILE . $view; ?>"><?php echo strtoupper($view) ?></a>
+						</li>
+					<?php } ?>
+				</ul>
+			</div>
+		</nav>
     </div>

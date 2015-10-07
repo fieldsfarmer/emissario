@@ -46,16 +46,32 @@ class Controller
     {
     	require APP . '/core/model.php';
     	require APP . '/models/friendModel.php';
+    	require APP . '/models/helpModel.php';
+    	require APP . '/models/messageModel.php';
+    	require APP . '/models/travelModel.php';
+    	require APP . '/models/wishModel.php';
+
     	// create new "model" (and pass the database connection)
     	$this->beans["friendModel"] = new FriendModel($this->db);
+    	$this->beans["helpModel"] = new HelpModel($this->db);
+    	$this->beans["messageModel"] = new MessageModel($this->db);
+    	$this->beans["travelModel"] = new TravelModel($this->db);
+    	$this->beans["wishModel"] = new WishModel($this->db);
     }
-    
 
     public function loadServices()
     {
     	require APP . '/core/service.php';
     	require APP . '/services/friendService.php';
-    	$this->beans["friendService"] = new FriendService($this->beans);
-    }
+    	require APP . '/services/helpService.php';
+    	require APP . '/services/messageService.php';
+    	require APP . '/services/travelService.php';
+    	require APP . '/services/wishService.php';
 
+    	$this->beans["friendService"] = new FriendService($this->beans);
+    	$this->beans["helpService"] = new HelpService($this->beans);
+    	$this->beans["messageService"] = new MessageService($this->beans);
+    	$this->beans["travelService"] = new TravelService($this->beans);
+    	$this->beans["wishService"] = new WishService($this->beans);
+    }
 }
