@@ -26,4 +26,11 @@ class User extends Controller
     	require APP . 'views/user/index.php';
     	require APP . 'views/_templates/footer.php';
     }
+    
+    public function save()
+    {
+    	$this->beans["userService"]->saveUser();
+
+    	header('location: ' . URL_WITH_INDEX_FILE . 'user/index');
+    }
 }

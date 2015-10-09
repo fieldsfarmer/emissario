@@ -20,6 +20,13 @@ class Application
         // create array with URL parts in $url
         $this->getUrlWithoutModRewrite();
 
+        $forceRecreate = false;
+        if (array_key_exists("init", $this->url_params))
+        {
+        	$forceRecreate = true;
+        }
+        $this->loadHelpers($forceRecreate);
+        
         // check for controller: no controller given ? then load start-page
         if (!$this->url_controller) {
 
@@ -106,5 +113,24 @@ class Application
         //echo 'Controller: ' . $this->url_controller . '<br>';
         //echo 'Action: ' . $this->url_action . '<br>';
         //echo 'Parameters: ' . print_r($this->url_params, true) . '<br>';
+    }
+    
+    private function loadHelpers($forceRecreate)
+    {
+    	$recreate = $forceRecreate;
+
+		if (!array_key_exists("helpers", $GLOBALS))
+		{
+			$GLOBALS["helpers"] = array();
+			$recreate = true;
+		}
+
+		if ($recreate) {
+    	 	require APP . '/helpers/queryHelper.php';
+    	 	require APP . '/helpers/siteHelper.php';
+    	 	
+    	 	$GLOBALS["helpers"]["queryHelper"] = new QueryHelper();
+    	 	$GLOBALS["helpers"]["siteHelper"] = new SiteHelper();
+		}
     }
 }

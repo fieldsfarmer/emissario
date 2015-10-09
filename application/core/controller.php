@@ -42,7 +42,7 @@ class Controller
         $this->db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS, $options);
     }
 
-    public function loadModels()
+    private function loadModels()
     {
     	require APP . '/core/model.php';
     	require APP . '/models/friendModel.php';
@@ -61,7 +61,7 @@ class Controller
     	$this->beans["wishModel"] = new WishModel($this->db);
     }
 
-    public function loadServices()
+    private function loadServices()
     {
     	require APP . '/core/service.php';
     	require APP . '/services/friendService.php';

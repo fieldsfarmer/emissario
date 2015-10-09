@@ -1,8 +1,18 @@
-<?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
+<?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); }
+
+$id = 1;
+if (is_numeric($id)) {
+	$pageTitle = "Edit Profile";
+}
+else {
+	$pageTitle = "Create an Account";
+}
+?>
 
 <div class="container">
-	<h4>Edit Profile</h4>
-	<form method="post" class="col s12">
+	<h4><?php echo $pageTitle; ?></h4>
+	<form method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/save" class="col s12">
+		<input type="hidden" id="userID" name="userID" value="1" />
 		<div class="row">
 			<div class="input-field col s6">
 				<input type="text" id="firstName" name="firstName" value="<?php echo $user->First_Name ?>" class="validate" />
@@ -21,7 +31,7 @@
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<input type="password" id="password" name="password" value="<?php echo $user->Password ?>" class="validate" />
+				<input type="password" id="password" name="password" value="" class="validate" />
 				<label for="password">Password</label>
 			</div>
 		</div>
