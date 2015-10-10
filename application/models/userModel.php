@@ -2,7 +2,6 @@
 
 class UserModel extends Model
 {
-
 	public function getUser($user_id)
 	{
 		$sql = "SELECT User.*
@@ -12,7 +11,7 @@ class UserModel extends Model
 		$parameters = array(":user_id" => $user_id);
 		$query->execute($parameters);
 	
-		return $GLOBALS["helpers"]["queryHelper"]->getSingleRowObject($query);
+		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($query);
 	}
 
 	public function insertUser() {
@@ -23,7 +22,7 @@ class UserModel extends Model
 				":first_name" => $_POST["firstName"],
 				":last_name" => $_POST["lastName"],
 				":email" => $_POST["email"],
-				":password" => crypt($_POST["password"]),
+				":password" => password_hash($_POST["password"],PASSWORD_DEFAULT),
 				":city" => $_POST["city"],
 				":state" => $_POST["state"],
 				":country" => $_POST["country"],
@@ -60,9 +59,21 @@ class UserModel extends Model
 				":phone" => $_POST["phone"],
 		);
 		if ($_POST["password"] != "") {
-			$parameters["password"] = crypt($_POST["password"]);
+			$parameters["password"] = password_hash($_POST["password"],PASSWORD_DEFAULT);
 		}
 		
 		$query->execute($parameters);
+	}
+	
+	public function getLoginInfo($email)
+	{
+		$sql = "SELECT ID, Email, Password
+        		FROM User
+        		WHERE Email = :email";
+		$query = $this->db->prepare($sql);
+		$parameters = array(":email" => $email);
+		$query->execute($parameters);
+	
+		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($query);
 	}
 }

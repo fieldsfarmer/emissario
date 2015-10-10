@@ -4,7 +4,8 @@ class Friends extends Controller
 {
     public function index()
     {
-        $friends = $this->beans["friendService"]->getFriends(1);
+    	$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
+        $friends = $this->beans->friendService->getFriends($userID);
 
         require APP . 'views/_templates/header.php';
         require APP . 'views/friends/index.php';

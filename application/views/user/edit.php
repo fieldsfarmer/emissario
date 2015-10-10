@@ -1,7 +1,7 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); }
 
-$id = 1;
-if (is_numeric($id)) {
+$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
+if (is_numeric($userID)) {
 	$pageTitle = "Edit Profile";
 }
 else {
@@ -12,7 +12,7 @@ else {
 <div class="container">
 	<h4><?php echo $pageTitle; ?></h4>
 	<form method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/save" class="col s12">
-		<input type="hidden" id="userID" name="userID" value="1" />
+		<input type="hidden" id="userID" name="userID" value="$userID" />
 		<div class="row">
 			<div class="input-field col s6">
 				<input type="text" id="firstName" name="firstName" value="<?php echo $user->First_Name ?>" class="validate" />

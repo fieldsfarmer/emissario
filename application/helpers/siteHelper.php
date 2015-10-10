@@ -2,12 +2,15 @@
 
 class SiteHelper
 {
-	public function getNavigationHTML($views, $activeView) {
+	public function getNavigationHTML($views, $activeView)
+	{
 		$html = "";
 
-		foreach ($views as $view => $viewTitle) {
+		foreach ($views as $view => $viewTitle)
+		{
 			$html .= '<li ';
-			if (strcasecmp($activeView,$view) == 0) {
+			if (strcasecmp($activeView,$view) == 0)
+			{
 				$html .= 'class="active"';
 			}
 			$html .= '>
@@ -20,5 +23,32 @@ class SiteHelper
 			</li>';
 		
 		return $html;
+	}
+	
+	public function getSession($variableName)
+	{
+		$value = "";
+
+		if (!isset($_SESSION))
+		{
+			session_start();
+		}
+		
+		if (array_key_exists($variableName, $_SESSION))
+		{
+			$value = $_SESSION[$variableName];
+		}
+		
+		return $value;
+	}
+
+	public function setSession($variableName, $value)
+	{
+		if (!isset($_SESSION))
+		{
+			session_start();
+		}
+
+		$_SESSION[$variableName] = $value;
 	}
 }

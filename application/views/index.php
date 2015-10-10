@@ -1,5 +1,22 @@
-<?php
+<?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
-// this file is called when user/attacker tries to look into "/application/views/" and simply gives back a 403 error.
-// this is the most simply method to prevent people from looking into a folder when mod_rewrite is not activated.
-exit(header('HTTP/1.0 403 Forbidden'));
+<div class="container">
+	<div class="container" style="width:300px; margin:0;">
+		<h4>Login</h4>
+		<form method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/login" class="col s12">
+			<div class="row">
+				<div class="input-field col s12">
+					<input type="email" id="email" name="email" class="validate" />
+					<label for="email">Email</label>
+				</div>
+			</div>
+			<div class="row">
+				<div class="input-field col s12">
+					<input type="password" id="password" name="password" class="validate" />
+					<label for="password">Password</label>
+				</div>
+			</div>
+			<button type="submit" class="btn waves-effect waves-light" name="action">Login</button>
+		</form>
+	</div>
+</div>

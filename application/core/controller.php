@@ -13,7 +13,7 @@ class Controller
     /**
      * @var null Beans
      */
-    public $beans = array();
+    public $beans = null;
 
     /**
      * Whenever a controller is created, open a database connection too. The idea behind is to have ONE connection
@@ -21,6 +21,8 @@ class Controller
      */
     function __construct()
     {
+    	$this->beans = new stdClass();
+
         $this->openDatabaseConnection();
         $this->loadModels();
         $this->loadServices();
@@ -53,12 +55,12 @@ class Controller
     	require APP . '/models/wishModel.php';
 
     	// create new "model" (and pass the database connection)
-    	$this->beans["friendModel"] = new FriendModel($this->db);
-    	$this->beans["helpModel"] = new HelpModel($this->db);
-    	$this->beans["messageModel"] = new MessageModel($this->db);
-    	$this->beans["travelModel"] = new TravelModel($this->db);
-    	$this->beans["userModel"] = new UserModel($this->db);
-    	$this->beans["wishModel"] = new WishModel($this->db);
+    	$this->beans->friendModel = new FriendModel($this->db);
+    	$this->beans->helpModel = new HelpModel($this->db);
+    	$this->beans->messageModel = new MessageModel($this->db);
+    	$this->beans->travelModel = new TravelModel($this->db);
+    	$this->beans->userModel = new UserModel($this->db);
+    	$this->beans->wishModel = new WishModel($this->db);
     }
 
     private function loadServices()
@@ -71,11 +73,11 @@ class Controller
     	require APP . '/services/userService.php';
     	require APP . '/services/wishService.php';
 
-    	$this->beans["friendService"] = new FriendService($this->beans);
-    	$this->beans["helpService"] = new HelpService($this->beans);
-    	$this->beans["messageService"] = new MessageService($this->beans);
-    	$this->beans["travelService"] = new TravelService($this->beans);
-    	$this->beans["userService"] = new UserService($this->beans);
-    	$this->beans["wishService"] = new WishService($this->beans);
+    	$this->beans->friendService = new FriendService($this->beans);
+    	$this->beans->helpService = new HelpService($this->beans);
+    	$this->beans->messageService = new MessageService($this->beans);
+    	$this->beans->travelService = new TravelService($this->beans);
+    	$this->beans->userService = new UserService($this->beans);
+    	$this->beans->wishService = new WishService($this->beans);
     }
 }

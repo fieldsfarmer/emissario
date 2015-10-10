@@ -4,7 +4,8 @@ class Helps extends Controller
 {
     public function index()
     {
-        //$helps = $this->beans["helpService"]->getHelps(1);
+    	$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
+    	//$helps = $this->beans->helpService->getHelps($userID);
 
         require APP . 'views/_templates/header.php';
         require APP . 'views/helps/index.php';

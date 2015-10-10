@@ -37,6 +37,19 @@ class Application
         } elseif (file_exists(APP . 'controllers/' . $this->url_controller . '.php')) {
             // here we did check for controller: does such a controller exist ?
 
+        	// If user is not logged in, restrict to the login page only
+			if (!is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID")))
+			{
+				$validDestination = false;
+				$validDestination = $validDestination || (strcasecmp("home", $this->url_controller) == 0 && strlen($this->url_action) == 0);
+				$validDestination = $validDestination || (strcasecmp("home", $this->url_controller) == 0 && strcasecmp("index", $this->url_action) == 0);
+				$validDestination = $validDestination || (strcasecmp("user", $this->url_controller) == 0 && strcasecmp("login", $this->url_action) == 0);			
+				if (!$validDestination)
+				{
+					header('location: ' . URL_WITH_INDEX_FILE);
+				}
+			}
+
             // if so, then load this file and create this controller
             // example: if controller would be "car", then this line would translate into: $this->car = new car();
             require APP . 'controllers/' . $this->url_controller . '.php';
@@ -121,7 +134,7 @@ class Application
 
 		if (!array_key_exists("helpers", $GLOBALS))
 		{
-			$GLOBALS["helpers"] = array();
+			$GLOBALS["helpers"] = new stdClass();
 			$recreate = true;
 		}
 
@@ -129,8 +142,8 @@ class Application
     	 	require APP . '/helpers/queryHelper.php';
     	 	require APP . '/helpers/siteHelper.php';
     	 	
-    	 	$GLOBALS["helpers"]["queryHelper"] = new QueryHelper();
-    	 	$GLOBALS["helpers"]["siteHelper"] = new SiteHelper();
+    	 	$GLOBALS["helpers"]->queryHelper = new QueryHelper();
+    	 	$GLOBALS["helpers"]->siteHelper = new SiteHelper();
 		}
     }
 }

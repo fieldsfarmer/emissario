@@ -4,7 +4,8 @@ class Travels extends Controller
 {
     public function index()
     {
-        //$travels = $this->beans["travelService"]->getTravels(1);
+    	$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
+    	//$travels = $this->beans->travelService->getTravels($userID);
 
         require APP . 'views/_templates/header.php';
         require APP . 'views/travels/index.php';

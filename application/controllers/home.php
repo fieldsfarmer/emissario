@@ -13,9 +13,15 @@ class Home extends Controller
 
     public function index()
     {
-        // load views
-        require APP . 'views/_templates/header.php';
-        require APP . 'views/home/index.php';
+    	require APP . 'views/_templates/header.php';
+    	if (is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID")))
+        {
+        	require APP . 'views/home/index.php';
+        }
+        else
+        {
+	        require APP . 'views/index.php';
+        }
         require APP . 'views/_templates/footer.php';
     }
 

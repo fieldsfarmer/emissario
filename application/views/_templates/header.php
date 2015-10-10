@@ -47,12 +47,14 @@ if (array_key_exists("PATH_INFO", $_SERVER)) {
 			<div class="nav-wrapper">
 				<a href="#" data-activates="nav-mobile" class="button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
 				<a href="<?php echo URL_WITH_INDEX_FILE; ?>" class="brand-logo left">Emissario</a>
-				<ul id="nav-normal" class="left hide-on-small-only">
-					<?php echo $GLOBALS["helpers"]["siteHelper"]->getNavigationHTML($views, $activeView); ?>
-				</ul>
-				<ul id="nav-mobile" class="side-nav">
-					<?php echo $GLOBALS["helpers"]["siteHelper"]->getNavigationHTML($views, $activeView); ?>
-				</ul>
+				<?php if (is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID"))) { ?>
+					<ul id="nav-normal" class="left hide-on-small-only">
+						<?php echo $GLOBALS["helpers"]->siteHelper->getNavigationHTML($views, $activeView); ?>
+					</ul>
+					<ul id="nav-mobile" class="side-nav">
+						<?php echo $GLOBALS["helpers"]->siteHelper->getNavigationHTML($views, $activeView); ?>
+					</ul>
+				<?php } ?>
 			</div>
 		</nav>
     </div>
