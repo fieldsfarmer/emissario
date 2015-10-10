@@ -6,13 +6,13 @@
 		<form method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/login" class="col s12">
 			<div class="row">
 				<div class="input-field col s12">
-					<input type="email" id="email" name="email" class="validate" />
+					<input type="email" id="email" name="email" class="validate" required aria-required="true" />
 					<label for="email">Email</label>
 				</div>
 			</div>
 			<div class="row">
 				<div class="input-field col s12">
-					<input type="password" id="password" name="password" class="validate" />
+					<input type="password" id="password" name="password" class="validate" required aria-required="true" />
 					<label for="password">Password</label>
 				</div>
 			</div>

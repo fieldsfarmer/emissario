@@ -15,7 +15,7 @@ else {
 		<input type="hidden" id="userID" name="userID" value="$userID" />
 		<div class="row">
 			<div class="input-field col s6">
-				<input type="text" id="firstName" name="firstName" value="<?php echo $user->First_Name ?>" class="validate" />
+				<input type="text" id="firstName" name="firstName" value="<?php echo $user->First_Name ?>" class="validate" required aria-required="true" />
 				<label for="firstName">First Name</label>
 			</div>
 			<div class="input-field col s6">
@@ -25,7 +25,7 @@ else {
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<input type="email" id="email" name="email" value="<?php echo $user->Email ?>" class="validate" />
+				<input type="email" id="email" name="email" value="<?php echo $user->Email ?>" class="validate" required aria-required="true" />
 				<label for="email">Email</label>
 			</div>
 		</div>
