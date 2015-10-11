@@ -15,4 +15,17 @@ class QueryHelper
 		
 		return $result;
 	}
+	
+	public function executeWriteQuery($db, $sql, $parameters) {
+		foreach ($parameters as $parameterKey => $parameterValue)
+		{
+			if (empty($parameterValue))
+			{
+				$parameters[$parameterKey] = null;
+			}
+		}
+
+		$query = $db->prepare($sql);
+		$query->execute($parameters);
+	}
 }

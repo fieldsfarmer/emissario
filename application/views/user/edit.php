@@ -16,7 +16,7 @@ else {
 <div class="container">
 	<h4><?php echo $pageTitle; ?></h4>
 	<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/save" class="col s12" novalidate="novalidate">
-		<input type="hidden" id="userID" name="userID" value="$userID" />
+		<input type="hidden" id="userID" name="userID" value="<?php echo $userID ?>" />
 		<div class="section">
 			<h5>Login Info</h5>
 			<div class="row">

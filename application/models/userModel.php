@@ -17,7 +17,7 @@ class UserModel extends Model
 	public function insertUser() {
 		$sql = "INSERT INTO User (First_Name, Last_Name, Email, Password, City, State, Country, Phone, Created_On, Modified_On)
 				VALUES (:first_name, :last_name, :email, :password, :city, :state, :country, :phone, NOW(), NOW())";
-		$query = $this->db->prepare($sql);
+
 		$parameters = array(
 				":first_name" => $_POST["firstName"],
 				":last_name" => $_POST["lastName"],
@@ -28,7 +28,8 @@ class UserModel extends Model
 				":country" => $_POST["country"],
 				":phone" => $_POST["phone"],
 			);
-		$query->execute($parameters);
+
+		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 	public function updateUser() {
@@ -46,8 +47,6 @@ class UserModel extends Model
 					Modified_On = NOW()
 				WHERE User.ID = :user_id";
 
-		$query = $this->db->prepare($sql);
-
 		$parameters = array(
 				":user_id" => $_POST["userID"],
 				":first_name" => $_POST["firstName"],
@@ -61,8 +60,8 @@ class UserModel extends Model
 		if ($_POST["password"] != "") {
 			$parameters["password"] = password_hash($_POST["password"],PASSWORD_DEFAULT);
 		}
-		
-		$query->execute($parameters);
+
+		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 	
 	public function getLoginInfo($email)
