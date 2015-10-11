@@ -2564,7 +2564,7 @@ $(document).ready(function(){
       var lenAttr = parseInt(object.attr('length'));
       var len = object.val().length;
 
-      if (object.val().length === 0 && object[0].validity.badInput === false) {
+      if (object.val().length === 0 && object.attr('aria-invalid') != 'true' && object[0].validity.badInput === false) {
         if (object.hasClass('validate')) {
           object.removeClass('valid');
           object.removeClass('invalid');
@@ -2573,7 +2573,7 @@ $(document).ready(function(){
       else {
         if (object.hasClass('validate')) {
           // Check for character counter attributes
-          if ((object.is(':valid') && hasLength && (len <= lenAttr)) || (object.is(':valid') && !hasLength)) {
+          if ((object.attr('aria-invalid') != 'true' && hasLength && (len <= lenAttr)) || (object.attr('aria-invalid') != 'true' && !hasLength)) {
             object.removeClass('invalid');
             object.addClass('valid');
           }

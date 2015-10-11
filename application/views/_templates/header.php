@@ -32,8 +32,25 @@ if (array_key_exists("PATH_INFO", $_SERVER)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- JS -->
-    <!-- please note: The JavaScript files are loaded in the footer to speed up page construction -->
-    <!-- See more here: http://stackoverflow.com/q/2105327/1114320 -->
+	<!-- jQuery, loaded in the recommended protocol-less way -->
+	<!-- more http://www.paulirish.com/2010/the-protocol-relative-url/ -->
+	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+	<script src="<?php echo URL; ?>public/js/jquery.validate.js" type="text/javascript"></script>
+	<script>
+		$.validator.setDefaults({
+			errorClass: 'invalid',
+			validClass: 'valid',
+			errorPlacement: function (error, element) {
+				$(element)
+					.closest('form')
+					.find('label[for="' + element.attr('id') + '"]')
+					.attr('data-error', error.text());
+			},
+			onfocusout: function (element) {
+				$(element).valid();
+			}
+		});
+	</script>
 
     <!-- CSS -->
 	<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
@@ -45,7 +62,9 @@ if (array_key_exists("PATH_INFO", $_SERVER)) {
         <!-- navigation -->
 		<nav>
 			<div class="nav-wrapper">
-				<a href="#" data-activates="nav-mobile" class="button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
+				<?php if (is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID"))) { ?>
+					<a href="#" data-activates="nav-mobile" class="button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
+				<?php } ?>
 				<a href="<?php echo URL_WITH_INDEX_FILE; ?>" class="brand-logo left">Emissario</a>
 				<?php if (is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID"))) { ?>
 					<ul id="nav-normal" class="left hide-on-small-only">

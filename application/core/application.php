@@ -38,17 +38,7 @@ class Application
             // here we did check for controller: does such a controller exist ?
 
         	// If user is not logged in, restrict to the login page only
-			if (!is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID")))
-			{
-				$validDestination = false;
-				$validDestination = $validDestination || (strcasecmp("home", $this->url_controller) == 0 && strlen($this->url_action) == 0);
-				$validDestination = $validDestination || (strcasecmp("home", $this->url_controller) == 0 && strcasecmp("index", $this->url_action) == 0);
-				$validDestination = $validDestination || (strcasecmp("user", $this->url_controller) == 0 && strcasecmp("login", $this->url_action) == 0);			
-				if (!$validDestination)
-				{
-					header('location: ' . URL_WITH_INDEX_FILE);
-				}
-			}
+			$this->checkLoggedIn();
 
             // if so, then load this file and create this controller
             // example: if controller would be "car", then this line would translate into: $this->car = new car();
@@ -146,4 +136,25 @@ class Application
     	 	$GLOBALS["helpers"]->siteHelper = new SiteHelper();
 		}
     }
+
+	private function checkLoggedIn()
+	{
+		if (!is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID")))
+		{
+			$validDestination = false;
+
+			// The following destinations do not require user to log in
+			$validDestination = $validDestination || (strcasecmp("home", $this->url_controller) == 0 && strlen($this->url_action) == 0);
+			$validDestination = $validDestination || (strcasecmp("home", $this->url_controller) == 0 && strcasecmp("index", $this->url_action) == 0);
+			$validDestination = $validDestination || (strcasecmp("user", $this->url_controller) == 0 && strcasecmp("login", $this->url_action) == 0);
+			$validDestination = $validDestination || (strcasecmp("user", $this->url_controller) == 0 && strcasecmp("edit", $this->url_action) == 0);
+			$validDestination = $validDestination || (strcasecmp("user", $this->url_controller) == 0 && strcasecmp("save", $this->url_action) == 0);
+			$validDestination = $validDestination || (strcasecmp("user", $this->url_controller) == 0 && strcasecmp("checkUniqueEmail", $this->url_action) == 0);
+
+			if (!$validDestination)
+			{
+				header('location: ' . URL_WITH_INDEX_FILE);
+			}
+		}
+	}
 }

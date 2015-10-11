@@ -40,6 +40,26 @@ class User extends Controller
     {
     	$this->beans->userService->saveUser();
 
-    	header('location: ' . URL_WITH_INDEX_FILE . 'user/index');
-    }
+		if (is_numeric($_POST["userID"]))
+		{
+			header('location: ' . URL_WITH_INDEX_FILE . 'user/index');
+		}
+		else
+		{
+			$this->login();
+		}
+	}
+	
+	public function checkUniqueEmail()
+	{
+		$unique = false;
+		$loginInfo = $this->beans->userModel->getLoginInfo($_POST["email"]);
+
+		if (!is_numeric($loginInfo->ID))
+		{
+			$unique = true;
+		}
+
+		var_export($unique);
+	}
 }
