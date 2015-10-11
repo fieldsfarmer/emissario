@@ -29,7 +29,7 @@ class UserService extends Service
 		{
 			if (password_verify($_POST["password"],$loginInfo->Password))
 			{
-				$GLOBALS["helpers"]->siteHelper->setSession("userID", $loginInfo->ID);
+				$_SESSION["userID"] = $loginInfo->ID;
 				$errorMessage = "";
 			}
 		}

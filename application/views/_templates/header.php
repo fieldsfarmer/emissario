@@ -23,6 +23,8 @@ if (array_key_exists("PATH_INFO", $_SERVER)) {
 	$activeView = $pathInfoArray[1];
 }
 
+$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -62,11 +64,11 @@ if (array_key_exists("PATH_INFO", $_SERVER)) {
         <!-- navigation -->
 		<nav>
 			<div class="nav-wrapper">
-				<?php if (is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID"))) { ?>
+				<?php if (is_numeric($userID)) { ?>
 					<a href="#" data-activates="nav-mobile" class="button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
 				<?php } ?>
 				<a href="<?php echo URL_WITH_INDEX_FILE; ?>" class="brand-logo left">Emissario</a>
-				<?php if (is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID"))) { ?>
+				<?php if (is_numeric($userID)) { ?>
 					<ul id="nav-normal" class="left hide-on-small-only">
 						<?php echo $GLOBALS["helpers"]->siteHelper->getNavigationHTML($views, $activeView); ?>
 					</ul>

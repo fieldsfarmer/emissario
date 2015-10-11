@@ -29,26 +29,11 @@ class SiteHelper
 	{
 		$value = "";
 
-		if (!isset($_SESSION))
-		{
-			session_start();
-		}
-		
 		if (array_key_exists($variableName, $_SESSION))
 		{
 			$value = $_SESSION[$variableName];
 		}
 		
 		return $value;
-	}
-
-	public function setSession($variableName, $value)
-	{
-		if (!isset($_SESSION))
-		{
-			session_start();
-		}
-
-		$_SESSION[$variableName] = $value;
 	}
 }
