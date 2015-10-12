@@ -19,7 +19,7 @@
 			<button type="submit" class="btn waves-effect waves-light" name="action">Login</button>
 		</form>
 	</div>
-	<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/edit">Create an Account</a>
+	<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/signUp">Create an Account</a>
 </div>
 
 <script>

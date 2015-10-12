@@ -32,15 +32,31 @@ class UserModel extends Model
 		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
-	public function updateUser() {
+	public function updateLogin() {
+		$sql = "UPDATE User
+				SET Email = :email,";
+		if ($_POST["password"] != "") {
+			$sql .= "Password = :password,";
+		}
+		$sql .= "Modified_On = NOW()
+				WHERE User.ID = :user_id";
+
+		$parameters = array(
+				":user_id" => $_POST["userID"],
+				":email" => $_POST["email"]
+		);
+		if ($_POST["password"] != "") {
+			$parameters["password"] = password_hash($_POST["password"],PASSWORD_DEFAULT);
+		}
+
+		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+	}
+
+	public function updateProfile() {
 		$sql = "UPDATE User
 				SET First_Name = :first_name,
 					Last_Name = :last_name,
-					Email = :email,";
-		if ($_POST["password"] != "") {
-			$sql .= "Password = :password,";
-		}							
-		$sql .= "City = :city,
+					City = :city,
 					State = :state,
 					Country = :country,
 					Phone = :phone,
@@ -51,19 +67,15 @@ class UserModel extends Model
 				":user_id" => $_POST["userID"],
 				":first_name" => $_POST["firstName"],
 				":last_name" => $_POST["lastName"],
-				":email" => $_POST["email"],
 				":city" => $_POST["city"],
 				":state" => $_POST["state"],
 				":country" => $_POST["country"],
 				":phone" => $_POST["phone"],
 		);
-		if ($_POST["password"] != "") {
-			$parameters["password"] = password_hash($_POST["password"],PASSWORD_DEFAULT);
-		}
 
 		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
-	
+
 	public function getLoginInfo($email)
 	{
 		$sql = "SELECT ID, Email, Password

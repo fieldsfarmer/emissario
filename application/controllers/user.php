@@ -12,15 +12,32 @@ class User extends Controller
         require APP . 'views/_templates/footer.php';
     }
 
-    public function edit()
-    {
-    	$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
-    	$user = $this->beans->userService->getUser($userID);
-    
-    	require APP . 'views/_templates/header.php';
-    	require APP . 'views/user/edit.php';
-    	require APP . 'views/_templates/footer.php';
-    }
+	public function signUp()
+	{
+		require APP . 'views/_templates/header.php';
+		require APP . 'views/user/signUp.php';
+		require APP . 'views/_templates/footer.php';
+	}
+
+	public function editLogin()
+	{
+		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
+		$user = $this->beans->userService->getUser($userID);
+
+		require APP . 'views/_templates/header.php';
+		require APP . 'views/user/editLogin.php';
+		require APP . 'views/_templates/footer.php';
+	}
+
+	public function editProfile()
+	{
+		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
+		$user = $this->beans->userService->getUser($userID);
+
+		require APP . 'views/_templates/header.php';
+		require APP . 'views/user/editProfile.php';
+		require APP . 'views/_templates/footer.php';
+	}
 
 	public function login()
 	{
@@ -35,21 +52,27 @@ class User extends Controller
 
     	header('location: ' . URL_WITH_INDEX_FILE);
     }
-    
-    public function save()
-    {
-    	$this->beans->userService->saveUser();
 
-		if (is_numeric($_POST["userID"]))
-		{
-			header('location: ' . URL_WITH_INDEX_FILE . 'user/index');
-		}
-		else
-		{
-			$this->login();
-		}
+	public function createAccount()
+	{
+		$this->beans->userService->insertUser();
+		$this->login();
 	}
-	
+
+	public function saveProfile()
+	{
+		$this->beans->userService->updateProfile();
+
+		header('location: ' . URL_WITH_INDEX_FILE . 'user/index');
+	}
+
+	public function saveLogin()
+	{
+		$this->beans->userService->updateLogin();
+
+		header('location: ' . URL_WITH_INDEX_FILE . 'user/index');
+	}
+
 	public function checkUniqueEmail()
 	{
 		$unique = false;

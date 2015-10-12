@@ -7,17 +7,20 @@ class UserService extends Service
 	{
 		return $this->beans->userModel->getUser($user_id);
 	}
-	
-	public function saveUser()
+
+	public function insertUser()
 	{
-		if (is_numeric($_POST["userID"]))
-		{
-			$this->beans->userModel->updateUser();
-		}
-		else
-		{
-			$this->beans->userModel->insertUser();
-		}
+		$this->beans->userModel->insertUser();
+	}
+
+	public function updateLogin()
+	{
+		$this->beans->userModel->updateLogin();
+	}
+
+	public function updateProfile()
+	{
+		$this->beans->userModel->updateProfile();
 	}
 
 	public function login()
