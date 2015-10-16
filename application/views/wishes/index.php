@@ -9,9 +9,6 @@
 				<th>Description</th>
 				<th>Destination City</th>
 				<th>Destination Country</th>
-				<th>Weight</th>
-				<th>Max Date</th>
-				<th>Compensation</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,9 +21,6 @@
 					</td>
 					<td><?php echo $wish->Destination_City ?></td>
 					<td><?php echo $wish->Destination_Country ?></td>
-					<td><?php echo $wish->Weight ?></td>
-					<td><?php echo $wish->Max_Date ?></td>
-					<td class="truncate"><?php echo $wish->Compensation ?></td>
 				</tr>
 			<?php } ?>
 		</tbody>

@@ -8,7 +8,7 @@ if (is_numeric($wishID))
 else
 {
 	$title = "New Wish";
-	$cancelURL = URL_WITH_INDEX_FILE . "wishes/index";
+	$cancelURL = URL_WITH_INDEX_FILE . "wishes";
 }
 ?>
 
@@ -42,7 +42,7 @@ else
 				<label for="weight">Weight</label>
 			</div>
 			<div class="input-field col s6">
-				<input type="text" id="maxDate" name="maxDate" value="<?php echo $wish->Max_Date ?>" class="datepicker validate" placeholder="" />
+				<input type="text" id="maxDate" name="maxDate" value="<?php echo $wish->Formatted_Max_Date ?>" class="datepicker validate" placeholder="" />
 				<label for="maxDate">Max Date</label>
 			</div>
 		</div>

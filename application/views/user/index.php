@@ -13,7 +13,7 @@
 		<a id="editLogin" class="btn waves-effect waves-light">Edit Login Info</a>
 	</div>
 	<div class="section">
-		<h5>Profile</h5>
+		<h5>User Details</h5>
 		<div class="row">
 			<div class="col s6">
 				<div class="view-details-label">First Name</div>

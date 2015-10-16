@@ -1,7 +1,7 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
 <div class="container">
-    <h4>View Wish</h4>
+    <h4>Wish Details</h4>
 	<div class="section">
 		<div class="row">
 			<div class="col s12">
@@ -28,7 +28,7 @@
 			</div>
 			<div class="col s6">
 				<div class="view-details-label">Max Date</div>
-				<div class="view-details-value"><?php echo $wish->Max_Date ?></div>
+				<div class="view-details-value"><?php echo $wish->Formatted_Max_Date ?></div>
 			</div>
 		</div>
 		<div class="row">

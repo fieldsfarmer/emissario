@@ -28,7 +28,7 @@ $phone = "";
 			<?php require '_editLogin.php' ?>
 		</div>
 		<div class="section">
-			<h5>Profile</h5>
+			<h5>User Details</h5>
 			<?php require '_editProfile.php' ?>
 		</div>
 		<a id="cancel" class="btn waves-effect waves-light">Cancel</a>
