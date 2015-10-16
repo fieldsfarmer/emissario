@@ -26,4 +26,9 @@ class WishService extends Service
 
 		return $wishID;
 	}
+
+	public function deleteWish($wishID, $userID)
+	{
+		$this->beans->wishModel->deleteWish($wishID, $userID);
+	}
 }

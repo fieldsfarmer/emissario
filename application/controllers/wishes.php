@@ -38,4 +38,12 @@ class Wishes extends Controller
 
 		header('location: ' . URL_WITH_INDEX_FILE . 'wishes/view/' . $wishID);
 	}
+
+	public function delete($wishID)
+	{
+		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
+		$this->beans->wishService->deleteWish($wishID, $userID);
+	
+		header('location: ' . URL_WITH_INDEX_FILE . 'wishes');
+	}
 }

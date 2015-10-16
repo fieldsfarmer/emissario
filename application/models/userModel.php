@@ -26,7 +26,7 @@ class UserModel extends Model
 				":city" => $_POST["city"],
 				":state" => $_POST["state"],
 				":country" => $_POST["country"],
-				":phone" => $_POST["phone"],
+				":phone" => $_POST["phone"]
 			);
 
 		return $GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
@@ -44,7 +44,7 @@ class UserModel extends Model
 		$parameters = array(
 				":user_id" => $_POST["userID"],
 				":email" => $_POST["email"]
-		);
+			);
 		if ($_POST["password"] != "") {
 			$parameters["password"] = password_hash($_POST["password"],PASSWORD_DEFAULT);
 		}
@@ -70,8 +70,8 @@ class UserModel extends Model
 				":city" => $_POST["city"],
 				":state" => $_POST["state"],
 				":country" => $_POST["country"],
-				":phone" => $_POST["phone"],
-		);
+				":phone" => $_POST["phone"]
+			);
 
 		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}

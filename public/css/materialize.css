@@ -8043,10 +8043,10 @@ select {
 .picker__nav--prev:hover, .picker__nav--next:hover {
   cursor: pointer;
   color: #000000;
-  background: #a1ded8; }
+  background: #abeaf1; }
 
 .picker__weekday-display {
-  background-color: #1f897f;
+  background-color: #008f9f;
   padding: 10px;
   font-weight: 200;
   letter-spacing: .5;
@@ -8103,7 +8103,7 @@ select {
   background-color: #00acc1;
   color: #ffffff; }
   .picker__day--selected.picker__day--outfocus, .picker__day--selected:hover.picker__day--outfocus, .picker--focused .picker__day--selected.picker__day--outfocus {
-    background-color: #a1ded8; }
+    background-color: #abeaf1; }
 
 .picker__footer {
   text-align: right;
@@ -8129,7 +8129,7 @@ select {
   border-left: 0.75em solid #676767; }
 
 button.picker__today:focus, button.picker__clear:focus, button.picker__close:focus {
-  background-color: #a1ded8; }
+  background-color: #abeaf1; }
 
 /* ==========================================================================
    $BASE-TIME-PICKER

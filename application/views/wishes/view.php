@@ -39,6 +39,7 @@
 		</div>
 		<a id="back" class="btn waves-effect waves-light">Back</a>
 		<a id="edit" class="btn waves-effect waves-light">Edit</a>
+		<a id="delete" class="btn waves-effect waves-light">Delete</a>
 	</div>
 	<div class="section">
 		<h5>Helps</h5>
@@ -56,6 +57,13 @@
 
 		$('#edit').click(function(){
 			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/edit/" . $wishID; ?>';
+		});
+
+		$('#delete').click(function(){
+			if (confirm('Are you sure you want to delete this wish?'))
+			{
+				window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/delete/" . $wishID; ?>';
+			}
 		});
 	});
 </script>

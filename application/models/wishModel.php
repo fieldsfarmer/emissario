@@ -47,8 +47,8 @@ class WishModel extends Model
 				":destination_city" => $_POST["destinationCity"],
 				":destination_country" => $_POST["destinationCountry"],
 				":max_date" => $_POST["maxDate"],
-				":compensation" => $_POST["compensation"],
-		);
+				":compensation" => $_POST["compensation"]
+			);
 	
 		return $GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
@@ -73,9 +73,23 @@ class WishModel extends Model
 				":destination_city" => $_POST["destinationCity"],
 				":destination_country" => $_POST["destinationCountry"],
 				":max_date" => $_POST["maxDate"],
-				":compensation" => $_POST["compensation"],
-		);
+				":compensation" => $_POST["compensation"]
+			);
 	
 		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+	}
+
+	public function deleteWish($wishID, $userID) {
+		$sql = "DELETE
+				FROM Wish
+				WHERE Wish.ID = :wish_id
+					AND Wish.User_ID = :user_id";
+		
+		$parameters = array(
+				":wish_id" => $wishID,
+				":user_id" => $userID
+			);
+		
+		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);		
 	}
 }
