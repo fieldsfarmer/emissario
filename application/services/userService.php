@@ -3,9 +3,14 @@
 class UserService extends Service
 {
 
-	public function getUser($user_id)
+	public function getUser($userID)
 	{
-		return $this->beans->userModel->getUser($user_id);
+		return $this->beans->userModel->getUser($userID);
+	}
+
+	public function getLoginInfo($email)
+	{
+		return $this->beans->userModel->getLoginInfo($email);
 	}
 
 	public function insertUser()

@@ -63,20 +63,20 @@ class User extends Controller
 	{
 		$this->beans->userService->updateProfile();
 
-		header('location: ' . URL_WITH_INDEX_FILE . 'user/index');
+		header('location: ' . URL_WITH_INDEX_FILE . 'user');
 	}
 
 	public function saveLogin()
 	{
 		$this->beans->userService->updateLogin();
 
-		header('location: ' . URL_WITH_INDEX_FILE . 'user/index');
+		header('location: ' . URL_WITH_INDEX_FILE . 'user');
 	}
 
 	public function checkUniqueEmail()
 	{
 		$unique = false;
-		$loginInfo = $this->beans->userModel->getLoginInfo($_POST["email"]);
+		$loginInfo = $this->beans->userService->getLoginInfo($_POST["email"]);
 
 		if (!is_numeric($loginInfo->ID))
 		{

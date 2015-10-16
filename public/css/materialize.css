@@ -5272,8 +5272,8 @@ nav ul a span.badge {
   border-radius: 0;
   border-style: none none solid;
   border-width: medium medium 1px;
-  line-height: 3rem;
-  margin: 0 0 15px; }
+  height: 3rem;
+  padding-top: 0.8rem;}
 
 nav {
   color: #00acc1;
@@ -5833,7 +5833,8 @@ small {
   padding: 0 2rem;
   text-transform: uppercase;
   vertical-align: middle;
-  -webkit-tap-highlight-color: transparent; }
+  -webkit-tap-highlight-color: transparent;
+  margin-right: 10px; }
 
 .btn.disabled, .disabled.btn-large, .btn-floating.disabled, .btn-large.disabled, .btn:disabled, .btn-large:disabled, .btn-large:disabled, .btn-floating:disabled {
   background-color: #DFDFDF !important;
@@ -6305,7 +6306,6 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
   height: 3rem;
   width: 100%;
   font-size: 1rem;
-  margin: 0 0 15px 0;
   padding: 0;
   box-shadow: none;
   -webkit-box-sizing: content-box;
@@ -6366,6 +6366,15 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
     -ms-transform: translateY(-140%);
     -o-transform: translateY(-140%);
     transform: translateY(-140%); }
+  .input-field label.invalid {
+    color: #f44336;
+    opacity: 1;
+    font-size: 0.8rem;
+    top: 0;
+    left: 0;
+    position: relative;
+    transition: opacity 0.2s ease-out 0s, color 0.2s ease-out 0s;
+  }
   .input-field .prefix {
     position: absolute;
     width: 3rem;

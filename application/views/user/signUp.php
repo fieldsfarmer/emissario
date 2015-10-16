@@ -10,6 +10,16 @@ $state = "";
 $phone = "";
 ?>
 
+<script>
+	$(document).ready(function(){
+		$('#cancel').click(function(){
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>';
+		});
+
+		$('#form').validate({});
+	});
+</script>
+
 <div class="container">
 	<h4>Create an Account</h4>
 	<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/createAccount" class="col s12" novalidate="novalidate">
@@ -21,15 +31,7 @@ $phone = "";
 			<h5>Profile</h5>
 			<?php require '_editProfile.php' ?>
 		</div>
-		<a id="cancel" class="btn waves-effect waves-light" style="margin-right:10px;">Cancel</a>
+		<a id="cancel" class="btn waves-effect waves-light">Cancel</a>
 		<button type="submit" class="btn waves-effect waves-light" name="action">Submit</button>
 	</form>
 </div>
-
-<script>
-	$(document).ready(function(){
-		$('#cancel').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>';
-		});
-	});
-</script>

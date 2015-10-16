@@ -43,10 +43,7 @@ $userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 			errorClass: 'invalid',
 			validClass: 'valid',
 			errorPlacement: function (error, element) {
-				$(element)
-					.closest('form')
-					.find('label[for="' + element.attr('id') + '"]')
-					.attr('data-error', error.text());
+				error.insertAfter($(element).siblings('label'));
 			},
 			onfocusout: function (element) {
 				$(element).valid();

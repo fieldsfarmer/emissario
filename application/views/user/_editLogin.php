@@ -34,31 +34,26 @@ else
 
 <script>
 	$(document).ready(function(){
-		$('#form').validate({
-			rules: {
-				email: {
-					email: true,
-					remote: {
-						depends: function(element) {
-							return $('#existingEmail').val() != $(element).val();
-						},
-						param: {
-							url: '<?php echo URL_WITH_INDEX_FILE; ?>user/checkUniqueEmail',
-							type: 'post'
-						}
-					}
+		$('#email').rules('add', {
+			email: true,
+			remote: {
+				depends: function(element) {
+					return $('#existingEmail').val() != $(element).val();
 				},
-				confirmPassword: {
-					equalTo: '#password'
+				param: {
+					url: '<?php echo URL_WITH_INDEX_FILE; ?>user/checkUniqueEmail',
+					type: 'post'
 				}
 			},
 			messages: {
-				email: {
-					remote: 'There is an existing account with this email.'
-				},
-				confirmPassword: {
-					equalTo: 'Confirm password should match password.'
-				}
+				remote: 'There is an existing account with this email.'
+			}
+		});
+
+		$('#confirmPassword').rules('add', {
+			equalTo: '#password',
+			messages: {
+				equalTo: 'Confirm password should match password.'
 			}
 		});
 	});

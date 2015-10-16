@@ -2,13 +2,13 @@
 
 class UserModel extends Model
 {
-	public function getUser($user_id)
+	public function getUser($userID)
 	{
 		$sql = "SELECT User.*
         		FROM User
         		WHERE User.ID = :user_id";
 		$query = $this->db->prepare($sql);
-		$parameters = array(":user_id" => $user_id);
+		$parameters = array(":user_id" => $userID);
 		$query->execute($parameters);
 	
 		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($query);
@@ -29,7 +29,7 @@ class UserModel extends Model
 				":phone" => $_POST["phone"],
 			);
 
-		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		return $GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 	public function updateLogin() {

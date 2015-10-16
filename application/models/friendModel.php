@@ -3,7 +3,7 @@
 class FriendModel extends Model
 {
 
-    public function getFriends($user_id)
+    public function getFriends($userID)
     {
         $sql = "SELECT User.First_Name, User.Last_Name, User.City, User.State, User.Country
         		FROM Friend
@@ -17,7 +17,7 @@ class FriendModel extends Model
         		WHERE Friend.User_ID2 = :user_id
         			AND Friend.Pending = 0";
         $query = $this->db->prepare($sql);
-        $parameters = array(':user_id' => $user_id);
+        $parameters = array(":user_id" => $userID);
         $query->execute($parameters);
         
         return $query->fetchAll();
