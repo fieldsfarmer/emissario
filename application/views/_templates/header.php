@@ -9,7 +9,6 @@ if (!$this) {
 }
 
 $views = array(
-		"user" => "Profile",
 		"friends" => "Friends",
 		"travels" => "Travels",
 		"wishes" => "Wishes",
@@ -61,6 +60,27 @@ $userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 	<link href="<?php echo URL; ?>public/css/materialize.css" rel="stylesheet" type="text/css" media="screen,projection" />
 </head>
 <body class="grey lighten-5 grey-text text-darken-2">
+	<div class="top-bar hide-on-small-only">
+		<div class="nav-wrapper">
+			<ul id="nav-top-bar" class="right">
+				<li>
+					<a class="dropdown-button" href="#!" data-beloworigin="true" data-activates="top-bar-dropdown">
+						User Name
+						<i class="material-icons right">arrow_drop_down</i>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<ul id="top-bar-dropdown" class="dropdown-content">
+			<li>
+				<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Profile</a>
+			</li>
+			<li>
+				<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
+			</li>
+		</ul>
+	</div>
+
     <!-- header -->
     <div class="container">
         <!-- navigation -->
@@ -75,7 +95,13 @@ $userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 						<?php echo $GLOBALS["helpers"]->siteHelper->getNavigationHTML($views, $activeView); ?>
 					</ul>
 					<ul id="nav-mobile" class="side-nav">
+						<li>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Profile</a>
+						</li>
 						<?php echo $GLOBALS["helpers"]->siteHelper->getNavigationHTML($views, $activeView); ?>
+						<li>
+							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
+						</li>
 					</ul>
 				<?php } ?>
 			</div>

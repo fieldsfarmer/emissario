@@ -17,10 +17,6 @@ class SiteHelper
 					<a href="' . URL_WITH_INDEX_FILE . $view . '">' . $viewTitle . '</a>
 				</li>';
 		}
-
-		$html .= '<li>
-				<a href="' . URL_WITH_INDEX_FILE . 'user/logout">Logout</a>
-			</li>';
 		
 		return $html;
 	}
