@@ -2,16 +2,16 @@
 
 class UserModel extends Model
 {
+
 	public function getUser($userID)
 	{
 		$sql = "SELECT User.*
-        		FROM User
-        		WHERE User.ID = :user_id";
-		$query = $this->db->prepare($sql);
+				FROM User
+				WHERE User.ID = :user_id";
+
 		$parameters = array(":user_id" => $userID);
-		$query->execute($parameters);
-	
-		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($query);
+
+		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
 	}
 
 	public function insertUser() {
@@ -79,12 +79,12 @@ class UserModel extends Model
 	public function getLoginInfo($email)
 	{
 		$sql = "SELECT ID, Email, Password
-        		FROM User
-        		WHERE Email = :email";
-		$query = $this->db->prepare($sql);
+				FROM User
+				WHERE Email = :email";
+
 		$parameters = array(":email" => $email);
-		$query->execute($parameters);
-	
+
 		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($query);
 	}
+
 }

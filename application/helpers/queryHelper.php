@@ -2,7 +2,10 @@
 
 class QueryHelper
 {
-	public function getSingleRowObject($query) {
+
+	public function getSingleRowObject($db, $sql, $parameters) {
+		$query = $db->prepare($sql);
+		$query->execute($parameters);
 		$result = $query->fetch();
 
 		if (!$result) {
@@ -12,10 +15,10 @@ class QueryHelper
 				$result->{$columnMeta["name"]} = "";
 			}
 		}
-		
+
 		return $result;
 	}
-	
+
 	public function executeWriteQuery($db, $sql, $parameters) {
 		foreach ($parameters as $parameterKey => $parameterValue)
 		{
@@ -27,9 +30,10 @@ class QueryHelper
 
 		$query = $db->prepare($sql);
 		$query->execute($parameters);
-		
+
 		if (substr(ltrim($sql), 0, 6) == "INSERT") {
 			return $db->lastInsertId();
 		}
 	}
+
 }
