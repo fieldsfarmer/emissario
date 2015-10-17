@@ -5,8 +5,13 @@ class TravelModel extends Model
 
 	public function getTravels($userID)
 	{
-		$sql = "SELECT *, DATE_FORMAT(Travel_Date, '%m/%d/%Y') AS Formatted_Travel_Date
+		$sql = "SELECT Travel.*,
+					DATE_FORMAT(Travel_Date, '%m/%d/%Y') AS Formatted_Travel_Date,
+					Orig_Country.Country_Name AS Origin_Country_Name,
+					Dest_Country.Country_Name AS Destination_Country_Name
 				FROM Travel
+				LEFT JOIN Country Orig_Country ON Orig_Country.Country_Code = Travel.Origin_Country
+				LEFT JOIN Country Dest_Country ON Dest_Country.Country_Code = Travel.Destination_Country
 				WHERE Travel.User_ID = :user_id";
 
 		$parameters = array(":user_id" => $userID);
@@ -19,8 +24,13 @@ class TravelModel extends Model
 
 	public function getTravel($travelID, $userID = "")
 	{
-		$sql = "SELECT *, DATE_FORMAT(Travel_Date, '%m/%d/%Y') AS Formatted_Travel_Date
+		$sql = "SELECT Travel.*,
+					DATE_FORMAT(Travel_Date, '%m/%d/%Y') AS Formatted_Travel_Date,
+					Orig_Country.Country_Name AS Origin_Country_Name,
+					Dest_Country.Country_Name AS Destination_Country_Name
 				FROM Travel
+				LEFT JOIN Country Orig_Country ON Orig_Country.Country_Code = Travel.Origin_Country
+				LEFT JOIN Country Dest_Country ON Dest_Country.Country_Code = Travel.Destination_Country
 				WHERE Travel.ID = :travel_id";
 		if (is_numeric($userID)) {
 			$sql .= " AND Travel.User_ID = :user_id";

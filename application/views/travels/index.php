@@ -22,9 +22,9 @@
 						</a>
 					</td>
 					<td><?php echo $travel->Origin_City ?></td>
-					<td><?php echo $travel->Origin_Country ?></td>
+					<td><?php echo $travel->Origin_Country_Name ?></td>
 					<td><?php echo $travel->Destination_City ?></td>
-					<td><?php echo $travel->Destination_Country ?></td>
+					<td><?php echo $travel->Destination_Country_Name ?></td>
 				</tr>
 			<?php } ?>
 		</tbody>

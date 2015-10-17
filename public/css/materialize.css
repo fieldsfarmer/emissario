@@ -5938,10 +5938,10 @@ button.btn-floating {
 
 .dropdown-content {
   background-color: #fff;
-  margin: 0;
+  margin: 9px 0 0;
   display: none;
   min-width: 100px;
-  max-height: 650px;
+  max-height: 300px;
   overflow-y: auto;
   opacity: 0;
   position: absolute;
@@ -5951,6 +5951,7 @@ button.btn-floating {
     clear: both;
     color: rgba(0, 0, 0, 0.87);
     cursor: pointer;
+    height: 2.5rem;
     line-height: 1.5rem;
     width: 100%;
     text-align: left;
@@ -5958,10 +5959,10 @@ button.btn-floating {
     .dropdown-content li:hover, .dropdown-content li.active {
       background-color: #eee; }
     .dropdown-content li > a, .dropdown-content li > span {
-      font-size: 1.2rem;
+      font-size: 1rem;
       color: #00acc1;
       display: block;
-      padding: 1rem 1rem; }
+      padding: 0.5rem 1rem; }
     .dropdown-content li > a > i {
       height: inherit;
       line-height: inherit; }
@@ -6808,9 +6809,14 @@ input[type=checkbox]:not(:disabled) ~ .lever:active:after {
     line-height: 3rem;
     width: 100%;
     font-size: 1rem;
-    margin: 0 0 15px 0;
     padding: 0;
     display: block; }
+  .select-wrapper input.select-dropdown.valid, .select-wrapper input.select-dropdown:focus.valid {
+    border-bottom: 1px solid #4CAF50;
+    box-shadow: 0 1px 0 0 #4CAF50; }
+  .select-wrapper input.select-dropdown.invalid, .select-wrapper input.select-dropdown:focus.invalid {
+    border-bottom: 1px solid #F44336;
+    box-shadow: 0 1px 0 0 #F44336; }
   .select-wrapper span.caret {
     color: initial;
     position: absolute;

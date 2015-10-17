@@ -2,18 +2,21 @@
 
 class User extends Controller
 {
-    public function index()
-    {
-    	$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
-    	$user = $this->beans->userService->getUser($userID);
 
-        require APP . 'views/_templates/header.php';
-        require APP . 'views/user/index.php';
-        require APP . 'views/_templates/footer.php';
-    }
+	public function index()
+	{
+		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
+		$user = $this->beans->userService->getUser($userID);
+
+		require APP . 'views/_templates/header.php';
+		require APP . 'views/user/index.php';
+		require APP . 'views/_templates/footer.php';
+	}
 
 	public function signUp()
 	{
+		$countries = $this->beans->resourceService->getCountries();
+
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/user/signUp.php';
 		require APP . 'views/_templates/footer.php';
@@ -31,6 +34,8 @@ class User extends Controller
 
 	public function editProfile()
 	{
+		$countries = $this->beans->resourceService->getCountries();
+
 		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 		$user = $this->beans->userService->getUser($userID);
 
@@ -46,12 +51,12 @@ class User extends Controller
 		header('location: ' . URL_WITH_INDEX_FILE);
 	}
 
-    public function logout()
-    {
-    	$this->beans->userService->logout();
+	public function logout()
+	{
+		$this->beans->userService->logout();
 
-    	header('location: ' . URL_WITH_INDEX_FILE);
-    }
+		header('location: ' . URL_WITH_INDEX_FILE);
+	}
 
 	public function createAccount()
 	{

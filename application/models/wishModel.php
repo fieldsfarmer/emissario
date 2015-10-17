@@ -5,8 +5,11 @@ class WishModel extends Model
 
 	public function getWishes($userID)
 	{
-		$sql = "SELECT *, DATE_FORMAT(Max_Date, '%m/%d/%Y') AS Formatted_Max_Date
+		$sql = "SELECT Wish.*,
+					DATE_FORMAT(Wish.Max_Date, '%m/%d/%Y') AS Formatted_Max_Date,
+					Country.Country_Name AS Destination_Country_Name
 				FROM Wish
+				LEFT JOIN Country ON Country.Country_Code = Wish.Destination_Country
 				WHERE Wish.User_ID = :user_id";
 
 		$parameters = array(":user_id" => $userID);
@@ -19,8 +22,11 @@ class WishModel extends Model
 
 	public function getWish($wishID, $userID = "")
 	{
-		$sql = "SELECT *, DATE_FORMAT(Max_Date, '%m/%d/%Y') AS Formatted_Max_Date
+		$sql = "SELECT Wish.*,
+					DATE_FORMAT(Wish.Max_Date, '%m/%d/%Y') AS Formatted_Max_Date,
+					Country.Country_Name AS Destination_Country_Name
 				FROM Wish
+				LEFT JOIN Country ON Country.Country_Code = Wish.Destination_Country
 				WHERE Wish.ID = :wish_id";
 		if (is_numeric($userID)) {
 			$sql .= " AND Wish.User_ID = :user_id";

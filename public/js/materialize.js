@@ -2818,7 +2818,11 @@ $(document).ready(function(){
             $curr_select.find('option').eq(i).prop('selected', true);
             // Trigger onchange() event
             $curr_select.trigger('change');
-            $curr_select.siblings('input.select-dropdown').val($(this).text());
+            var $curr_input = $curr_select.siblings('input.select-dropdown');
+            $curr_input.val($(this).text());
+            if ($curr_input.hasClass('validate')) {
+            	$curr_input.valid();
+            }
             if (typeof callback !== 'undefined') callback();
           }
         });
@@ -2848,6 +2852,25 @@ $(document).ready(function(){
       // Copy tabindex
       if ($select.attr('tabindex')) {
         $($newSelect[0]).attr('tabindex', $select.attr('tabindex'));
+      }
+
+      // Copy id and name
+      if ($select.attr('id')) {
+        $($newSelect[0]).attr('id', $select.attr('id') + '_material');
+      }
+      if ($select.attr('name')) {
+        $($newSelect[0]).attr('name', $select.attr('name') + '_material');
+      }
+
+      // Copy validation
+      if ($select.hasClass('validate')) {
+        $($newSelect[0]).addClass('validate');
+      }
+      if ($select.attr('required')) {
+        $($newSelect[0]).attr('required', $select.attr('required'));
+      }
+      if ($select.attr('aria-required')) {
+        $($newSelect[0]).attr('aria-required', $select.attr('aria-required'));
       }
 
       $select.addClass('initialized');
@@ -4021,6 +4044,10 @@ function PickerConstructor( ELEMENT, NAME, COMPONENT, OPTIONS ) {
                             $ELEMENT.
                                 val( thingItem == 'clear' ? '' : P.get( thingItem, SETTINGS.format ) ).
                                 trigger( 'change' )
+
+                                if ($ELEMENT.hasClass('validate')) {
+                                	$ELEMENT.valid();
+					            }
                         }
                     }
 

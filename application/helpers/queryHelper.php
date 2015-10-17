@@ -31,7 +31,7 @@ class QueryHelper
 		$query = $db->prepare($sql);
 		$query->execute($parameters);
 
-		if (substr(ltrim($sql), 0, 6) == "INSERT") {
+		if (strcasecmp(substr(ltrim($sql), 0, 6), "INSERT") == 0) {
 			return $db->lastInsertId();
 		}
 	}

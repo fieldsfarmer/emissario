@@ -19,7 +19,12 @@
 </div>
 <div class="row">
 	<div class="input-field col s6">
-		<input type="text" id="country" name="country" value="<?php echo $country ?>" placeholder="" />
+		<select id="country" name="country">
+			<option value=""></option>
+			<?php foreach ($countries as $countryOption) { ?>
+				<option value="<?php echo $countryOption->Country_Code; ?>" <?php if (strcasecmp($country, $countryOption->Country_Code) == 0) { ?>selected<?php } ?>><?php echo $countryOption->Country_Name; ?></option>
+			<?php } ?>
+		</select>
 		<label for="country">Country</label>
 	</div>
 	<div class="input-field col s6">

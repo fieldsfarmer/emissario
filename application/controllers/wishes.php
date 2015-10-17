@@ -26,6 +26,7 @@ class Wishes extends Controller
 	{
 		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 		$wish = $this->beans->wishService->getWish($wishID, $userID);
+		$countries = $this->beans->resourceService->getCountries();
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/wishes/edit.php';

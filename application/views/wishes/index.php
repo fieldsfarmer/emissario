@@ -20,7 +20,7 @@
 						</a>
 					</td>
 					<td><?php echo $wish->Destination_City ?></td>
-					<td><?php echo $wish->Destination_Country ?></td>
+					<td><?php echo $wish->Destination_Country_Name ?></td>
 				</tr>
 			<?php } ?>
 		</tbody>

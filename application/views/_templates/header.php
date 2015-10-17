@@ -43,7 +43,12 @@ $userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 			errorClass: 'invalid',
 			validClass: 'valid',
 			errorPlacement: function (error, element) {
-				error.insertAfter($(element).siblings('label'));
+				if ($(element).parent().hasClass('select-wrapper')) {
+					error.insertAfter($(element).parent().siblings('label'));
+				}
+				else {
+					error.insertAfter($(element).siblings('label'));
+				}
 			},
 			onfocusout: function (element) {
 				$(element).valid();

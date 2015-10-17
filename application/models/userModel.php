@@ -5,8 +5,9 @@ class UserModel extends Model
 
 	public function getUser($userID)
 	{
-		$sql = "SELECT User.*
+		$sql = "SELECT User.*, Country.Country_Name
 				FROM User
+				LEFT JOIN Country ON Country.Country_Code = User.Country
 				WHERE User.ID = :user_id";
 
 		$parameters = array(":user_id" => $userID);
@@ -84,7 +85,7 @@ class UserModel extends Model
 
 		$parameters = array(":email" => $email);
 
-		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($query);
+		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
 	}
 
 }

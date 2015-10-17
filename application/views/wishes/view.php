@@ -1,7 +1,7 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
 <div class="container">
-    <h4>Wish Details</h4>
+	<h4>Wish Details</h4>
 	<div class="section">
 		<div class="row">
 			<div class="col s12">
@@ -18,7 +18,7 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="view-details-label">Destination Country</div>
-				<div class="view-details-value"><?php echo $wish->Destination_Country ?></div>
+				<div class="view-details-value"><?php echo $wish->Destination_Country_Name ?></div>
 			</div>
 		</div>
 		<div class="row">

@@ -16,6 +16,8 @@ $phone = "";
 			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>';
 		});
 
+		$('select').material_select();
+
 		$('#form').validate({});
 	});
 </script>

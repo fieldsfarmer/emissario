@@ -15,6 +15,8 @@ $phone = $user->Phone;
 			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "user"; ?>';
 		});
 
+		$('select').material_select();
+
 		$('#form').validate({});
 	});
 </script>

@@ -1,7 +1,7 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
 <div class="container">
-    <h4>Profile</h4>
+	<h4>Profile</h4>
 	<div class="section">
 		<h5>Login Info</h5>
 		<div class="row">
@@ -33,7 +33,7 @@
 		<div class="row">
 			<div class="col s6">
 				<div class="view-details-label">Country</div>
-				<div class="view-details-value"><?php echo $user->Country ?></div>
+				<div class="view-details-value"><?php echo $user->Country_Name ?></div>
 			</div>
 			<div class="col s6">
 				<div class="view-details-label">State</div>

@@ -32,7 +32,12 @@ else
 		</div>
 		<div class="row">
 			<div class="input-field col s12">
-				<input type="text" id="destinationCountry" name="destinationCountry" value="<?php echo $wish->Destination_Country ?>" placeholder="" />
+				<select id="destinationCountry" name="destinationCountry">
+					<option value=""></option>
+					<?php foreach ($countries as $country) { ?>
+						<option value="<?php echo $country->Country_Code; ?>" <?php if (strcasecmp($wish->Destination_Country, $country->Country_Code) == 0) { ?>selected<?php } ?>><?php echo $country->Country_Name; ?></option>
+					<?php } ?>
+				</select>
 				<label for="destinationCountry">Destination Country</label>
 			</div>
 		</div>
@@ -63,6 +68,8 @@ else
 		$('#cancel').click(function(){
 			window.location.href = '<?php echo $cancelURL; ?>';
 		});
+
+		$('select').material_select();
 
 		$('.datepicker').pickadate({
 			format: 'mm/dd/yyyy'
