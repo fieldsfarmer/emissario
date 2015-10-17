@@ -34,10 +34,13 @@ class User extends Controller
 
 	public function editProfile()
 	{
-		$countries = $this->beans->resourceService->getCountries();
-
 		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 		$user = $this->beans->userService->getUser($userID);
+
+		$countries = $this->beans->resourceService->getCountries();
+		if ($user->Country != "") {
+			$states = $this->beans->resourceService->getStates($user->Country);
+		}
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/user/editProfile.php';

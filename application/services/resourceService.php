@@ -8,8 +8,8 @@ class ResourceService extends Service
 		return $this->beans->resourceModel->getCountries();
 	}
 
-	public function getStates($countryCode)
+	public function getStates($countryCode, $fieldList = "*")
 	{
-		return $this->beans->resourceModel->getStates($countryCode);
+		return $this->beans->resourceModel->getStates($countryCode, $fieldList);
 	}
 }

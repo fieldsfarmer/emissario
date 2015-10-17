@@ -5,9 +5,10 @@ class UserModel extends Model
 
 	public function getUser($userID)
 	{
-		$sql = "SELECT User.*, Country.Country_Name
+		$sql = "SELECT User.*, Country.Country_Name, State.State_Name
 				FROM User
 				LEFT JOIN Country ON Country.Country_Code = User.Country
+				LEFT JOIN State ON State.State_Code = User.State
 				WHERE User.ID = :user_id";
 
 		$parameters = array(":user_id" => $userID);

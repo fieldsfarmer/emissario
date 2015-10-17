@@ -15,10 +15,10 @@ class ResourceModel extends Model
 		return $query->fetchAll();
 	}
 
-	public function getStates($countryCode)
+	public function getStates($countryCode, $fieldList = "*")
 	{
-		$sql = "SELECT *
-				FROM State
+		$sql = "SELECT " . $fieldList;
+		$sql .=	" FROM State
 				WHERE Country_Code = :country_code
 				ORDER BY State_Code";
 

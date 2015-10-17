@@ -37,7 +37,7 @@
 			</div>
 			<div class="col s6">
 				<div class="view-details-label">State</div>
-				<div class="view-details-value"><?php echo $user->State ?></div>
+				<div class="view-details-value"><?php echo $user->State_Name ?></div>
 			</div>
 		</div>
 		<div class="row">
