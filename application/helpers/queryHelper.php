@@ -31,7 +31,7 @@ class QueryHelper
 		$query = $db->prepare($sql);
 		$query->execute($parameters);
 
-		if (strcasecmp(substr(ltrim($sql), 0, 6), "INSERT") == 0) {
+		if (strcasecmp($GLOBALS["beans"]->stringHelper->left($sql, 6), "INSERT") == 0) {
 			return $db->lastInsertId();
 		}
 	}

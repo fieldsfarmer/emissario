@@ -141,11 +141,13 @@ class Application
 
 	private function loadHelpers()
 	{
-	 	require APP . '/helpers/queryHelper.php';
-	 	require APP . '/helpers/siteHelper.php';
+		require APP . '/helpers/queryHelper.php';
+		require APP . '/helpers/siteHelper.php';
+		require APP . '/helpers/stringHelper.php';
 
 		$GLOBALS["beans"]->queryHelper = new QueryHelper();
-	 	$GLOBALS["beans"]->siteHelper = new SiteHelper();
+		$GLOBALS["beans"]->siteHelper = new SiteHelper();
+		$GLOBALS["beans"]->stringHelper = new StringHelper();
 	}
 
 	private function loadServices()

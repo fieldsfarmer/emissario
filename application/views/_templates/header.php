@@ -22,7 +22,12 @@ if (array_key_exists("PATH_INFO", $_SERVER)) {
 	$activeView = $pathInfoArray[1];
 }
 
-$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+if (!isset($userID)) {
+	$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+}
+if (!isset($user)) {
+	$user = $GLOBALS["beans"]->userService->getUser($userID);
+}
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -60,50 +65,55 @@ $userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
 	<link href="<?php echo URL; ?>public/css/materialize.css" rel="stylesheet" type="text/css" media="screen,projection" />
 </head>
 <body class="grey lighten-5 grey-text text-darken-2">
-	<div class="top-bar hide-on-small-only">
+	<!-- top bar -->
+	<div class="top-bar">
 		<div class="nav-wrapper">
-			<ul id="nav-top-bar" class="right">
-				<li>
-					<a class="dropdown-button" href="#!" data-beloworigin="true" data-activates="top-bar-dropdown">
-						User Name
-						<i class="material-icons right">arrow_drop_down</i>
-					</a>
-				</li>
-			</ul>
+			<?php if (is_numeric($userID)) { ?>
+				<a href="#" data-activates="nav-mobile" class="button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
+			<?php } ?>
+			<a href="<?php echo URL_WITH_INDEX_FILE; ?>" class="brand-logo left">Emissario</a>
+			<?php if (is_numeric($userID)) { ?>
+				<ul id="nav-top-bar" class="right hide-on-small-only">
+					<li>
+						<a class="dropdown-button" href="#!" data-beloworigin="true" data-activates="top-bar-dropdown">
+							<?php echo $user->First_Name . " " . $user->Last_Name ?>
+							<i class="material-icons right">arrow_drop_down</i>
+						</a>
+					</li>
+				</ul>
+				<ul id="top-bar-dropdown" class="dropdown-content">
+					<li>
+						<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Profile</a>
+					</li>
+					<li>
+						<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
+					</li>
+				</ul>
+			<?php } ?>
 		</div>
-		<ul id="top-bar-dropdown" class="dropdown-content">
-			<li>
+	</div>
+
+	<?php if (is_numeric($userID)) { ?>
+		<!-- navigation -->
+		<div class="container hide-on-small-only">
+			<nav>
+				<div class="nav-wrapper">
+					<ul id="nav-normal" class="center">
+						<?php echo $GLOBALS["beans"]->siteHelper->getNavigationHTML($views, $activeView); ?>
+					</ul>
+				</div>
+			</nav>
+		</div>
+		<ul id="nav-mobile" class="side-nav">
+			<li class="no-hover">
+				<span><?php echo $user->First_Name . " " . $GLOBALS["beans"]->stringHelper->left($user->Last_Name,1) ?>.</span>
+			</li>
+			<li	<?php if (strcasecmp($activeView,"user") == 0) { ?>class="active"<?php } ?>>
 				<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Profile</a>
 			</li>
+			<?php echo $GLOBALS["beans"]->siteHelper->getNavigationHTML($views, $activeView); ?>
 			<li>
 				<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
 			</li>
 		</ul>
-	</div>
-
-	<!-- header -->
-	<div class="container">
-		<!-- navigation -->
-		<nav>
-			<div class="nav-wrapper">
-				<?php if (is_numeric($userID)) { ?>
-					<a href="#" data-activates="nav-mobile" class="button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
-				<?php } ?>
-				<a href="<?php echo URL_WITH_INDEX_FILE; ?>" class="brand-logo left">Emissario</a>
-				<?php if (is_numeric($userID)) { ?>
-					<ul id="nav-normal" class="left hide-on-small-only">
-						<?php echo $GLOBALS["beans"]->siteHelper->getNavigationHTML($views, $activeView); ?>
-					</ul>
-					<ul id="nav-mobile" class="side-nav">
-						<li>
-							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Profile</a>
-						</li>
-						<?php echo $GLOBALS["beans"]->siteHelper->getNavigationHTML($views, $activeView); ?>
-						<li>
-							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
-						</li>
-					</ul>
-				<?php } ?>
-			</div>
-		</nav>
-	</div>
+	<?php } ?>
