@@ -5,7 +5,7 @@
 // If someone called header.php directly we completely stop everything via exit() and send a 403 server status code.
 // Also make sure there are NO spaces etc. before "<!DOCTYPE" as this might break page rendering.
 if (!$this) {
-    exit(header('HTTP/1.0 403 Forbidden'));
+	exit(header('HTTP/1.0 403 Forbidden'));
 }
 
 $views = array(
@@ -22,17 +22,17 @@ if (array_key_exists("PATH_INFO", $_SERVER)) {
 	$activeView = $pathInfoArray[1];
 }
 
-$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
+$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
 
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <title>Emissario</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="utf-8">
+	<title>Emissario</title>
+	<meta name="description" content="">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- JS -->
+	<!-- JS -->
 	<!-- jQuery, loaded in the recommended protocol-less way -->
 	<!-- more http://www.paulirish.com/2010/the-protocol-relative-url/ -->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
@@ -55,7 +55,7 @@ $userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 		});
 	</script>
 
-    <!-- CSS -->
+	<!-- CSS -->
 	<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
 	<link href="<?php echo URL; ?>public/css/materialize.css" rel="stylesheet" type="text/css" media="screen,projection" />
 </head>
@@ -81,9 +81,9 @@ $userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 		</ul>
 	</div>
 
-    <!-- header -->
-    <div class="container">
-        <!-- navigation -->
+	<!-- header -->
+	<div class="container">
+		<!-- navigation -->
 		<nav>
 			<div class="nav-wrapper">
 				<?php if (is_numeric($userID)) { ?>
@@ -92,13 +92,13 @@ $userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 				<a href="<?php echo URL_WITH_INDEX_FILE; ?>" class="brand-logo left">Emissario</a>
 				<?php if (is_numeric($userID)) { ?>
 					<ul id="nav-normal" class="left hide-on-small-only">
-						<?php echo $GLOBALS["helpers"]->siteHelper->getNavigationHTML($views, $activeView); ?>
+						<?php echo $GLOBALS["beans"]->siteHelper->getNavigationHTML($views, $activeView); ?>
 					</ul>
 					<ul id="nav-mobile" class="side-nav">
 						<li>
 							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Profile</a>
 						</li>
-						<?php echo $GLOBALS["helpers"]->siteHelper->getNavigationHTML($views, $activeView); ?>
+						<?php echo $GLOBALS["beans"]->siteHelper->getNavigationHTML($views, $activeView); ?>
 						<li>
 							<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
 						</li>
@@ -106,4 +106,4 @@ $userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
 				<?php } ?>
 			</div>
 		</nav>
-    </div>
+	</div>

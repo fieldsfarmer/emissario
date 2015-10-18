@@ -5,12 +5,12 @@ class TravelService extends Service
 
 	public function getTravels($userID)
 	{
-		return $this->beans->travelModel->getTravels($userID);
+		return $this->model->getTravels($userID);
 	}
 	
 	public function getTravel($travelID, $userID = "")
 	{
-		return $this->beans->travelModel->getTravel($travelID, $userID);
+		return $this->model->getTravel($travelID, $userID);
 	}
 	
 	public function saveTravel()
@@ -18,10 +18,10 @@ class TravelService extends Service
 		$travelID = $_POST["travelID"];
 	
 		if (is_numeric($travelID)) {
-			$this->beans->travelModel->updateTravel();
+			$this->model->updateTravel();
 		}
 		else {
-			$travelID = $this->beans->travelModel->insertTravel();
+			$travelID = $this->model->insertTravel();
 		}
 	
 		return $travelID;
@@ -29,6 +29,7 @@ class TravelService extends Service
 	
 	public function deleteTravel($travelID, $userID)
 	{
-		$this->beans->travelModel->deleteTravel($travelID, $userID);
+		$this->model->deleteTravel($travelID, $userID);
 	}
+
 }

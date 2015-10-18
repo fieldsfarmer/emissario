@@ -5,11 +5,12 @@ class ResourceService extends Service
 
 	public function getCountries()
 	{
-		return $this->beans->resourceModel->getCountries();
+		return $this->model->getCountries();
 	}
 
 	public function getStates($countryCode, $fieldList = "*")
 	{
-		return $this->beans->resourceModel->getStates($countryCode, $fieldList);
+		return $this->model->getStates($countryCode, $fieldList);
 	}
+
 }

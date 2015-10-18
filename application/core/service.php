@@ -3,9 +3,9 @@
 class Service
 {
 
-	function __construct($beans)
+	function __construct($model)
 	{
-		$this->beans = $beans;
+		$this->model = $model;
 	}
 
 }

@@ -5,33 +5,33 @@ class UserService extends Service
 
 	public function getUser($userID)
 	{
-		return $this->beans->userModel->getUser($userID);
+		return $this->model->getUser($userID);
 	}
 
 	public function getLoginInfo($email)
 	{
-		return $this->beans->userModel->getLoginInfo($email);
+		return $this->model->getLoginInfo($email);
 	}
 
 	public function insertUser()
 	{
-		$this->beans->userModel->insertUser();
+		$this->model->insertUser();
 	}
 
 	public function updateLogin()
 	{
-		$this->beans->userModel->updateLogin();
+		$this->model->updateLogin();
 	}
 
 	public function updateProfile()
 	{
-		$this->beans->userModel->updateProfile();
+		$this->model->updateProfile();
 	}
 
 	public function login()
 	{
 		$errorMessage = "Invalid email or password.";
-		$loginInfo = $this->beans->userModel->getLoginInfo($_POST["email"]);
+		$loginInfo = $this->model->getLoginInfo($_POST["email"]);
 		
 		if (strcasecmp($_POST["email"],$loginInfo->Email) == 0)
 		{
@@ -63,4 +63,5 @@ class UserService extends Service
 		// Finally, destroy the session.
 		session_destroy();
 	}
+
 }

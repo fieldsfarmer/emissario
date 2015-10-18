@@ -13,7 +13,7 @@ class UserModel extends Model
 
 		$parameters = array(":user_id" => $userID);
 
-		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
+		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
 	}
 
 	public function insertUser() {
@@ -31,7 +31,7 @@ class UserModel extends Model
 				":phone" => $_POST["phone"]
 			);
 
-		return $GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 	public function updateLogin() {
@@ -51,7 +51,7 @@ class UserModel extends Model
 			$parameters["password"] = password_hash($_POST["password"],PASSWORD_DEFAULT);
 		}
 
-		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 	public function updateProfile() {
@@ -75,7 +75,7 @@ class UserModel extends Model
 				":phone" => $_POST["phone"]
 			);
 
-		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 	public function getLoginInfo($email)
@@ -86,7 +86,7 @@ class UserModel extends Model
 
 		$parameters = array(":email" => $email);
 
-		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
+		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
 	}
 
 }

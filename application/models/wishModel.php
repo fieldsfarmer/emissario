@@ -37,7 +37,7 @@ class WishModel extends Model
 			$parameters[":user_id"] = $userID;
 		}
 
-		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
+		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
 	}
 
 	public function insertWish() {
@@ -54,7 +54,7 @@ class WishModel extends Model
 				":compensation" => $_POST["compensation"]
 			);
 
-		return $GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 	public function updateWish() {
@@ -80,7 +80,7 @@ class WishModel extends Model
 				":compensation" => $_POST["compensation"]
 			);
 
-		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 	public function deleteWish($wishID, $userID) {
@@ -94,7 +94,7 @@ class WishModel extends Model
 				":user_id" => $userID
 			);
 
-		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 }

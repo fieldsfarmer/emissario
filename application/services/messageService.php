@@ -2,27 +2,28 @@
 
 class MessageService extends Service
 {
+
 	public function getMessages($userID)
 	{
-		return $this->beans->messageModel->getMessages($userID);
+		return $this->model->getMessages($userID);
 	}
 	
 	public function getTravel($travelID, $userID = "")
 	{
-		return $this->beans->travelModel->getTravel($travelID, $userID);
+		return $this->model->getTravel($travelID, $userID);
 	}
 	
 	public function saveMessage()
 	{
 		//$message = $_POST["travelID"];
-		$travelID = $this->beans->messageModel->insertMessage();
+		$travelID = $this->model->insertMessage();
 	
 		return $travelID;
 	}
 	
 	public function deleteTravel($travelID, $userID)
 	{
-		$this->beans->travelModel->deleteTravel($travelID, $userID);
+		$this->model->deleteTravel($travelID, $userID);
 	}
 	
 }

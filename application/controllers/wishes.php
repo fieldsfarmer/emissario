@@ -1,11 +1,12 @@
 <?php
 
-class Wishes extends Controller
+class Wishes
 {
+
 	public function index()
 	{
-		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
-		$wishes = $this->beans->wishService->getWishes($userID);
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$wishes = $GLOBALS["beans"]->wishService->getWishes($userID);
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/wishes/index.php';
@@ -14,8 +15,8 @@ class Wishes extends Controller
 
 	public function view($wishID)
 	{
-		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
-		$wish = $this->beans->wishService->getWish($wishID, $userID);
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$wish = $GLOBALS["beans"]->wishService->getWish($wishID, $userID);
 	
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/wishes/view.php';
@@ -24,9 +25,9 @@ class Wishes extends Controller
 
 	public function edit($wishID = "")
 	{
-		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
-		$wish = $this->beans->wishService->getWish($wishID, $userID);
-		$countries = $this->beans->resourceService->getCountries();
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$wish = $GLOBALS["beans"]->wishService->getWish($wishID, $userID);
+		$countries = $GLOBALS["beans"]->resourceService->getCountries();
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/wishes/edit.php';
@@ -35,16 +36,17 @@ class Wishes extends Controller
 
 	public function save()
 	{
-		$wishID = $this->beans->wishService->saveWish();
+		$wishID = $GLOBALS["beans"]->wishService->saveWish();
 
 		header('location: ' . URL_WITH_INDEX_FILE . 'wishes/view/' . $wishID);
 	}
 
 	public function delete($wishID)
 	{
-		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
-		$this->beans->wishService->deleteWish($wishID, $userID);
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$GLOBALS["beans"]->wishService->deleteWish($wishID, $userID);
 	
 		header('location: ' . URL_WITH_INDEX_FILE . 'wishes');
 	}
+
 }

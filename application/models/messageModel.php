@@ -29,7 +29,7 @@ class MessageModel extends Model
 				":Content" => $_POST["messageContent"],
 		);
 
-		return $GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 }

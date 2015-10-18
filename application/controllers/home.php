@@ -8,21 +8,21 @@
  * This is really weird behaviour, but documented here: http://php.net/manual/en/language.oop5.decon.php
  *
  */
-class Home extends Controller
+class Home
 {
 
-    public function index()
-    {
-    	require APP . 'views/_templates/header.php';
-    	if (is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID")))
-        {
-        	require APP . 'views/home/index.php';
-        }
-        else
-        {
-	        require APP . 'views/index.php';
-        }
-        require APP . 'views/_templates/footer.php';
-    }
+	public function index()
+	{
+		require APP . 'views/_templates/header.php';
+		if (is_numeric($GLOBALS["beans"]->siteHelper->getSession("userID")))
+		{
+		require APP . 'views/home/index.php';
+		}
+		else
+		{
+			require APP . 'views/index.php';
+		}
+		require APP . 'views/_templates/footer.php';
+	}
 
 }

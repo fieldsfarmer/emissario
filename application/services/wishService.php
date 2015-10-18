@@ -5,12 +5,12 @@ class WishService extends Service
 
 	public function getWishes($userID)
 	{
-		return $this->beans->wishModel->getWishes($userID);
+		return $this->model->getWishes($userID);
 	}
 
 	public function getWish($wishID, $userID = "")
 	{
-		return $this->beans->wishModel->getWish($wishID, $userID);
+		return $this->model->getWish($wishID, $userID);
 	}
 
 	public function saveWish()
@@ -18,10 +18,10 @@ class WishService extends Service
 		$wishID = $_POST["wishID"];
 
 		if (is_numeric($wishID)) {
-			$this->beans->wishModel->updateWish();
+			$this->model->updateWish();
 		}
 		else {
-			$wishID = $this->beans->wishModel->insertWish();
+			$wishID = $this->model->insertWish();
 		}
 
 		return $wishID;
@@ -29,6 +29,7 @@ class WishService extends Service
 
 	public function deleteWish($wishID, $userID)
 	{
-		$this->beans->wishModel->deleteWish($wishID, $userID);
+		$this->model->deleteWish($wishID, $userID);
 	}
+
 }

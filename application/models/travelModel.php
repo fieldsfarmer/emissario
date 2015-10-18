@@ -41,7 +41,7 @@ class TravelModel extends Model
 			$parameters[":user_id"] = $userID;
 		}
 
-		return $GLOBALS["helpers"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
+		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
 	}
 
 	public function insertTravel() {
@@ -57,7 +57,7 @@ class TravelModel extends Model
 				":travel_date" => $_POST["travelDate"]
 		);
 
-		return $GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 	public function updateTravel() {
@@ -81,7 +81,7 @@ class TravelModel extends Model
 				":travel_date" => $_POST["travelDate"]
 		);
 
-		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 	public function deleteTravel($travelID, $userID) {
@@ -95,7 +95,7 @@ class TravelModel extends Model
 				":user_id" => $userID
 		);
 
-		$GLOBALS["helpers"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 }

@@ -6,14 +6,17 @@ if (session_status() == PHP_SESSION_NONE)
 
 class Application
 {
-    /** @var null The controller */
-    private $url_controller = null;
+	/** @var null The controller */
+	private $url_controller = null;
 
-    /** @var null The method (of the above controller), often also named "action" */
-    private $url_action = null;
+	/** @var null The method (of the above controller), often also named "action" */
+	private $url_action = null;
 
-    /** @var array URL parameters */
-    private $url_params = array();
+	/** @var array URL parameters */
+	private $url_params = array();
+
+	/** @var null Database Connection */
+	private $db = null;
 
     /**
      * "Start" the application:
@@ -24,13 +27,11 @@ class Application
         // create array with URL parts in $url
         $this->getUrlWithoutModRewrite();
 
-        $forceRecreate = false;
-        if (array_key_exists("init", $this->url_params))
-        {
-        	$forceRecreate = true;
-        }
-        $this->loadHelpers($forceRecreate);
-        
+		$GLOBALS["beans"] = new stdClass();
+		$this->openDatabaseConnection();
+		$this->loadServices();
+		$this->loadHelpers();
+
         // check for controller: no controller given ? then load start-page
         if (!$this->url_controller) {
 
@@ -121,29 +122,64 @@ class Application
         //echo 'Action: ' . $this->url_action . '<br>';
         //echo 'Parameters: ' . print_r($this->url_params, true) . '<br>';
     }
-    
-    private function loadHelpers($forceRecreate)
-    {
-    	$recreate = $forceRecreate;
 
-		if (!array_key_exists("helpers", $GLOBALS))
-		{
-			$GLOBALS["helpers"] = new stdClass();
-			$recreate = true;
-		}
+	/**
+	 * Open the database connection with the credentials from application/config/config.php
+	 */
+	private function openDatabaseConnection()
+	{
+		// set the (optional) options of the PDO connection. in this case, we set the fetch mode to
+		// "objects", which means all results will be objects, like this: $result->user_name !
+		// For example, fetch mode FETCH_ASSOC would return results like this: $result["user_name] !
+		// @see http://www.php.net/manual/en/pdostatement.fetch.php
+		$options = array(PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_OBJ, PDO::ATTR_ERRMODE => PDO::ERRMODE_WARNING);
 
-		if ($recreate) {
-    	 	require APP . '/helpers/queryHelper.php';
-    	 	require APP . '/helpers/siteHelper.php';
-    	 	
-    	 	$GLOBALS["helpers"]->queryHelper = new QueryHelper();
-    	 	$GLOBALS["helpers"]->siteHelper = new SiteHelper();
-		}
-    }
+		// generate a database connection, using the PDO connector
+		// @see http://net.tutsplus.com/tutorials/php/why-you-should-be-using-phps-pdo-for-database-access/
+		$this->db = new PDO(DB_TYPE . ':host=' . DB_HOST . ';dbname=' . DB_NAME, DB_USER, DB_PASS, $options);
+	}
+
+	private function loadHelpers()
+	{
+	 	require APP . '/helpers/queryHelper.php';
+	 	require APP . '/helpers/siteHelper.php';
+
+		$GLOBALS["beans"]->queryHelper = new QueryHelper();
+	 	$GLOBALS["beans"]->siteHelper = new SiteHelper();
+	}
+
+	private function loadServices()
+	{
+		require APP . '/core/model.php';
+		require APP . '/models/friendModel.php';
+		require APP . '/models/helpModel.php';
+		require APP . '/models/messageModel.php';
+		require APP . '/models/resourceModel.php';
+		require APP . '/models/travelModel.php';
+		require APP . '/models/userModel.php';
+		require APP . '/models/wishModel.php';
+
+		require APP . '/core/service.php';
+		require APP . '/services/friendService.php';
+		require APP . '/services/helpService.php';
+		require APP . '/services/messageService.php';
+		require APP . '/services/resourceService.php';
+		require APP . '/services/travelService.php';
+		require APP . '/services/userService.php';
+		require APP . '/services/wishService.php';
+
+		$GLOBALS["beans"]->friendService = new FriendService(new FriendModel($this->db));
+		$GLOBALS["beans"]->helpService = new HelpService(new HelpModel($this->db));
+		$GLOBALS["beans"]->messageService = new MessageService(new MessageModel($this->db));
+		$GLOBALS["beans"]->resourceService = new ResourceService(new ResourceModel($this->db));
+		$GLOBALS["beans"]->travelService = new TravelService(new TravelModel($this->db));
+		$GLOBALS["beans"]->userService = new UserService(new UserModel($this->db));
+		$GLOBALS["beans"]->wishService = new WishService(new WishModel($this->db));
+	}
 
 	private function checkLoggedIn()
 	{
-		if (!is_numeric($GLOBALS["helpers"]->siteHelper->getSession("userID")))
+		if (!is_numeric($GLOBALS["beans"]->siteHelper->getSession("userID")))
 		{
 			$validDestination = false;
 

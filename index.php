@@ -32,7 +32,6 @@ require APP . '/libs/password.php';
 
 // load application class
 require APP . '/core/application.php';
-require APP . '/core/controller.php';
 
 // start the application
 $app = new Application();

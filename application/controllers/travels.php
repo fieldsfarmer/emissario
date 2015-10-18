@@ -1,12 +1,12 @@
 <?php
 
-class Travels extends Controller
+class Travels
 {
 
 	public function index()
 	{
-		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
-		$travels = $this->beans->travelService->getTravels($userID);
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$travels = $GLOBALS["beans"]->travelService->getTravels($userID);
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/travels/index.php';
@@ -15,8 +15,8 @@ class Travels extends Controller
 
 	public function view($travelID)
 	{
-		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
-		$travel = $this->beans->travelService->getTravel($travelID, $userID);
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$travel = $GLOBALS["beans"]->travelService->getTravel($travelID, $userID);
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/travels/view.php';
@@ -25,9 +25,9 @@ class Travels extends Controller
 
 	public function edit($travelID = "")
 	{
-		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
-		$travel = $this->beans->travelService->getTravel($travelID, $userID);
-		$countries = $this->beans->resourceService->getCountries();
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$travel = $GLOBALS["beans"]->travelService->getTravel($travelID, $userID);
+		$countries = $GLOBALS["beans"]->resourceService->getCountries();
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/travels/edit.php';
@@ -36,16 +36,17 @@ class Travels extends Controller
 
 	public function save()
 	{
-		$travelID = $this->beans->travelService->saveTravel();
+		$travelID = $GLOBALS["beans"]->travelService->saveTravel();
 
 		header('location: ' . URL_WITH_INDEX_FILE . 'travels/view/' . $travelID);
 	}
 
 	public function delete($travelID)
 	{
-		$userID = $GLOBALS["helpers"]->siteHelper->getSession("userID");
-		$this->beans->travelService->deleteTravel($travelID, $userID);
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$GLOBALS["beans"]->travelService->deleteTravel($travelID, $userID);
 
 		header('location: ' . URL_WITH_INDEX_FILE . 'travels');
 	}
+
 }
