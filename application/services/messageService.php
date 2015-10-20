@@ -7,6 +7,10 @@ class MessageService extends Service
 	{
 		return $this->model->getMessages($userID);
 	}
+	public function getSingle($userID)
+	{
+		return $this->model->getSingle($userID);
+	}
 	
 	public function getTravel($travelID, $userID = "")
 	{

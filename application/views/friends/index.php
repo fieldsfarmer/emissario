@@ -15,7 +15,9 @@
 		<tbody>
 			<?php foreach ($friends as $friend) { ?>
 				<tr>
-					<td><?php echo $friend->First_Name ?></td>
+					<td ><a href="<?php echo URL_WITH_INDEX_FILE . "friends/view/" . $friend->ID; ?>">
+						<?php echo $friend->First_Name ?>
+					</a></td>
 					<td><?php echo $friend->Last_Name ?></td>
 					<td><?php echo $friend->City ?></td>
 					<td><?php echo $friend->State ?></td>

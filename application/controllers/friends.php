@@ -12,5 +12,14 @@ class Friends
 		require APP . 'views/friends/index.php';
 		require APP . 'views/_templates/footer.php';
 	}
-
+	public function view($friendID)
+	{
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$friend = $GLOBALS["beans"]->friendService->getSingle($userID, $friendID);
+		//$travel = $GLOBALS["beans"]->friendService->getSingle($userID, $friendID);
+		//$UserProfile=$GLOBALS["beans"]
+		require APP . 'views/_templates/header.php';
+		require APP . 'views/friends/view.php';
+		require APP . 'views/_templates/footer.php';
+	}
 }
