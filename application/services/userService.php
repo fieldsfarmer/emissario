@@ -17,6 +17,10 @@ class UserService extends Service
 	{
 		$this->model->insertUser();
 	}
+	public function sendemail()
+	{
+		return $this->model->sendemail($email);
+	}
 
 	public function updateLogin()
 	{
