@@ -33,7 +33,16 @@ class UserModel extends Model
 
 		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
+	public function sendReset($userID){
+		$sql = "SELECT User.*, Country.Country_Name, State.State_Name
+				FROM User
+				WHERE User.ID = :user_id";
 
+		$parameters = array(":user_id" => $userID);
+
+		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
+
+	}
 	public function updateLogin() {
 		$sql = "UPDATE User
 				SET Email = :email,";
@@ -54,6 +63,11 @@ class UserModel extends Model
 		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
+	public function sendemail(){
+		$sql= "SELECT User.password
+				FROM User
+				WHERE User.ID= :user_email";
+	}
 	public function updateProfile() {
 		$sql = "UPDATE User
 				SET First_Name = :first_name,
