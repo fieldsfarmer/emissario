@@ -5,59 +5,94 @@ class MessageModel extends Model
 
 	public function getMessages($userID)
 	{
-		$sql = "SELECT *,
-				User.First_name,
-				User.Last_name
-				FROM Message, User
+		$sql = "SELECT Message.*,
+					Sender.First_name AS Sender_First_Name,
+					Sender.Last_name AS Sender_Last_Name,
+					Recipient.First_Name AS Recipient_First_Name,
+					Recipient.Last_Name AS Recipient_Last_Name,
+					DATE_FORMAT(Message.Created_On, '%m/%d/%Y %r') AS Formatted_Created_On
+				FROM Message
+				INNER JOIN User Sender ON Sender.ID = Message.Sender_ID
+				INNER JOIN User Recipient ON Recipient.ID = Message.Recipient_ID
 				WHERE Message.Recipient_ID = :user_id
-				AND	  Message.Sender_ID = User.ID";
+					OR Message.Sender_ID = :user_id";
 
 		$parameters = array(":user_id" => $userID);
 
 		$query = $this->db->prepare($sql);
 		$query->execute($parameters);
+
 		return $query->fetchAll();
 	}
-	public function getsingle($massageID)
-	{
-		$sql = "SELECT *,
-				User.First_name,
-				User.Last_name
-				FROM Message, User
-				WHERE Message.ID = :user_id
-				AND	  Message.Sender_ID = User.ID";
 
-		$parameters = array(":user_id" => $massageID);
+	public function getMessage($messageID, $userID = "")
+	{
+		$sql = "SELECT Message.*,
+					Sender.First_name AS Sender_First_Name,
+					Sender.Last_name AS Sender_Last_Name,
+					Recipient.First_Name AS Recipient_First_Name,
+					Recipient.Last_Name AS Recipient_Last_Name,
+					DATE_FORMAT(Message.Created_On, '%m/%d/%Y %r') AS Formatted_Created_On
+				FROM Message
+				INNER JOIN User Sender ON Sender.ID = Message.Sender_ID
+				INNER JOIN User Recipient ON Recipient.ID = Message.Recipient_ID
+				WHERE Message.ID = :message_id";
+		if (is_numeric($userID)) {
+			$sql .= " AND (Message.Recipient_ID = :user_id
+						OR Message.Sender_ID = :user_id)";
+		}
+
+		$parameters = array(':message_id' => $messageID);
+		if (is_numeric($userID)) {
+			$parameters[":user_id"] = $userID;
+		}
+
+		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
+	}
+
+	public function getRecipients($userID)
+	{
+		$sql = "SELECT User.ID, User.First_Name, User.Last_Name
+				FROM (
+					SELECT Sender_ID AS Recipient_ID
+					FROM Message
+					WHERE Message.Recipient_ID = :user_id
+					UNION
+					SELECT Recipient_ID
+					FROM Message
+					WHERE Sender_ID = :user_id
+					UNION
+					SELECT User_ID2 AS Recipient_ID
+					FROM Friend
+					WHERE User_ID1 = :user_id
+					UNION
+					SELECT User_ID1 AS Recipient_ID
+					FROM Friend
+					WHERE User_ID2 = :user_id
+				) Recipient
+				INNER JOIN User ON User.ID = Recipient.Recipient_ID
+				ORDER BY User.First_Name, User.Last_Name";
+
+		$parameters = array(":user_id" => $userID);
 
 		$query = $this->db->prepare($sql);
 		$query->execute($parameters);
+
 		return $query->fetchAll();
 	}
 
-	public function insertMessage($id) {
+	public function insertMessage() {
+		$sql = "INSERT INTO Message (Sender_ID, Recipient_ID, Title, Content, Created_On, Modified_On)
+				VALUES (:sender_id, :recipient_id, :title, :content, NOW(), NOW())";
 
-		if($id==NULL){
-			$sql0="SELECT User.id
-				FROM User
-				WHERE User.Email = :user_id";
-			$parameter0 = array(":user_id" => $_POST["messageReceiver"]);
-			$query = $this->db->prepare($sql0);
-			$query->execute($parameter0);
-			$uid=$query->fetchAll();
-			$sql = "INSERT INTO message (`ID`, `Sender_ID`, `Recipient_ID`, `Title`, `Content`, `Unread`, `Wish_ID`, `Created_On`, `Modified_On`)
-					VALUES(NULL, :Sender_ID,:Recipient_ID,:Title,:Content,b'1',NULL,'2015-10-21 00:00:00', '2015-10-22 00:00:00')";
-			$parameters = array(
-					":Sender_ID" => $_POST["userID"],
-					":Recipient_ID" =>$uid[0]->id,
-					":Title" => $_POST["messageTitle"],
-					":Content" => $_POST["messageContent"],
-			);
-			return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
-		}
-		else{
-			
+		$parameters = array(
+				":sender_id" => $_POST["userID"],
+				":recipient_id" => $_POST["recipientID"],
+				":title" => $_POST["title"],
+				":content" => $_POST["content"]
+		);
 
-		}
+		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
 }

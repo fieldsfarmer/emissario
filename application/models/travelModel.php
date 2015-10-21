@@ -6,7 +6,7 @@ class TravelModel extends Model
 	public function getTravels($userID)
 	{
 		$sql = "SELECT Travel.*,
-					DATE_FORMAT(Travel_Date, '%m/%d/%Y') AS Formatted_Travel_Date,
+					DATE_FORMAT(Travel.Travel_Date, '%m/%d/%Y') AS Formatted_Travel_Date,
 					Orig_Country.Country_Name AS Origin_Country_Name,
 					Dest_Country.Country_Name AS Destination_Country_Name
 				FROM Travel

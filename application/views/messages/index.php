@@ -6,25 +6,25 @@
 	<table class="striped">
 		<thead>
 			<tr>
-				<th>Messages title</th>
+				<th>Message Date</th>
+				<th>Sender</th>
+				<th>Recipient</th>
+				<th>Title</th>
 				<th>Content</th>
-				<th>Sender name</th>
-				<th>Create time</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach ($messages as $message) { ?>
 				<tr>
 					<td>
-						<?php echo $message->Title ?></td>
+						<a href="<?php echo URL_WITH_INDEX_FILE . "messages/view/" . $message->ID; ?>">
+							<?php echo $message->Formatted_Created_On ?>
+						</a>
 					</td>
-					<td class="truncate">
-						<?php echo $message->Content ?></td>
-					<td ><a href="<?php echo URL_WITH_INDEX_FILE . "messages/view/" . $message->ID; ?>">
-							<?php echo $message->First_name ?>
-					</a></td>
-					<td >
-						<?php echo $message->Created_On ?></td>
+					<td><?php echo $message->Sender_First_Name . " " . $message->Sender_Last_Name ?></td>
+					<td><?php echo $message->Recipient_First_Name . " " . $message->Recipient_Last_Name ?></td>
+					<td><?php echo $message->Title ?></td>
+					<td class="truncate"><?php echo $message->Content ?></td>
 				</tr>
 			<?php } ?>
 		</tbody>

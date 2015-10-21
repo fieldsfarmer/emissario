@@ -7,27 +7,20 @@ class MessageService extends Service
 	{
 		return $this->model->getMessages($userID);
 	}
-	public function getSingle($userID)
+
+	public function getMessage($messageID, $userID = "")
 	{
-		return $this->model->getSingle($userID);
+		return $this->model->getMessage($messageID, $userID);
 	}
-	
-	public function getTravel($travelID, $userID = "")
+
+	public function getRecipients($userID)
 	{
-		return $this->model->getTravel($travelID, $userID);
+		return $this->model->getRecipients($userID);
 	}
-	
+
 	public function saveMessage()
 	{
-		//$message = $_POST["travelID"];
-		$travelID = $this->model->insertMessage();
-	
-		return $travelID;
+		return $this->model->insertMessage();
 	}
-	
-	public function deleteTravel($travelID, $userID)
-	{
-		$this->model->deleteTravel($travelID, $userID);
-	}
-	
+
 }

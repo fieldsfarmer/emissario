@@ -1,6 +1,6 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
-<div class="container">
+<!-- /* <div class="container">
 	<h4>Hall of Wish</h4>
 	<table class="striped">
 		<thead>
@@ -32,4 +32,4 @@
 			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/edit"; ?>';
 		});
 	});
-</script>
+</script> */ -->
