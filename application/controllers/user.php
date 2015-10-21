@@ -13,15 +13,28 @@ class User
 		require APP . 'views/_templates/footer.php';
 	}
 
-	public function reset()
+	public function signUp()
 	{
 		$countries = $GLOBALS["beans"]->resourceService->getCountries();
 
+		require APP . 'views/_templates/header.php';
+		require APP . 'views/user/signUp.php';
+		require APP . 'views/_templates/footer.php';
+	}
+
+    public function reset()
+	{
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/user/reset.php';
 		require APP . 'views/_templates/footer.php';
 	}
 
+	public function sendemail()
+	{
+		$errorMessage = $GLOBALS["beans"]->userService->sendemail();
+
+		header('location: ' . URL_WITH_INDEX_FILE);
+	}
 
 	public function editLogin()
 	{
@@ -51,12 +64,6 @@ class User
 	public function login()
 	{
 		$errorMessage = $GLOBALS["beans"]->userService->login();
-
-		header('location: ' . URL_WITH_INDEX_FILE);
-	}
-	public function sendemail()
-	{
-		$errorMessage = $GLOBALS["beans"]->userService->sendemail();
 
 		header('location: ' . URL_WITH_INDEX_FILE);
 	}
