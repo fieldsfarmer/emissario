@@ -3,7 +3,7 @@
 class TravelModel extends Model
 {
 
-	public function getTravels($userID)
+	public function getTravels($userID, $travelDateType = "")
 	{
 		$sql = "SELECT Travel.*,
 					DATE_FORMAT(Travel.Travel_Date, '%m/%d/%Y') AS Formatted_Travel_Date,
@@ -13,6 +13,15 @@ class TravelModel extends Model
 				LEFT JOIN Country Orig_Country ON Orig_Country.Country_Code = Travel.Origin_Country
 				LEFT JOIN Country Dest_Country ON Dest_Country.Country_Code = Travel.Destination_Country
 				WHERE Travel.User_ID = :user_id";
+
+		if (strcasecmp($travelDateType, "future") == 0)
+		{
+			$sql .= " AND Travel.Travel_Date > DATE(NOW())";
+		}
+		else if (strcasecmp($travelDateType, "past") == 0)
+		{
+			$sql .= " AND Travel.Travel_Date <= DATE(NOW())";
+		}
 
 		$parameters = array(":user_id" => $userID);
 

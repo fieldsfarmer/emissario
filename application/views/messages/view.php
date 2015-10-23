@@ -43,7 +43,7 @@
 		});
 
 		$('#reply').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "messages/edit/" . $messageID; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "messages/add/" . $messageID; ?>';
 		});
 	});
 </script>

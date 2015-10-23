@@ -10,18 +10,26 @@
 				<th>City</th>
 				<th>State</th>
 				<th>Country</th>
+				<th>Pending</th>
 			</tr>
 		</thead>
 		<tbody>
 			<?php foreach ($friends as $friend) { ?>
 				<tr>
-					<td ><a href="<?php echo URL_WITH_INDEX_FILE . "friends/view/" . $friend->ID; ?>">
+					<td>
+						<?php if ($friend->Pending != 1) {?>
+						<a href="<?php echo URL_WITH_INDEX_FILE . "friends/view/" . $friend->ID; ?>">
+							<?php echo $friend->First_Name ?>
+						</a>
+						<?php } else { ?>
 						<?php echo $friend->First_Name ?>
-					</a></td>
+						<?php } ?>
+					</td>
 					<td><?php echo $friend->Last_Name ?></td>
 					<td><?php echo $friend->City ?></td>
 					<td><?php echo $friend->State ?></td>
 					<td><?php echo $friend->Country ?></td>
+					<td><?php if ($friend->Pending == 1) echo "Yes"; else echo "No"; ?></td>
 				</tr>
 			<?php } ?>
 		</tbody>

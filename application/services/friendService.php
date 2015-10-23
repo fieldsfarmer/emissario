@@ -7,9 +7,14 @@ class FriendService extends Service
 	{
 		return $this->model->getFriends($userID);
 	}
-	public function getSingle($userID, $friendID)
+
+	public function getFriend($friendID, $userID = "")
 	{
-		return $this->model->getSingle($userID, $friendID);
+		return $this->model->getFriend($friendID, $userID);
 	}
 
+	public function deleteFriend($friendID, $userID)
+	{
+		$this->model->deleteFriend($friendID, $userID);
+	}
 }

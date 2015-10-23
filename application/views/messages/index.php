@@ -2,7 +2,7 @@
 
 <div class="container">
 	<h4>Messages</h4>
-	<a id="add" class="btn waves-effect waves-light">Add a Message</a>
+	<a id="add" class="btn waves-effect waves-light">Send a Message</a>
 	<table class="striped">
 		<thead>
 			<tr>
@@ -34,7 +34,7 @@
 <script>
 	$(document).ready(function(){
 		$('#add').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "messages/edit"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "messages/add"; ?>';
 		});
 	});
 </script>

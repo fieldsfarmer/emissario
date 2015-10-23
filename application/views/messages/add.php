@@ -1,6 +1,6 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); }
 
-if (is_numeric($originalMessageID))
+if (is_numeric($originalMessageID) && $originalMessageID > 0)
 {
 	$cancelURL = URL_WITH_INDEX_FILE . "messages/view/" . $originalMessageID;
 
@@ -18,7 +18,6 @@ if (is_numeric($originalMessageID))
 else
 {
 	$cancelURL = URL_WITH_INDEX_FILE . "messages";
-	$recipientID = "";
 	$title = "";
 }
 ?>

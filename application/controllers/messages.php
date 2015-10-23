@@ -23,14 +23,16 @@ class Messages
 		require APP . 'views/_templates/footer.php';
 	}
 
-	public function edit($originalMessageID = "")
+	public function add($originalMessageID = "", $recipientID = "")
 	{
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
-		$message = $GLOBALS["beans"]->messageService->getMessage($originalMessageID, $userID);
+		if (is_numeric($originalMessageID) && $originalMessageID > 0) {
+			$message = $GLOBALS["beans"]->messageService->getMessage($originalMessageID, $userID);
+		}
 		$recipients = $GLOBALS["beans"]->messageService->getRecipients($userID);
 
 		require APP . 'views/_templates/header.php';
-		require APP . 'views/messages/edit.php';
+		require APP . 'views/messages/add.php';
 		require APP . 'views/_templates/footer.php';
 	}
 

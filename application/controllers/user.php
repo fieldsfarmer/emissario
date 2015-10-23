@@ -22,7 +22,7 @@ class User
 		require APP . 'views/_templates/footer.php';
 	}
 
-    public function reset()
+	public function reset()
 	{
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/user/reset.php';
