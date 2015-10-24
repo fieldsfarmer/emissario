@@ -1,62 +1,72 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
 <div class="container">
-	<h4>Friend Details</h4>
-	<div class="section">
-		<div class="row">
-			<div class="col s6">
-				<div class="view-details-label">First Name</div>
-				<div class="view-details-value"><?php echo $friend->First_Name ?></div>
-			</div>
-			<div class="col s6">
-				<div class="view-details-label">Last Name</div>
-				<div class="view-details-value"><?php echo $friend->Last_Name ?></div>
+	<h2 class="page-header">Friend Details</h2>
+	<div class="section form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">First Name</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $friend->First_Name ?></p>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col s6">
-				<div class="view-details-label">City</div>
-				<div class="view-details-value"><?php echo $friend->City ?></div>
-			</div>
-			<div class="col s6">
-				<div class="view-details-label">State</div>
-				<div class="view-details-value"><?php echo $friend->State ?></div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Last Name</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $friend->Last_Name ?></p>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col s12">
-				<div class="view-details-label">Country</div>
-				<div class="view-details-value"><?php echo $friend->Country ?></div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">City</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $friend->City ?></p>
 			</div>
 		</div>
-		<a id="back" class="btn waves-effect waves-light">Back</a>
-		<a id="send" class="btn waves-effect waves-light">Send a Message</a>
-		<a id="unfriend" class="btn waves-effect waves-light">Unfriend</a>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">State</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $friend->State ?></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Country</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $friend->Country ?></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="button" id="back" class="btn btn-default">Back</button>
+				<button type="button" id="send" class="btn btn-default">Send a Message</button>
+				<button type="button" id="unfriend" class="btn btn-default">Unfriend</button>
+			</div>
+		</div>
 	</div>
 	<div class="section">
-		<h5>Future Travels</h5>
-		<table class="striped">
-			<thead>
-				<tr>
-					<th>Travel Date</th>
-					<th>Origin City</th>
-					<th>Origin Country</th>
-					<th>Destination City</th>
-					<th>Destination Country</th>
-				</tr>
-			</thead>
-			<tbody>
-				<?php foreach ($travels as $travel) { ?>
+		<h3 class="page-header">Future Travels</h3>
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
 					<tr>
-						<td><?php echo $travel->Formatted_Travel_Date ?></td>
-						<td><?php echo $travel->Origin_City ?></td>
-						<td><?php echo $travel->Origin_Country_Name ?></td>
-						<td><?php echo $travel->Destination_City ?></td>
-						<td><?php echo $travel->Destination_Country_Name ?></td>
+						<th>Travel Date</th>
+						<th>Origin City</th>
+						<th>Origin Country</th>
+						<th>Destination City</th>
+						<th>Destination Country</th>
 					</tr>
-				<?php } ?>
-			</tbody>
-		</table>
+				</thead>
+				<tbody>
+					<?php foreach ($travels as $travel) { ?>
+						<tr>
+							<td><?php echo $travel->Formatted_Travel_Date ?></td>
+							<td><?php echo $travel->Origin_City ?></td>
+							<td><?php echo $travel->Origin_Country_Name ?></td>
+							<td><?php echo $travel->Destination_City ?></td>
+							<td><?php echo $travel->Destination_Country_Name ?></td>
+						</tr>
+					<?php } ?>
+				</tbody>
+			</table>
+		</div>
 	</div>
 </div>
 

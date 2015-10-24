@@ -12,23 +12,23 @@ else
 }
 ?>
 
-<div class="row">
-	<div class="input-field col s12">
+<div class="form-group">
+	<label for="email" class="col-sm-2 control-label">Email</label>
+	<div class="col-sm-10">
 		<input type="hidden" id="existingEmail" name="existingEmail" value="<?php echo $email ?>" />
-		<input type="email" id="email" name="email" value="<?php echo $email ?>" class="validate" required aria-required="true" placeholder="" />
-		<label for="email">Email</label>
+		<input type="email" id="email" name="email" value="<?php echo $email ?>" class="form-control" required aria-required="true" />
 	</div>
 </div>
-<div class="row">
-	<div class="input-field col s12">
-		<input type="password" id="password" name="password" value="" class="validate" <?php if ($newUser) { ?>required aria-required="true"<?php } ?> placeholder="" />
-		<label for="password"><?php echo $passwordLabel; ?></label>
+<div class="form-group">
+	<label for="password" class="col-sm-2 control-label"><?php echo $passwordLabel; ?></label>
+	<div class="col-sm-10">
+		<input type="password" id="password" name="password" class="form-control" <?php if ($newUser) { ?>required aria-required="true"<?php } ?> />
 	</div>
 </div>
-<div class="row">
-	<div class="input-field col s12">
-		<input type="password" id="confirmPassword" name="confirmPassword" value="" class="validate" <?php if ($newUser) { ?>required aria-required="true"<?php } ?> placeholder="" />
-		<label for="confirmPassword">Confirm <?php echo $passwordLabel; ?></label>
+<div class="form-group">
+	<label for="confirmPassword" class="col-sm-2 control-label">Confirm <?php echo $passwordLabel; ?></label>
+	<div class="col-sm-10">
+		<input type="password" id="confirmPassword" name="confirmPassword" class="form-control" <?php if ($newUser) { ?>required aria-required="true"<?php } ?> />
 	</div>
 </div>
 

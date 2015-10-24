@@ -1,52 +1,64 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
 <div class="container">
-	<h4>Profile</h4>
-	<div class="section">
-		<h5>Login Info</h5>
-		<div class="row">
-			<div class="col s12">
-				<div class="view-details-label">Email</div>
-				<div class="view-details-value"><?php echo $user->Email ?></div>
+	<h2>Profile</h2>
+	<div class="section form-horizontal">
+		<h3 class="page-header">Login Info</h3>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Email</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $user->Email ?></p>
 			</div>
 		</div>
-		<a id="editLogin" class="btn waves-effect waves-light">Edit Login Info</a>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="button" id="editLogin" class="btn btn-default">Edit Login Info</button>
+			</div>
+		</div>
 	</div>
-	<div class="section">
-		<h5>User Details</h5>
-		<div class="row">
-			<div class="col s6">
-				<div class="view-details-label">First Name</div>
-				<div class="view-details-value"><?php echo $user->First_Name ?></div>
-			</div>
-			<div class="col s6">
-				<div class="view-details-label">Last Name</div>
-				<div class="view-details-value"><?php echo $user->Last_Name ?></div>
+	<div class="section form-horizontal">
+		<h3 class="page-header">User Details</h3>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">First Name</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $user->First_Name ?></p>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col s12">
-				<div class="view-details-label">City</div>
-				<div class="view-details-value"><?php echo $user->City ?></div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Last Name</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $user->Last_Name ?></p>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col s6">
-				<div class="view-details-label">Country</div>
-				<div class="view-details-value"><?php echo $user->Country_Name ?></div>
-			</div>
-			<div class="col s6">
-				<div class="view-details-label">State</div>
-				<div class="view-details-value"><?php echo $user->State_Name ?></div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">City</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $user->City ?></p>
 			</div>
 		</div>
-		<div class="row">
-			<div class="col s12">
-				<div class="view-details-label">Phone</div>
-				<div class="view-details-value"><?php echo $user->Phone ?></div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">State</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $user->State_Name ?></p>
 			</div>
 		</div>
-		<a id="editProfile" class="btn waves-effect waves-light">Edit Profile</a>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Country</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $user->Country_Name ?></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Phone</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $user->Phone ?></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="button" id="editProfile" class="btn btn-default">Edit Profile</button>
+			</div>
+		</div>
 	</div>
 </div>
 

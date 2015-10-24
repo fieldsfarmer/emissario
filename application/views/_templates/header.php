@@ -8,14 +8,6 @@ if (!$this) {
 	exit(header('HTTP/1.0 403 Forbidden'));
 }
 
-$views = array(
-		"friends" => "Friends",
-		"travels" => "Travels",
-		"wishes" => "Wishes",
-		"messages" => "Messages",
-		"helps" => "Help Others"
-	);
-
 $activeView = "";
 if (array_key_exists("PATH_INFO", $_SERVER)) {
 	$pathInfoArray = explode("/", $_SERVER["PATH_INFO"]);
@@ -33,87 +25,94 @@ if (!isset($user)) {
 <html lang="en">
 <head>
 	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Emissario</title>
 	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<!-- CSS -->
+	<link href="<?php echo URL; ?>public/css/bootstrap.css" rel="stylesheet">
+	<link href="<?php echo URL; ?>public/css/bootstrap-theme.css" rel="stylesheet">
+	<link href="<?php echo URL; ?>public/css/bootstrap-datepicker3.css" rel="stylesheet">
 
 	<!-- JS -->
-	<!-- jQuery, loaded in the recommended protocol-less way -->
-	<!-- more http://www.paulirish.com/2010/the-protocol-relative-url/ -->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="<?php echo URL; ?>public/js/jquery.validate.js" type="text/javascript"></script>
+	<script src="<?php echo URL; ?>public/js/bootstrap.js"></script>
+	<script src="<?php echo URL; ?>public/js/bootstrap-datepicker.js"></script>
+	<script src="<?php echo URL; ?>public/js/application.js"></script>
+	<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+	<![endif]-->
 	<script>
 		$.validator.setDefaults({
-			errorClass: 'invalid',
-			validClass: 'valid',
+			errorElement: 'span',
+			errorClass: 'help-block error-help-block',
 			errorPlacement: function (error, element) {
-				if ($(element).parent().hasClass('select-wrapper')) {
-					error.insertAfter($(element).parent().siblings('label'));
+				if (element.parent('.input-group').length || element.prop('type') === 'checkbox' || element.prop('type') === 'radio') {
+					error.insertAfter(element.parent());
 				}
 				else {
-					error.insertAfter($(element).siblings('label'));
+					error.insertAfter(element);
 				}
+			},
+			highlight: function(element) {
+				$(element).closest('.form-group').removeClass('has-success').addClass('has-error');
+			},
+			unhighlight: function(element) {
+				$(element).closest('.form-group').removeClass('has-error').addClass('has-success');
 			},
 			onfocusout: function (element) {
 				$(element).valid();
 			}
 		});
+
+		$(document).ready(function(){
+			// Add asterisk to required fields
+			$('input,textarea,select').filter('[required]').each(function(index, element) {
+				$(element).closest('.form-group').find('label').append('<span class="asterisk-required">*</span>');
+			});
+		});
 	</script>
-
-	<!-- CSS -->
-	<link href="//fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
-	<link href="<?php echo URL; ?>public/css/materialize.css" rel="stylesheet" type="text/css" media="screen,projection" />
 </head>
-<body class="grey lighten-5 grey-text text-darken-2">
+<body>
 	<!-- top bar -->
-	<div class="top-bar">
-		<div class="nav-wrapper">
+	<nav class="navbar navbar-inverse navbar-fixed-top">
+		<div class="container">
+			<div class="navbar-header">
+				<?php if (is_numeric($userID)) { ?>
+					<button class="navbar-toggle collapsed" aria-controls="navbar" aria-expanded="false" data-target="#navbar" data-toggle="collapse" type="button">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+				<?php } ?>
+				<a class="navbar-brand" href="<?php echo URL_WITH_INDEX_FILE; ?>">Emissario</a>
+			</div>
 			<?php if (is_numeric($userID)) { ?>
-				<a href="#" data-activates="nav-mobile" class="button-collapse hide-on-med-and-up"><i class="material-icons">menu</i></a>
-			<?php } ?>
-			<a href="<?php echo URL_WITH_INDEX_FILE; ?>" class="brand-logo left">Emissario</a>
-			<?php if (is_numeric($userID)) { ?>
-				<ul id="nav-top-bar" class="right hide-on-small-only">
-					<li>
-						<a class="dropdown-button" href="#!" data-beloworigin="true" data-activates="top-bar-dropdown">
-							<?php echo $user->First_Name . " " . $user->Last_Name ?>
-							<i class="material-icons right">arrow_drop_down</i>
-						</a>
-					</li>
-				</ul>
-				<ul id="top-bar-dropdown" class="dropdown-content">
-					<li>
-						<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Profile</a>
-					</li>
-					<li>
-						<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
-					</li>
-				</ul>
-			<?php } ?>
-		</div>
-	</div>
-
-	<?php if (is_numeric($userID)) { ?>
-		<!-- navigation -->
-		<div class="container hide-on-small-only">
-			<nav>
-				<div class="nav-wrapper">
-					<ul id="nav-normal" class="center">
-						<?php echo $GLOBALS["beans"]->siteHelper->getNavigationHTML($views, $activeView); ?>
+				<div id="navbar" class="navbar-collapse collapse">
+					<ul class="nav navbar-nav navbar-left">
+						<?php echo $GLOBALS["beans"]->siteHelper->getNavigationHTML($activeView); ?>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown">
+							<a class="dropdown-toggle" href="#!" aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown">
+								<?php echo $user->First_Name . " " . $user->Last_Name ?>
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Profile</a>
+								</li>
+								<li>
+									<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
+								</li>
+							</ul>
+						</li>
 					</ul>
 				</div>
-			</nav>
+			<?php } ?>
 		</div>
-		<ul id="nav-mobile" class="side-nav">
-			<li class="no-hover">
-				<span><?php echo $user->First_Name . " " . $GLOBALS["beans"]->stringHelper->left($user->Last_Name,1) ?>.</span>
-			</li>
-			<li	<?php if (strcasecmp($activeView,"user") == 0) { ?>class="active"<?php } ?>>
-				<a href="<?php echo URL_WITH_INDEX_FILE; ?>user">Profile</a>
-			</li>
-			<?php echo $GLOBALS["beans"]->siteHelper->getNavigationHTML($views, $activeView); ?>
-			<li>
-				<a href="<?php echo URL_WITH_INDEX_FILE; ?>user/logout">Logout</a>
-			</li>
-		</ul>
-	<?php } ?>
+	</nav>

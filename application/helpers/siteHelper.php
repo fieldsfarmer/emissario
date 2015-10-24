@@ -2,9 +2,17 @@
 
 class SiteHelper
 {
-	public function getNavigationHTML($views, $activeView)
+	public function getNavigationHTML($activeView)
 	{
 		$html = "";
+
+		$views = array(
+				"friends" => "Friends",
+				"travels" => "Travels",
+				"wishes" => "Wishes",
+				"messages" => "Messages",
+				"helps" => "Help Others"
+			);
 
 		foreach ($views as $view => $viewTitle)
 		{

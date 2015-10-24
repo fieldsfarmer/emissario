@@ -1,6 +1,6 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
 <div class="container">
-    <h4>Overview</h4>
+    <h2 class="page-header">Overview</h2>
     <p>Under construction</p>
 </div>

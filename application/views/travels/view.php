@@ -1,40 +1,46 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); } ?>
 
 <div class="container">
-	<h4>Travel Details</h4>
-	<div class="row">
-		<div class="col s12">
-			<div class="view-details-label">Travel Date</div>
-			<div class="view-details-value"><?php echo $travel->Formatted_Travel_Date ?></div>
+	<h2 class="page-header">Travel Details</h2>
+	<div class="section form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Travel Date</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $travel->Formatted_Travel_Date ?></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Origin City</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $travel->Origin_City ?></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Origin Country</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $travel->Origin_Country_Name ?></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Destination City</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $travel->Destination_City ?></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<label class="col-sm-2 control-label">Destination Country</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $travel->Destination_Country_Name ?></p>
+			</div>
+		</div>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="button" id="back" class="btn btn-default">Back</button>
+				<button type="button" id="edit" class="btn btn-default">Edit</button>
+				<button type="button" id="delete" class="btn btn-default">Delete</button>
+			</div>
 		</div>
 	</div>
-	<div class="row">
-		<div class="col s12">
-			<div class="view-details-label">Origin City</div>
-			<div class="view-details-value"><?php echo $travel->Origin_City ?></div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col s12">
-			<div class="view-details-label">Origin Country</div>
-			<div class="view-details-value"><?php echo $travel->Origin_Country_Name ?></div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col s12">
-			<div class="view-details-label">Destination City</div>
-			<div class="view-details-value"><?php echo $travel->Destination_City ?></div>
-		</div>
-	</div>
-	<div class="row">
-		<div class="col s12">
-			<div class="view-details-label">Destination Country</div>
-			<div class="view-details-value"><?php echo $travel->Destination_Country_Name ?></div>
-		</div>
-	</div>
-	<a id="back" class="btn waves-effect waves-light">Back</a>
-	<a id="edit" class="btn waves-effect waves-light">Edit</a>
-	<a id="delete" class="btn waves-effect waves-light">Delete</a>
 </div>
 
 <script>

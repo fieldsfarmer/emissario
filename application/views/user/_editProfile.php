@@ -1,47 +1,51 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); }
 ?>
 
-<div class="row">
-	<div class="input-field col s6">
-		<input type="text" id="firstName" name="firstName" value="<?php echo $firstName ?>" class="validate" required aria-required="true" placeholder="" />
-		<label for="firstName">First Name</label>
-	</div>
-	<div class="input-field col s6">
-		<input type="text" id="lastName" name="lastName" value="<?php echo $lastName ?>" class="validate" required aria-required="true" placeholder="" />
-		<label for="lastName">Last Name</label>
+<div class="form-group">
+	<label for="firstName" class="col-sm-2 control-label">First Name</label>
+	<div class="col-sm-10">
+		<input type="text" id="firstName" name="firstName" value="<?php echo $firstName ?>" class="form-control" required aria-required="true" />
 	</div>
 </div>
-<div class="row">
-	<div class="input-field col s12">
-		<input type="text" id="city" name="city" value="<?php echo $city ?>" placeholder="" />
-		<label for="city">City</label>
+<div class="form-group">
+	<label for="lastName" class="col-sm-2 control-label">Last Name</label>
+	<div class="col-sm-10">
+		<input type="text" id="lastName" name="lastName" value="<?php echo $lastName ?>" class="form-control" required aria-required="true" />
 	</div>
 </div>
-<div class="row">
-	<div class="input-field col s6">
-		<select id="country" name="country" onchange="refreshStateSelect();">
-			<option value=""></option>
+<div class="form-group">
+	<label for="city" class="col-sm-2 control-label">City</label>
+	<div class="col-sm-10">
+		<input type="text" id="city" name="city" value="<?php echo $city ?>" class="form-control" />
+	</div>
+</div>
+<div class="form-group">
+	<label for="country" class="col-sm-2 control-label">Country</label>
+	<div class="col-sm-10">
+		<select id="country" name="country" class="form-control" onchange="refreshStateSelect();">
+			<option value="">&nbsp;</option>
 			<?php foreach ($countries as $countryOption) { ?>
 				<option value="<?php echo $countryOption->Country_Code; ?>" <?php if (strcasecmp($country, $countryOption->Country_Code) == 0) { ?>selected<?php } ?>><?php echo $countryOption->Country_Name; ?></option>
 			<?php } ?>
 		</select>
-		<label for="country">Country</label>
 	</div>
-	<div class="input-field col s6">
-		<select id="state" name="state">
-			<option value=""></option>
+</div>
+<div class="form-group">
+	<label for="state" class="col-sm-2 control-label">State</label>
+	<div class="col-sm-10">
+		<select id="state" name="state" class="form-control">
+			<option value="">&nbsp;</option>
 			<?php if (isset($states)) {
 				foreach ($states as $stateOption) { ?>
 				<option value="<?php echo $stateOption->State_Code; ?>" <?php if (strcasecmp($state, $stateOption->State_Code) == 0) { ?>selected<?php } ?>><?php echo $stateOption->State_Name; ?></option>
 			<?php }} ?>
 		</select>
-		<label for="state">State</label>
 	</div>
 </div>
-<div class="row">
-	<div class="input-field col s12">
-		<input type="text" id="phone" name="phone" value="<?php echo $phone ?>" placeholder="" />
-		<label for="phone">Phone</label>
+<div class="form-group">
+	<label for="phone" class="col-sm-2 control-label">Phone</label>
+	<div class="col-sm-10">
+		<input type="text" id="phone" name="phone" value="<?php echo $phone ?>" class="form-control" />
 	</div>
 </div>
 
@@ -56,7 +60,7 @@
 			dataType: 'text',
 			success: function(result) {
 				$('#state').empty();
-				$('#state').append($('<option value=""></option>'));
+				$('#state').append($('<option value="">&nbsp;</option>'));
 
 				if (result.length > 4) {
 					result = result.substr(1, result.length - 2);
@@ -71,10 +75,7 @@
 			},
 			error: function() {
 				$('#state').empty();
-				$('#state').append($('<option value=""></option>'));
-			},
-			complete: function() {
-				$('#state').material_select();
+				$('#state').append($('<option value="">&nbsp;</option>'));
 			}
 		});
 	}

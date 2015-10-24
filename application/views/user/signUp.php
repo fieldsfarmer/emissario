@@ -16,24 +16,26 @@ $phone = "";
 			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>';
 		});
 
-		$('select').material_select();
-
 		$('#form').validate({});
 	});
 </script>
 
 <div class="container">
-	<h4>Create an Account</h4>
-	<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/createAccount" class="col s12" novalidate="novalidate">
+	<h2>Create an Account</h2>
+	<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/createAccount" class="form-horizontal">
 		<div class="section">
-			<h5>Login Info</h5>
+			<h3 class="page-header">Login Info</h3>
 			<?php require '_editLogin.php' ?>
 		</div>
 		<div class="section">
-			<h5>User Details</h5>
+			<h3 class="page-header">User Details</h3>
 			<?php require '_editProfile.php' ?>
 		</div>
-		<a id="cancel" class="btn waves-effect waves-light">Cancel</a>
-		<button type="submit" class="btn waves-effect waves-light" name="action">Submit</button>
+		<div class="form-group">
+			<div class="col-sm-offset-2 col-sm-10">
+				<button type="button" id="cancel" class="btn btn-default">Cancel</button>
+				<button type="submit" class="btn btn-default">Submit</button>
+			</div>
+		</div>
 	</form>
 </div>

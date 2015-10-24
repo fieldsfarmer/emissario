@@ -2,15 +2,19 @@
 
 <div class="container" style= "position: fixed; top: 30%; left: 40%; ">
 	<div class="container" style="width:300px; margin:0 0 40px 0;">
-		<h4>Forget password</h4>
-		<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/login" class="col s12" novalidate="novalidate">
-			<div class="row">
-				<div class="input-field col s12">
-					<input type="email" id="email" name="email" class="validate" required aria-required="true" placeholder="" />
-					<label for="email">Email</label>
+		<h2 class="page-header">Forget password</h2>
+		<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/login" class="form-horizontal">
+			<div class="form-group">
+				<label for="email" class="col-sm-2 control-label">Email</label>
+				<div class="col-sm-10">
+					<input type="email" id="email" name="email" class="form-control" required aria-required="true" />
 				</div>
 			</div>
-			<button type="submit" class="btn waves-effect waves-light" name="action">get password</button>
+			<div class="form-group">
+				<div class="col-sm-offset-2 col-sm-10">
+					<button type="submit" class="btn btn-default">Get Password</button>
+				</div>
+			</div>
 		</form>
 	</div>
 </div>
