@@ -2,6 +2,28 @@
 
 <div class="container">
 	<h2 class="page-header">Friends</h2>
+
+	<div class="clearfix table-action">
+		<button type="button" id="add" class="btn btn-default pull-left">Add Friends</button>
+
+		<form method="post" class="form-inline table-filter pull-right">
+			<div class="form-group">
+				<label class="sr-only" for="friendType">Type</label>
+				<select id="friendType" name="friendType" class="form-control">
+					<option value="friends" <?php if (strcasecmp("friends", $friendType) == 0) { ?>selected<?php } ?>>Friends</option>
+					<option value="pending_mine" <?php if (strcasecmp("pending_mine", $friendType) == 0) { ?>selected<?php } ?>>Pending My Approval</option>
+					<option value="pending_friend" <?php if (strcasecmp("pending_friend", $friendType) == 0) { ?>selected<?php } ?>>Pending Friends' Approval</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="search">Search</label>
+				<input type="text" id="search" name="search" value="<?php echo $search; ?>" class="form-control" placeholder="Search" />
+			</div>
+			<button type="submit" class="btn btn-default btn-sm">Go</button>
+			<button type="button" id="clear" class="btn btn-default btn-sm">Clear</button>
+		</form>
+	</div>
+
 	<div class="table-responsive">
 		<table class="table table-striped">
 			<thead>
@@ -11,7 +33,6 @@
 					<th>City</th>
 					<th>State</th>
 					<th>Country</th>
-					<th>Pending</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -30,10 +51,17 @@
 						<td><?php echo $friend->City ?></td>
 						<td><?php echo $friend->State ?></td>
 						<td><?php echo $friend->Country ?></td>
-						<td><?php if ($friend->Pending == 1) echo "Yes"; else echo "No"; ?></td>
 					</tr>
 				<?php } ?>
 			</tbody>
 		</table>
 	</div>
 </div>
+
+<script>
+	$(document).ready(function(){
+		$('#clear').click(function(){
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "friends"; ?>';
+		});
+	});
+</script>

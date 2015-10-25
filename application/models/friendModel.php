@@ -3,22 +3,55 @@
 class FriendModel extends Model
 {
 
-	public function getFriends($userID)
+	public function getFriends($userID, $friendType, $search = "")
 	{
-		$sql = "SELECT User.ID, User.First_Name, User.Last_Name, User.City, User.State, User.Country, User.Email, F.Pending
-				FROM (
-					SELECT User_ID2 AS Friend_ID, Pending
+		$sql = "SELECT User.ID, User.First_Name, User.Last_Name, User.City, User.State, User.Country, F.Pending
+				FROM (";
+
+		if (strcasecmp($friendType, "pending_mine") == 0)
+		{
+			$sql .= " SELECT User_ID1 AS Friend_ID, Pending
+					FROM Friend
+					WHERE User_ID2 = :user_id
+						AND Pending = 1";
+		}
+		else if (strcasecmp($friendType, "pending_friend") == 0)
+		{
+			$sql .= " SELECT User_ID2 AS Friend_ID, Pending
 					FROM Friend
 					WHERE User_ID1 = :user_id
+						AND Pending = 1";
+		}
+		else
+		{
+			$sql .= " SELECT User_ID2 AS Friend_ID, Pending
+					FROM Friend
+					WHERE User_ID1 = :user_id
+						AND Pending = 0
 					UNION
 					SELECT User_ID1 AS Friend_ID, Pending
 					FROM Friend
 					WHERE User_ID2 = :user_id
-				) F
-				INNER JOIN User ON User.ID = F.Friend_ID
-				ORDER BY F.Pending";
+						AND Pending = 0";
+		}
+
+		$sql .= " ) F
+				INNER JOIN User ON User.ID = F.Friend_ID";
+
+		if (trim($search) != "")
+		{
+			$sql .= " WHERE (User.First_Name LIKE :search
+						OR User.Last_Name LIKE :search
+						OR User.Email LIKE :search)";
+		}
+		
+		$sql .= " ORDER BY User.First_Name, User.Last_Name";
 
 		$parameters = array(":user_id" => $userID);
+		if (trim($search) != "")
+		{
+			$parameters[":search"] = "%" . trim($search) . "%";
+		}
 
 		$query = $this->db->prepare($sql);
 		$query->execute($parameters);
@@ -78,7 +111,7 @@ class FriendModel extends Model
 		$sql = "SELECT User.ID, User.First_Name, User.Last_Name, User.City, User.State, User.Country;
 				FROM User
 				WHERE ID <> :user_id
-					AND (First_Name + ' ' + Last_Name LIKE '%:search%'
+					AND (CONCAT(First_Name, ' ', Last_Name) LIKE '%:search%'
 						OR Email LIKE '%:search%')
 				ORDER BY First_Name, Last_Name";
 

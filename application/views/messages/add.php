@@ -31,7 +31,7 @@ else
 			<label for="recipientID" class="col-sm-2 control-label">Recipient</label>
 			<div class="col-sm-10">
 				<select id="recipientID" name="recipientID" class="form-control" required aria-required="true">
-					<option value="">&nbsp;</option>
+					<option value="">- Recipient -</option>
 					<?php foreach ($recipients as $recipient) { ?>
 						<option value="<?php echo $recipient->ID; ?>" <?php if (strcasecmp($recipientID, $recipient->ID) == 0) { ?>selected<?php } ?>><?php echo $recipient->First_Name . " " . $recipient->Last_Name; ?></option>
 					<?php } ?>

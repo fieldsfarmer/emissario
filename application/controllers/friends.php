@@ -6,7 +6,20 @@ class Friends
 	public function index()
 	{
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
-		$friends = $GLOBALS["beans"]->friendService->getFriends($userID);
+
+		$friendType = "friends";
+		if (array_key_exists("friendType", $_POST))
+		{
+			$friendType = $_POST["friendType"];
+		}
+		
+		$search = "";
+		if (array_key_exists("search", $_POST))
+		{
+			$search = $_POST["search"];
+		}
+
+		$friends = $GLOBALS["beans"]->friendService->getFriends($userID, $friendType, $search);
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/friends/index.php';

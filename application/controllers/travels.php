@@ -6,7 +6,20 @@ class Travels
 	public function index()
 	{
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
-		$travels = $GLOBALS["beans"]->travelService->getTravels($userID);
+
+		$travelDateType = "future";
+		if (array_key_exists("travelDateType", $_POST))
+		{
+			$travelDateType = $_POST["travelDateType"];
+		}
+
+		$search = "";
+		if (array_key_exists("search", $_POST))
+		{
+			$search = $_POST["search"];
+		}
+
+		$travels = $GLOBALS["beans"]->travelService->getTravels($userID, $travelDateType, $search);
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/travels/index.php';

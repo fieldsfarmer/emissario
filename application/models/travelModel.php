@@ -3,7 +3,7 @@
 class TravelModel extends Model
 {
 
-	public function getTravels($userID, $travelDateType = "")
+	public function getTravels($userID, $travelDateType = "", $search = "")
 	{
 		$sql = "SELECT Travel.*,
 					DATE_FORMAT(Travel.Travel_Date, '%m/%d/%Y') AS Formatted_Travel_Date,
@@ -23,7 +23,21 @@ class TravelModel extends Model
 			$sql .= " AND Travel.Travel_Date <= DATE(NOW())";
 		}
 
+		if (trim($search) != "")
+		{
+			$sql .= " AND (Travel.Origin_City LIKE :search
+						OR Orig_Country.Country_Name LIKE :search
+						OR Travel.Destination_City LIKE :search
+						OR Dest_Country.Country_Name LIKE :search)";
+		}
+
+		$sql .= " ORDER BY Travel.Travel_Date";
+
 		$parameters = array(":user_id" => $userID);
+		if (trim($search) != "")
+		{
+			$parameters[":search"] = "%" . trim($search) . "%";
+		}
 
 		$query = $this->db->prepare($sql);
 		$query->execute($parameters);

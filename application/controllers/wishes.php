@@ -6,7 +6,14 @@ class Wishes
 	public function index()
 	{
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
-		$wishes = $GLOBALS["beans"]->wishService->getWishes($userID);
+
+		$search = "";
+		if (array_key_exists("search", $_POST))
+		{
+			$search = $_POST["search"];
+		}
+
+		$wishes = $GLOBALS["beans"]->wishService->getWishes($userID, $search);
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/wishes/index.php';

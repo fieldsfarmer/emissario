@@ -3,9 +3,9 @@
 class MessageService extends Service
 {
 
-	public function getMessages($userID)
+	public function getMessages($userID, $messageType = "", $search = "")
 	{
-		return $this->model->getMessages($userID);
+		return $this->model->getMessages($userID, $messageType, $search);
 	}
 
 	public function getMessage($messageID, $userID = "")

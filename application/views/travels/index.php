@@ -2,7 +2,28 @@
 
 <div class="container">
 	<h2 class="page-header">Travels</h2>
-	<button type="button" id="add" class="btn btn-default">Add a Travel</button>
+
+	<div class="clearfix table-action">
+		<button type="button" id="add" class="btn btn-default pull-left">Add a Travel</button>
+	
+		<form method="post" class="form-inline table-filter pull-right">
+			<div class="form-group">
+				<label class="sr-only" for="travelDateType">Travel Date</label>
+				<select id="travelDateType" name="travelDateType" class="form-control">
+					<option value="">- Travel Date -</option>
+					<option value="past" <?php if (strcasecmp("past", $travelDateType) == 0) { ?>selected<?php } ?>>Past</option>
+					<option value="future" <?php if (strcasecmp("future", $travelDateType) == 0) { ?>selected<?php } ?>>Future</option>
+				</select>
+			</div>
+			<div class="form-group">
+				<label class="sr-only" for="search">Search</label>
+				<input type="text" id="search" name="search" value="<?php echo $search; ?>" class="form-control" placeholder="Search" />
+			</div>
+			<button type="submit" class="btn btn-default btn-sm">Go</button>
+			<button type="button" id="clear" class="btn btn-default btn-sm">Clear</button>
+		</form>
+	</div>
+
 	<div class="table-responsive">
 		<table class="table table-striped">
 			<thead>
@@ -37,6 +58,10 @@
 	$(document).ready(function(){
 		$('#add').click(function(){
 			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "travels/edit"; ?>';
+		});
+
+		$('#clear').click(function(){
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "travels"; ?>';
 		});
 	});
 </script>

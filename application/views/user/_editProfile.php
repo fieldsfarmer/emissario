@@ -23,7 +23,7 @@
 	<label for="country" class="col-sm-2 control-label">Country</label>
 	<div class="col-sm-10">
 		<select id="country" name="country" class="form-control" onchange="refreshStateSelect();">
-			<option value="">&nbsp;</option>
+			<option value="">- Country -</option>
 			<?php foreach ($countries as $countryOption) { ?>
 				<option value="<?php echo $countryOption->Country_Code; ?>" <?php if (strcasecmp($country, $countryOption->Country_Code) == 0) { ?>selected<?php } ?>><?php echo $countryOption->Country_Name; ?></option>
 			<?php } ?>
@@ -34,7 +34,7 @@
 	<label for="state" class="col-sm-2 control-label">State</label>
 	<div class="col-sm-10">
 		<select id="state" name="state" class="form-control">
-			<option value="">&nbsp;</option>
+			<option value="">- State -</option>
 			<?php if (isset($states)) {
 				foreach ($states as $stateOption) { ?>
 				<option value="<?php echo $stateOption->State_Code; ?>" <?php if (strcasecmp($state, $stateOption->State_Code) == 0) { ?>selected<?php } ?>><?php echo $stateOption->State_Name; ?></option>
@@ -60,7 +60,7 @@
 			dataType: 'text',
 			success: function(result) {
 				$('#state').empty();
-				$('#state').append($('<option value="">&nbsp;</option>'));
+				$('#state').append($('<option value="">- State -</option>'));
 
 				if (result.length > 4) {
 					result = result.substr(1, result.length - 2);
@@ -75,7 +75,7 @@
 			},
 			error: function() {
 				$('#state').empty();
-				$('#state').append($('<option value="">&nbsp;</option>'));
+				$('#state').append($('<option value="">- State -</option>'));
 			}
 		});
 	}

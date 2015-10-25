@@ -3,9 +3,9 @@
 class WishService extends Service
 {
 
-	public function getWishes($userID)
+	public function getWishes($userID, $search = "")
 	{
-		return $this->model->getWishes($userID);
+		return $this->model->getWishes($userID, $search);
 	}
 
 	public function getWish($wishID, $userID = "")

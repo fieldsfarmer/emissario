@@ -3,9 +3,9 @@
 class TravelService extends Service
 {
 
-	public function getTravels($userID, $timeSpan = "")
+	public function getTravels($userID, $travelDateType = "", $search = "")
 	{
-		return $this->model->getTravels($userID, $timeSpan);
+		return $this->model->getTravels($userID, $travelDateType, $search);
 	}
 	
 	public function getTravel($travelID, $userID = "")

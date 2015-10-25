@@ -6,7 +6,20 @@ class Messages
 	public function index()
 	{
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
-		$messages = $GLOBALS["beans"]->messageService->getMessages($userID);
+
+		$messageType = "received";
+		if (array_key_exists("messageType", $_POST))
+		{
+			$messageType = $_POST["messageType"];
+		}
+		
+		$search = "";
+		if (array_key_exists("search", $_POST))
+		{
+			$search = $_POST["search"];
+		}
+
+		$messages = $GLOBALS["beans"]->messageService->getMessages($userID, $messageType, $search);
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/messages/index.php';

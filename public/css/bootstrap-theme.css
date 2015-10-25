@@ -603,3 +603,12 @@ fieldset[disabled] .btn-danger.active {
           box-shadow: inset 0 1px 3px rgba(0, 0, 0, .05), 0 1px 0 rgba(255, 255, 255, .1);
 }
 /*# sourceMappingURL=bootstrap-theme.css.map */
+.table-action {
+  margin: 10px 0;
+}
+.table-filter {
+  text-align: right;
+}
+.table-filter .btn-default {
+  margin-right: 0;
+}

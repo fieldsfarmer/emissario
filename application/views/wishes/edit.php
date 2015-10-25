@@ -34,7 +34,7 @@ else
 			<label for="destinationCountry" class="col-sm-2 control-label">Destination Country</label>
 			<div class="col-sm-10">
 				<select id="destinationCountry" name="destinationCountry" class="form-control">
-					<option value="">&nbsp;</option>
+					<option value="">- Destination Country -</option>
 					<?php foreach ($countries as $country) { ?>
 						<option value="<?php echo $country->Country_Code; ?>" <?php if (strcasecmp($wish->Destination_Country, $country->Country_Code) == 0) { ?>selected<?php } ?>><?php echo $country->Country_Name; ?></option>
 					<?php } ?>

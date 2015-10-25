@@ -3,7 +3,7 @@
 class WishModel extends Model
 {
 
-	public function getWishes($userID)
+	public function getWishes($userID, $search = "")
 	{
 		$sql = "SELECT Wish.*,
 					DATE_FORMAT(Wish.Max_Date, '%m/%d/%Y') AS Formatted_Max_Date,
@@ -12,7 +12,20 @@ class WishModel extends Model
 				LEFT JOIN Country ON Country.Country_Code = Wish.Destination_Country
 				WHERE Wish.User_ID = :user_id";
 
+		if (trim($search) != "")
+		{
+			$sql .= " AND (Wish.Description LIKE :search
+						OR Wish.Destination_City LIKE :search
+						OR Country.Country_Name LIKE :search)";
+		}
+		
+		$sql .= " ORDER BY Wish.Created_On";
+
 		$parameters = array(":user_id" => $userID);
+		if (trim($search) != "")
+		{
+			$parameters[":search"] = "%" . trim($search) . "%";
+		}
 
 		$query = $this->db->prepare($sql);
 		$query->execute($parameters);

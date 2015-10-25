@@ -3,7 +3,7 @@
 class MessageModel extends Model
 {
 
-	public function getMessages($userID)
+	public function getMessages($userID, $messageType = "", $search = "")
 	{
 		$sql = "SELECT Message.*,
 					Sender.First_name AS Sender_First_Name,
@@ -14,10 +14,37 @@ class MessageModel extends Model
 				FROM Message
 				INNER JOIN User Sender ON Sender.ID = Message.Sender_ID
 				INNER JOIN User Recipient ON Recipient.ID = Message.Recipient_ID
-				WHERE Message.Recipient_ID = :user_id
-					OR Message.Sender_ID = :user_id";
+				WHERE";
+
+		if (strcasecmp($messageType, "received") == 0)
+		{
+			$sql .= " Message.Recipient_ID = :user_id";
+		}
+		else if (strcasecmp($messageType, "sent") == 0)
+		{
+			$sql .= " Message.Sender_ID = :user_id";
+		}
+		else
+		{
+			$sql .= " (Message.Recipient_ID = :user_id
+						OR Message.Sender_ID = :user_id)";
+		}
+		
+		if (trim($search) != "")
+		{
+			$sql .= " AND (Message.Title LIKE :search
+						OR Message.Content LIKE :search
+						OR CONCAT(Sender.First_Name, ' ', Sender.Last_Name) LIKE :search
+						OR CONCAT(Recipient.First_Name, ' ', Recipient.Last_Name) LIKE :search)";
+		}
+		
+		$sql .= " ORDER BY Message.Created_On DESC";
 
 		$parameters = array(":user_id" => $userID);
+		if (trim($search) != "")
+		{
+			$parameters[":search"] = "%" . trim($search) . "%";
+		}
 
 		$query = $this->db->prepare($sql);
 		$query->execute($parameters);

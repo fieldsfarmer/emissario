@@ -1112,7 +1112,7 @@ html {
 }
 body {
   font-family: "Roboto", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.42857143;
   color: #616161;
   background-color: #fafafa;
@@ -3030,7 +3030,7 @@ select[multiple].input-lg {
   display: inline-block;
   padding: 6px 20px;
   margin-bottom: 0;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: normal;
   line-height: 1.42857143;
   text-align: center;

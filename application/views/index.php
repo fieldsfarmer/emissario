@@ -11,7 +11,7 @@
 		align-items: center;
 	}
 	#loginPanel {
-		width: 355px;
+		width: 375px;
 	}
 	h3 {
 		margin-top: 0;

@@ -20,7 +20,7 @@ class ResourceModel extends Model
 		$sql = "SELECT " . $fieldList;
 		$sql .=	" FROM State
 				WHERE Country_Code = :country_code
-				ORDER BY State_Code";
+				ORDER BY State_Name";
 
 		$parameters = array(":country_code" => $countryCode);
 

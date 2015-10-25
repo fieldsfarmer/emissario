@@ -3,9 +3,9 @@
 class FriendService extends Service
 {
 
-	public function getFriends($userID)
+	public function getFriends($userID, $friendType, $search = "")
 	{
-		return $this->model->getFriends($userID);
+		return $this->model->getFriends($userID, $friendType, $search);
 	}
 
 	public function getFriend($friendID, $userID = "")
