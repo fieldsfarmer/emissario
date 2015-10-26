@@ -30,6 +30,8 @@ if (!isset($user)) {
 	<title>Emissario</title>
 	<meta name="description" content="">
 
+	<link href="<?php echo URL; ?>public/img/favicon.png" rel="icon" type="image/png">
+
 	<!-- CSS -->
 	<link href="<?php echo URL; ?>public/css/bootstrap.css" rel="stylesheet">
 	<link href="<?php echo URL; ?>public/css/bootstrap-theme.css" rel="stylesheet">
@@ -89,7 +91,9 @@ if (!isset($user)) {
 						<span class="icon-bar"></span>
 					</button>
 				<?php } ?>
-				<a class="navbar-brand" href="<?php echo URL_WITH_INDEX_FILE; ?>">Emissario</a>
+				<a class="navbar-brand" href="<?php echo URL_WITH_INDEX_FILE; ?>">
+					<img alt="Emissario" src="<?php echo URL; ?>public/img/logo.png" />
+				</a>
 			</div>
 			<?php if (is_numeric($userID)) { ?>
 				<div id="navbar" class="navbar-collapse collapse">
