@@ -59,18 +59,15 @@
 			},
 			dataType: 'text',
 			success: function(result) {
+				states = $.parseJSON(result);
+
 				$('#state').empty();
 				$('#state').append($('<option value="">- State -</option>'));
 
-				if (result.length > 4) {
-					result = result.substr(1, result.length - 2);
-					states = $.parseJSON(result);
-
-					for (var i = 0; i < states.length; i++) {
-						var stateCode = states[i].State_Code;
-						var stateName = states[i].State_Name;
-						$('#state').append($('<option></option>').attr('value', stateCode).text(stateName));
-					}
+				for (var i = 0; i < states.length; i++) {
+					var stateCode = states[i].State_Code;
+					var stateName = states[i].State_Name;
+					$('#state').append($('<option></option>').attr('value', stateCode).text(stateName));
 				}
 			},
 			error: function() {

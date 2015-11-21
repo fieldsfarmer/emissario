@@ -22,7 +22,7 @@ class QueryHelper
 	public function executeWriteQuery($db, $sql, $parameters) {
 		foreach ($parameters as $parameterKey => $parameterValue)
 		{
-			if (empty($parameterValue))
+			if (!is_numeric($parameterValue) && $parameterValue == "")
 			{
 				$parameters[$parameterKey] = null;
 			}
