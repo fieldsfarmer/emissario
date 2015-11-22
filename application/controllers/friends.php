@@ -37,11 +37,33 @@ class Friends
 		require APP . 'views/_templates/footer.php';
 	}
 
+	public function add()
+	{
+		require APP . 'views/_templates/header.php';
+		require APP . 'views/friends/add.php';
+		require APP . 'views/_templates/footer.php';
+	}
+
 	public function unfriend($friendID)
 	{
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
 		$GLOBALS["beans"]->friendService->deleteFriend($friendID, $userID);
 	
+		header('location: ' . URL_WITH_INDEX_FILE . 'friends');
+	}
+
+	public function searchPotentialFriends()
+	{
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$potentialFriends = $GLOBALS["beans"]->friendService->searchPotentialFriends($_POST["search"], $userID);
+
+		echo json_encode($potentialFriends);
+	}
+
+	public function save()
+	{
+		$GLOBALS["beans"]->friendService->saveFriends();
+
 		header('location: ' . URL_WITH_INDEX_FILE . 'friends');
 	}
 }

@@ -60,8 +60,12 @@
 
 <script>
 	$(document).ready(function(){
+		$('#add').click(function(){
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>friends/add';
+		});
+
 		$('#clear').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "friends"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>friends';
 		});
 	});
 </script>

@@ -17,4 +17,16 @@ class FriendService extends Service
 	{
 		$this->model->deleteFriend($friendID, $userID);
 	}
+
+	public function searchPotentialFriends($search, $userID)
+	{
+		return $this->model->searchPotentialFriends($search, $userID);
+	}
+
+	public function saveFriends()
+	{
+		foreach (explode(",", $_POST["friendIDs"]) as $friendID) {
+			$this->model->insertFriend($friendID);
+		}
+	}
 }

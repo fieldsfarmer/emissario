@@ -40,6 +40,7 @@ if (!isset($user)) {
 	<!-- JS -->
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script src="<?php echo URL; ?>public/js/jquery.validate.js" type="text/javascript"></script>
+	<script src="<?php echo URL; ?>public/js/additional-methods.js" type="text/javascript"></script>
 	<script src="<?php echo URL; ?>public/js/bootstrap.js"></script>
 	<script src="<?php echo URL; ?>public/js/bootstrap-datepicker.js"></script>
 	<script src="<?php echo URL; ?>public/js/application.js"></script>

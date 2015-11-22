@@ -106,20 +106,47 @@ class FriendModel extends Model
 		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
-	public function searchFriends($search)
+	public function searchPotentialFriends($search, $userID)
 	{
-		$sql = "SELECT User.ID, User.First_Name, User.Last_Name, User.City, User.State, User.Country;
+		$sql = "SELECT User.ID, User.First_Name, User.Last_Name, User.City, User.State, User.Country
 				FROM User
-				WHERE ID <> :user_id
-					AND (CONCAT(First_Name, ' ', Last_Name) LIKE '%:search%'
-						OR Email LIKE '%:search%')
-				ORDER BY First_Name, Last_Name";
-
-		$parameters = array(":user_id" => $GLOBALS["beans"]->siteHelper->getSession("userID"), ":search"=>$search);
+				WHERE User.ID <> :user_id
+					AND (CONCAT(First_Name, ' ', Last_Name) LIKE CONCAT('%', :search, '%')
+						OR Email = :search)
+					AND NOT EXISTS (
+						SELECT Friend.User_ID2
+						FROM Friend
+						WHERE Friend.User_ID1 = :user_id
+							AND Friend.User_ID2 = User.ID
+					)
+					AND NOT EXISTS (
+						SELECT Friend.User_ID1
+						FROM Friend
+						WHERE Friend.User_ID2 = :user_id
+							AND Friend.User_ID1 = User.ID
+					)
+				ORDER BY User.First_Name, User.Last_Name";
+	
+		$parameters = array(
+				":user_id" => $userID,
+				":search" => trim($search)
+		);
 
 		$query = $this->db->prepare($sql);
 		$query->execute($parameters);
 
 		return $query->fetchAll();
+	}
+
+	public function insertFriend($friendID) {
+		$sql = "INSERT INTO friend (User_ID1, User_ID2, Pending, Created_On, Modified_On)
+				VALUES (:user_id, :friend_id, 1, NOW(), NOW())";
+	
+		$parameters = array(
+				":user_id" => $_POST["userID"],
+				":friend_id" => $friendID
+		);
+	
+		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 }
