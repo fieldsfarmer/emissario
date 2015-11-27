@@ -65,6 +65,11 @@ class User
 	{
 		$errorMessage = $GLOBALS["beans"]->userService->login();
 
+		if ($errorMessage != "")
+		{
+			$GLOBALS["beans"]->siteHelper->setAlert("danger", $errorMessage);
+		}
+
 		header('location: ' . URL_WITH_INDEX_FILE);
 	}
 

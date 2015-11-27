@@ -32,6 +32,9 @@
 			<h3>Login</h3>
 		</div>
 		<div class="panel-body">
+
+			<?php echo $GLOBALS["beans"]->siteHelper->getAlertHTML(); ?>
+
 			<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>user/login" class="form-horizontal">
 				<div class="form-group">
 					<label for="email" class="col-sm-3 control-label">Email</label>
