@@ -57,11 +57,11 @@
 <script>
 	$(document).ready(function(){
 		$('#send').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "messages/add"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>messages/add';
 		});
 
 		$('#clear').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "messages"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>messages';
 		});
 	});
 </script>

@@ -57,11 +57,11 @@
 <script>
 	$(document).ready(function(){
 		$('#add').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "travels/edit"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>travels/edit';
 		});
 
 		$('#clear').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "travels"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>travels';
 		});
 	});
 </script>

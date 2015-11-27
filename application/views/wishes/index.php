@@ -45,11 +45,11 @@
 <script>
 	$(document).ready(function(){
 		$('#add').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/edit"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>wishes/edit';
 		});
 
 		$('#clear').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>wishes';
 		});
 	});
 </script>

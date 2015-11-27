@@ -45,7 +45,7 @@
 <script>
 	$(document).ready(function(){
 		$('#back').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "messages"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>messages';
 		});
 
 		$('#reply').click(function(){

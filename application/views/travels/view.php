@@ -46,7 +46,7 @@
 <script>
 	$(document).ready(function(){
 		$('#back').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "travels"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>travels';
 		});
 
 		$('#edit').click(function(){

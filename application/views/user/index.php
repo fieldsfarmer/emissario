@@ -65,11 +65,11 @@
 <script>
 	$(document).ready(function(){
 		$('#editLogin').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "user/editLogin"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>user/editLogin';
 		});
 
 		$('#editProfile').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "user/editProfile"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>user/editProfile';
 		});
 	});
 </script>

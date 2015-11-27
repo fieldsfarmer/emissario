@@ -7,7 +7,7 @@ $email = $user->Email;
 <script>
 	$(document).ready(function(){
 		$('#cancel').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "user"; ?>';
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>user';
 		});
 
 		$('#form').validate({});
