@@ -83,7 +83,7 @@
 		$('#unfriend').click(function(){
 			if (confirm('Are you sure you want to unfriend this person?'))
 			{
-				window.location.href = '<?php echo URL_WITH_INDEX_FILE . "friends/unfriend/" . $friendID; ?>';
+				window.location.href = '<?php echo URL_WITH_INDEX_FILE . "friends/delete/" . $friendID; ?>/';
 			}
 		});
 	});

@@ -28,6 +28,7 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
+					<th width="1%">&nbsp;</th>
 					<th>First Name</th>
 					<th>Last Name</th>
 					<th>City</th>
@@ -38,14 +39,32 @@
 			<tbody>
 				<?php foreach ($friends as $friend) { ?>
 					<tr>
+						<td width="1%" class="column-action">
+							<?php if (strcasecmp("friends", $friendType) == 0) { ?>
+								<span title="Unfriend" data-id="<?php echo $friend->ID; ?>">
+									<i class="glyphicon glyphicon-remove"></i>
+								</span>
+							<?php } elseif (strcasecmp("pending_mine", $friendType) == 0) { ?>
+								<span title="Accept" data-id="<?php echo $friend->ID; ?>">
+									<i class="glyphicon glyphicon-ok"></i>
+								</span>
+								<span title="Reject" data-id="<?php echo $friend->ID; ?>">
+									<i class="glyphicon glyphicon-remove"></i>
+								</span>
+							<?php } elseif (strcasecmp("pending_friend", $friendType) == 0) { ?>
+								<span title="Cancel" data-id="<?php echo $friend->ID; ?>">
+									<i class="glyphicon glyphicon-remove"></i>
+								</span>
+							<?php } ?>
+						</td>
 						<td>
 							<?php if ($friend->Pending != 1) {?>
-							<a href="<?php echo URL_WITH_INDEX_FILE . "friends/view/" . $friend->ID; ?>">
-								<?php echo $friend->First_Name ?>
-							</a>
-							<?php } else { ?>
-							<?php echo $friend->First_Name ?>
-							<?php } ?>
+								<a href="<?php echo URL_WITH_INDEX_FILE . "friends/view/" . $friend->ID; ?>">
+									<?php echo $friend->First_Name ?>
+								</a>
+							<?php } else {
+								echo $friend->First_Name;
+							} ?>
 						</td>
 						<td><?php echo $friend->Last_Name ?></td>
 						<td><?php echo $friend->City ?></td>
@@ -67,5 +86,25 @@
 		$('#clear').click(function(){
 			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>friends';
 		});
+
+		<?php if (strcasecmp("friends", $friendType) == 0) { ?>
+			$('td.column-action').find('i.glyphicon-remove').closest('span').click(function(){
+				if (confirm('Are you sure you want to unfriend this person?'))
+				{
+					window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>friends/delete/' + $(this).attr('data-id') + '/<?php echo $friendType; ?>';
+				}
+			});
+		<?php } elseif (strcasecmp("pending_mine", $friendType) == 0) { ?>
+			$('td.column-action').find('i.glyphicon-ok').closest('span').click(function(){
+				window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>friends/accept/' + $(this).attr('data-id');
+			});
+			$('td.column-action').find('i.glyphicon-remove').closest('span').click(function(){
+				window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>friends/delete/' + $(this).attr('data-id') + '/<?php echo $friendType; ?>';
+			});
+		<?php } elseif (strcasecmp("pending_friend", $friendType) == 0) { ?>
+			$('td.column-action').find('i.glyphicon-remove').closest('span').click(function(){
+				window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>friends/delete/' + $(this).attr('data-id') + '/<?php echo $friendType; ?>';
+			});
+		<?php } ?>
 	});
 </script>

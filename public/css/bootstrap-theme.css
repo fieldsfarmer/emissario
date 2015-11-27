@@ -612,3 +612,9 @@ fieldset[disabled] .btn-danger.active {
 .table-filter .btn-default {
   margin-right: 0;
 }
+.column-action {
+	white-space: nowrap;
+}
+.column-action span {
+	cursor:pointer; display:inline-block; padding:0 5px;
+}

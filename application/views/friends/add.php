@@ -131,13 +131,13 @@
 				for (var i = 0; i < potentialFriends.length; i++) {
 					tr = $('<tr></tr>');
 
-					span = $('<span style="cursor:pointer; display:inline-block; padding:0 5px;"><i class="glyphicon glyphicon-plus"></i></span>');
+					span = $('<span title="Add"><i class="glyphicon glyphicon-plus"></i></span>');
 					span.click(addSelected);
 
 					friendIDField = $('<input type="hidden" class="potentialFriendID" />')
 					friendIDField.val(potentialFriends[i].ID);
 
-					tdAction = $('<td width="1%"></td>');
+					tdAction = $('<td width="1%" class="column-action"></td>');
 					tdAction.append(span);
 					tdAction.append(friendIDField);
 
@@ -181,7 +181,7 @@
 			tr.find('i.glyphicon-plus').closest('span').remove();
 
 			/* Add delete icon */
-			span = $('<span style="cursor:pointer; display:inline-block; padding:0 5px;"><i class="glyphicon glyphicon-remove"></i></span>');
+			span = $('<span title="Remove"><i class="glyphicon glyphicon-remove"></i></span>');
 			span.click(removeSelected);
 			span.insertBefore(tr.find('input.potentialFriendID'));
 

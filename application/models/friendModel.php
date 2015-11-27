@@ -141,12 +141,28 @@ class FriendModel extends Model
 	public function insertFriend($friendID) {
 		$sql = "INSERT INTO friend (User_ID1, User_ID2, Pending, Created_On, Modified_On)
 				VALUES (:user_id, :friend_id, 1, NOW(), NOW())";
-	
+
 		$parameters = array(
 				":user_id" => $_POST["userID"],
 				":friend_id" => $friendID
 		);
-	
+
 		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
+
+	public function acceptFriend($friendID, $userID) {
+		$sql = "UPDATE Friend
+				SET Pending = 0,
+					Modified_On = NOW()
+				WHERE Friend.User_ID1 = :friend_id
+					AND Friend.User_ID2 = :user_id";
+
+		$parameters = array(
+				":friend_id" => $friendID,
+				":user_id" => $userID
+		);
+
+		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+	}
+
 }

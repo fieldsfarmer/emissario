@@ -29,4 +29,10 @@ class FriendService extends Service
 			$this->model->insertFriend($friendID);
 		}
 	}
+
+	public function acceptFriend($friendID, $userID)
+	{
+		$this->model->acceptFriend($friendID, $userID);
+	}
+
 }

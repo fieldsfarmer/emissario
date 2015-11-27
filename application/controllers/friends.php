@@ -12,7 +12,10 @@ class Friends
 		{
 			$friendType = $_POST["friendType"];
 		}
-		
+		elseif ($GLOBALS["beans"]->siteHelper->getSession("friendType") != "") {
+			$friendType = $GLOBALS["beans"]->siteHelper->getSession("friendType");
+		}
+
 		$search = "";
 		if (array_key_exists("search", $_POST))
 		{
@@ -44,11 +47,12 @@ class Friends
 		require APP . 'views/_templates/footer.php';
 	}
 
-	public function unfriend($friendID)
+	public function delete($friendID, $friendType)
 	{
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
 		$GLOBALS["beans"]->friendService->deleteFriend($friendID, $userID);
-	
+
+		$_SESSION["friendType"] = $friendType;
 		header('location: ' . URL_WITH_INDEX_FILE . 'friends');
 	}
 
@@ -64,6 +68,16 @@ class Friends
 	{
 		$GLOBALS["beans"]->friendService->saveFriends();
 
+		$_SESSION["friendType"] = "pending_friend";
+		header('location: ' . URL_WITH_INDEX_FILE . 'friends');
+	}
+
+	public function accept($friendID)
+	{
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$GLOBALS["beans"]->friendService->acceptFriend($friendID, $userID);
+
+		$_SESSION["friendType"] = "pending_mine";
 		header('location: ' . URL_WITH_INDEX_FILE . 'friends');
 	}
 }
