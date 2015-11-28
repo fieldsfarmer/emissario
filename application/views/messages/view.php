@@ -21,6 +21,18 @@
 				<p class="form-control-static"><?php echo $message->Recipient_First_Name . " " . $message->Recipient_Last_Name ?></p>
 			</div>
 		</div>
+		<?php if ($message->Wish_Owner_ID == $userID) { ?>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Wish</label>
+				<div class="col-sm-10">
+					<p class="form-control-static">
+						<a href="<?php echo URL_WITH_INDEX_FILE . "wishes/view/" . $message->Wish_ID; ?>">
+							<?php echo $message->Wish_Description ?>
+						</a>
+					</p>
+				</div>
+			</div>
+		<?php } ?>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Title</label>
 			<div class="col-sm-10">

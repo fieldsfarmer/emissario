@@ -621,3 +621,10 @@ fieldset[disabled] .btn-danger.active {
 .info-button {
 	margin-left: 5px;
 }
+td.truncate {
+	max-width: 300px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	-o-text-overflow: ellipsis;
+}

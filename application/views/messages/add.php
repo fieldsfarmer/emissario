@@ -4,21 +4,31 @@ if (is_numeric($originalMessageID) && $originalMessageID > 0)
 {
 	$cancelURL = URL_WITH_INDEX_FILE . "messages/view/" . $originalMessageID;
 
-	if (strcasecmp($message->Recipient_ID, $userID) == 0)
+	if (strcasecmp($originalMessage->Recipient_ID, $userID) == 0)
 	{
-		$recipientID = $message->Sender_ID;
+		$recipientID = $originalMessage->Sender_ID;
 	}
-	else if (strcasecmp($message->Sender_ID, $userID) == 0)
+	else if (strcasecmp($originalMessage->Sender_ID, $userID) == 0)
 	{
-		$recipientID = $message->Recipient_ID;
+		$recipientID = $originalMessage->Recipient_ID;
 	}
 
-	$title = "RE: " . $message->Title;
+	if (strcasecmp("RE:", $GLOBALS["beans"]->stringHelper->left($originalMessage->Title, 3)) <> 0)
+	{
+		$title = "RE: " . $originalMessage->Title;
+	}
+	else
+	{
+		$title = $originalMessage->Title;
+	}
+
+	$wishID = $originalMessage->Wish_ID;
 }
 else
 {
 	$cancelURL = URL_WITH_INDEX_FILE . "messages";
 	$title = "";
+	$wishID = "";
 }
 ?>
 
@@ -26,6 +36,7 @@ else
 	<h2 class="page-header">New Message</h2>
 	<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>messages/save" class="form-horizontal">
 		<input type="hidden" id="userID" name="userID" value="<?php echo $userID ?>" />
+		<input type="hidden" id="wishID" name="wishID" value="<?php echo $wishID ?>" />
 
 		<div class="form-group">
 			<label for="recipientID" class="col-sm-2 control-label">Recipient</label>

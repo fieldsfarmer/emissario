@@ -59,10 +59,13 @@ class MessageModel extends Model
 					Sender.Last_name AS Sender_Last_Name,
 					Recipient.First_Name AS Recipient_First_Name,
 					Recipient.Last_Name AS Recipient_Last_Name,
-					DATE_FORMAT(Message.Created_On, '%m/%d/%Y %r') AS Formatted_Created_On
+					DATE_FORMAT(Message.Created_On, '%m/%d/%Y %r') AS Formatted_Created_On,
+					Wish.Description AS Wish_Description,
+					Wish.User_ID AS Wish_Owner_ID
 				FROM Message
 				INNER JOIN User Sender ON Sender.ID = Message.Sender_ID
 				INNER JOIN User Recipient ON Recipient.ID = Message.Recipient_ID
+				LEFT JOIN Wish ON Wish.ID = Message.Wish_ID
 				WHERE Message.ID = :message_id";
 		if (is_numeric($userID)) {
 			$sql .= " AND (Message.Recipient_ID = :user_id
@@ -109,17 +112,50 @@ class MessageModel extends Model
 	}
 
 	public function insertMessage() {
-		$sql = "INSERT INTO Message (Sender_ID, Recipient_ID, Title, Content, Created_On, Modified_On)
-				VALUES (:sender_id, :recipient_id, :title, :content, NOW(), NOW())";
+		$sql = "INSERT INTO Message (Sender_ID, Recipient_ID, Title, Content, Wish_ID, Created_On, Modified_On)
+				VALUES (:sender_id, :recipient_id, :title, :content, :wish_id, NOW(), NOW())";
 
 		$parameters = array(
 				":sender_id" => $_POST["userID"],
 				":recipient_id" => $_POST["recipientID"],
 				":title" => $_POST["title"],
-				":content" => $_POST["content"]
+				":content" => $_POST["content"],
+				":wish_id" => $_POST["wishID"]
 		);
 
 		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+	}
+
+	public function getMessagesForWish($wishID, $wishOwnerID = "")
+	{
+		$sql = "SELECT Message.*,
+					Sender.First_name AS Sender_First_Name,
+					Sender.Last_name AS Sender_Last_Name,
+					Recipient.First_Name AS Recipient_First_Name,
+					Recipient.Last_Name AS Recipient_Last_Name,
+					DATE_FORMAT(Message.Created_On, '%m/%d/%Y %r') AS Formatted_Created_On
+				FROM Message
+				INNER JOIN Wish ON Wish.ID = Message.Wish_ID
+				INNER JOIN User Sender ON Sender.ID = Message.Sender_ID
+				INNER JOIN User Recipient ON Recipient.ID = Message.Recipient_ID
+				WHERE Message.Wish_ID = :wish_id";
+
+		if (is_numeric($wishOwnerID)) {
+			$sql .= " AND Wish.User_ID = :wish_owner_id";
+		}
+
+		$sql .= " ORDER BY Message.Created_On DESC";
+
+		$parameters = array(":wish_id" => $wishID);
+		if (is_numeric($wishOwnerID))
+		{
+			$parameters[":wish_owner_id"] = $wishOwnerID;
+		}
+
+		$query = $this->db->prepare($sql);
+		$query->execute($parameters);
+
+		return $query->fetchAll();
 	}
 
 }

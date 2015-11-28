@@ -40,7 +40,7 @@ class Messages
 	{
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
 		if (is_numeric($originalMessageID) && $originalMessageID > 0) {
-			$message = $GLOBALS["beans"]->messageService->getMessage($originalMessageID, $userID);
+			$originalMessage = $GLOBALS["beans"]->messageService->getMessage($originalMessageID, $userID);
 		}
 		$recipients = $GLOBALS["beans"]->messageService->getRecipients($userID);
 

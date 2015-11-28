@@ -6,7 +6,8 @@ class HelpModel extends Model
 	public function getHelpsForWish($wishID, $wishOwnerID = "")
 	{
 		$sql = "SELECT Help.*,
-					User.First_Name AS Helper_First_Name, User.Last_Name AS Helper_Last_Name
+					User.First_Name AS Helper_First_Name,
+					User.Last_Name AS Helper_Last_Name
 				FROM Help
 				INNER JOIN Wish ON Wish.ID = Help.Wish_ID
 				INNER JOIN User ON User.ID = Help.User_ID

@@ -25,6 +25,7 @@ class Wishes
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
 		$wish = $GLOBALS["beans"]->wishService->getWish($wishID, $userID);
 		$helps = $GLOBALS["beans"]->helpService->getHelpsForWish($wishID, $userID);
+		$messages = $GLOBALS["beans"]->messageService->getMessagesForWish($wishID, $userID);
 	
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/wishes/view.php';
