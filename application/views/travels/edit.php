@@ -1,6 +1,6 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); }
 
-if (is_numeric($travelID))
+if (is_numeric($travel->ID))
 {
 	$title = "Edit Travel";
 	$cancelURL = URL_WITH_INDEX_FILE . "travels/view/" . $travelID;
@@ -15,7 +15,7 @@ else
 <div class="container">
 	<h2 class="page-header"><?php echo $title; ?></h2>
 	<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>travels/save" class="form-horizontal">
-		<input type="hidden" id="travelID" name="travelID" value="<?php echo $travelID ?>" />
+		<input type="hidden" id="travelID" name="travelID" value="<?php echo $travel->ID ?>" />
 		<input type="hidden" id="userID" name="userID" value="<?php echo $userID ?>" />
 
 		<div class="form-group">

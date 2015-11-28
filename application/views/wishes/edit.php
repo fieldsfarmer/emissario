@@ -1,6 +1,6 @@
 <?php if (!$this) { exit(header('HTTP/1.0 403 Forbidden')); }
 
-if (is_numeric($wishID))
+if (is_numeric($wish->ID))
 {
 	$title = "Edit Wish";
 	$cancelURL = URL_WITH_INDEX_FILE . "wishes/view/" . $wishID;
@@ -15,7 +15,7 @@ else
 <div class="container">
 	<h2 class="page-header"><?php echo $title; ?></h2>
 	<form id="form" method="post" action="<?php echo URL_WITH_INDEX_FILE; ?>wishes/save" class="form-horizontal">
-		<input type="hidden" id="wishID" name="wishID" value="<?php echo $wishID ?>" />
+		<input type="hidden" id="wishID" name="wishID" value="<?php echo $wish->ID ?>" />
 		<input type="hidden" id="userID" name="userID" value="<?php echo $userID ?>" />
 
 		<div class="form-group">
