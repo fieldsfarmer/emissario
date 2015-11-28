@@ -83,4 +83,33 @@ class HelpModel extends Model
 		return $query->fetchAll();
 	}
 
+	public function getHelp($helpID, $userID = "")
+	{
+		$sql = "SELECT Help.*,
+					Wish.Description AS Wish_Description,
+					Wish.Destination_City AS Wish_Destination_City,
+					Wish.Weight AS Wish_Weight,
+					Wish.Compensation AS Wish_Compensation,
+					DATE_FORMAT(Wish.Max_Date, '%m/%d/%Y') AS Wish_Max_Date,
+					Country.Country_Name AS Wish_Destination_Country_Name,
+					Owner.First_Name AS Wish_Owner_First_Name,
+					Owner.Last_Name AS Wish_Owner_Last_Name
+				FROM Help
+				INNER JOIN Wish ON Wish.ID = Help.Wish_ID
+				INNER JOIN User Owner ON Owner.ID = Wish.User_ID
+				LEFT JOIN Country ON Country.Country_Code = Wish.Destination_Country
+				WHERE Help.ID = :help_id";
+
+		if (is_numeric($userID)) {
+			$sql .= " AND Help.User_ID = :user_id";
+		}
+
+		$parameters = array(":help_id" => $helpID);
+		if (is_numeric($userID)) {
+			$parameters[":user_id"] = $userID;
+		}
+
+		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
+	}
+
 }

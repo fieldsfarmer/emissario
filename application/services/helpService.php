@@ -13,4 +13,9 @@ class HelpService extends Service
 		return $this->model->getHelpsForOthers($userID, $helpStatus, $search);
 	}
 
+	public function getHelp($helpID, $userID = "")
+	{
+		return $this->model->getHelp($helpID, $userID);
+	}
+
 }

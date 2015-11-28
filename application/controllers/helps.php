@@ -26,4 +26,15 @@ class Helps
 		require APP . 'views/_templates/footer.php';
 	}
 
+	public function view($helpID)
+	{
+		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
+		$help = $GLOBALS["beans"]->helpService->getHelp($helpID, $userID);
+		$messages = $GLOBALS["beans"]->messageService->getMessagesForWish($help->Wish_ID, $userID);
+
+		require APP . 'views/_templates/header.php';
+		require APP . 'views/helps/view.php';
+		require APP . 'views/_templates/footer.php';
+	}
+
 }

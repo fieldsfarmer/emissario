@@ -126,7 +126,7 @@ class MessageModel extends Model
 		return $GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
-	public function getMessagesForWish($wishID, $wishOwnerID = "")
+	public function getMessagesForWish($wishID, $userID = "")
 	{
 		$sql = "SELECT Message.*,
 					Sender.First_name AS Sender_First_Name,
@@ -140,16 +140,18 @@ class MessageModel extends Model
 				INNER JOIN User Recipient ON Recipient.ID = Message.Recipient_ID
 				WHERE Message.Wish_ID = :wish_id";
 
-		if (is_numeric($wishOwnerID)) {
-			$sql .= " AND Wish.User_ID = :wish_owner_id";
+		if (is_numeric($userID)) {
+			$sql .= " AND (Wish.User_ID = :user_id
+						OR Message.Recipient_ID = :user_id
+						OR Message.Sender_ID = :user_id)";
 		}
 
 		$sql .= " ORDER BY Message.Created_On DESC";
 
 		$parameters = array(":wish_id" => $wishID);
-		if (is_numeric($wishOwnerID))
+		if (is_numeric($userID))
 		{
-			$parameters[":wish_owner_id"] = $wishOwnerID;
+			$parameters[":user_id"] = $userID;
 		}
 
 		$query = $this->db->prepare($sql);

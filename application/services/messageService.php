@@ -23,9 +23,9 @@ class MessageService extends Service
 		return $this->model->insertMessage();
 	}
 
-	public function getMessagesForWish($wishID, $wishOwnerID = "")
+	public function getMessagesForWish($wishID, $userID = "")
 	{
-		return $this->model->getMessagesForWish($wishID, $wishOwnerID);
+		return $this->model->getMessagesForWish($wishID, $userID);
 	}
 
 }
