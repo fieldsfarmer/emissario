@@ -6,6 +6,14 @@
 	<div class="clearfix table-action">
 		<form method="post" class="form-inline table-filter pull-right">
 			<div class="form-group">
+				<label class="sr-only" for="wishStatus">Wish Status</label>
+				<select id="wishStatus" name="wishStatus" class="form-control">
+					<option value="">- Wish Status -</option>
+					<option value="not_closed" <?php if (strcasecmp("not_closed", $wishStatus) == 0) { ?>selected<?php } ?>>Not Closed</option>
+					<option value="closed" <?php if (strcasecmp("closed", $wishStatus) == 0) { ?>selected<?php } ?>>Closed</option>
+				</select>
+			</div>
+			<div class="form-group">
 				<label class="sr-only" for="helpStatus">Help Status</label>
 				<select id="helpStatus" name="helpStatus" class="form-control">
 					<option value="">- Help Status -</option>
@@ -31,6 +39,7 @@
 					<th>Destination City</th>
 					<th>Destination Country</th>
 					<th>Owner</th>
+					<th>Wish Status</th>
 					<th>
 						Help Status
 						<a id="helpStatusInfo" tabindex="0" role="button" data-toggle="popover" class="info-button">
@@ -50,6 +59,7 @@
 						<td><?php echo $help->Wish_Destination_City; ?></td>
 						<td><?php echo $help->Wish_Destination_Country_Name; ?></td>
 						<td><?php echo $help->Wish_Owner_First_Name . " " . $help->Wish_Owner_Last_Name; ?></td>
+						<td><?php echo $help->Wish_Status; ?></td>
 						<td>
 							<?php if ($help->Requested == 1 && $help->Offered == 1) {
 								echo "Accepted";

@@ -3,7 +3,7 @@
 class WishModel extends Model
 {
 
-	public function getWishes($userID, $search = "")
+	public function getWishes($userID, $wishStatus = "", $search = "")
 	{
 		$sql = "SELECT Wish.*,
 					DATE_FORMAT(Wish.Max_Date, '%m/%d/%Y') AS Formatted_Max_Date,
@@ -11,6 +11,15 @@ class WishModel extends Model
 				FROM Wish
 				LEFT JOIN Country ON Country.Country_Code = Wish.Destination_Country
 				WHERE Wish.User_ID = :user_id";
+
+		if (strcasecmp($wishStatus, "closed") == 0)
+		{
+			$sql .= " AND Wish.Status = 'Closed'";
+		}
+		else if (strcasecmp($wishStatus, "not_closed") == 0)
+		{
+			$sql .= " AND Wish.Status IN ('Open', 'Accepted')";
+		}
 
 		if (trim($search) != "")
 		{
@@ -33,7 +42,7 @@ class WishModel extends Model
 		return $query->fetchAll();
 	}
 
-	public function getWish($wishID, $userID = "")
+	public function getWish($wishID, $userID = "", $wishStatus = "")
 	{
 		$sql = "SELECT Wish.*,
 					DATE_FORMAT(Wish.Max_Date, '%m/%d/%Y') AS Formatted_Max_Date,
@@ -41,21 +50,29 @@ class WishModel extends Model
 				FROM Wish
 				LEFT JOIN Country ON Country.Country_Code = Wish.Destination_Country
 				WHERE Wish.ID = :wish_id";
+
 		if (is_numeric($userID)) {
 			$sql .= " AND Wish.User_ID = :user_id";
+		}
+
+		if ($wishStatus != "") {
+			$sql .= " AND Wish.Status = :status";
 		}
 
 		$parameters = array(':wish_id' => $wishID);
 		if (is_numeric($userID)) {
 			$parameters[":user_id"] = $userID;
 		}
+		if ($wishStatus != "") {
+			$parameters[":status"] = $wishStatus;
+		}
 
 		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
 	}
 
 	public function insertWish() {
-		$sql = "INSERT INTO Wish (User_ID, Description, Weight, Destination_City, Destination_Country, Max_Date, Compensation, Created_On, Modified_On)
-				VALUES (:user_id, :description, :weight, :destination_city, :destination_country, STR_TO_DATE(:max_date, '%m/%d/%Y'), :compensation, NOW(), NOW())";
+		$sql = "INSERT INTO Wish (User_ID, Description, Weight, Destination_City, Destination_Country, Max_Date, Compensation, Status, Created_On, Modified_On)
+				VALUES (:user_id, :description, :weight, :destination_city, :destination_country, STR_TO_DATE(:max_date, '%m/%d/%Y'), :compensation, 'Open', NOW(), NOW())";
 
 		$parameters = array(
 				":user_id" => $_POST["userID"],
@@ -100,7 +117,8 @@ class WishModel extends Model
 		$sql = "DELETE
 				FROM Wish
 				WHERE Wish.ID = :wish_id
-					AND Wish.User_ID = :user_id";
+					AND Wish.User_ID = :user_id
+					AND Wish.Status = 'Open'";
 
 		$parameters = array(
 				":wish_id" => $wishID,
@@ -110,4 +128,25 @@ class WishModel extends Model
 		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
 	}
 
+	public function updateWishStatus($wishID, $status, $userID = "") {
+		$sql = "UPDATE Wish
+				SET Status = :status,
+					Modified_On = NOW()
+				WHERE Wish.ID = :wish_id";
+
+		if (is_numeric($userID))
+		{
+			$sql .= " AND Wish.User_ID = :user_id";
+		}
+
+		$parameters = array(
+				":wish_id" => $wishID,
+				":status" => $status,
+		);
+		if (is_numeric($userID)) {
+			$parameters[":user_id"] = $userID;
+		}
+
+		$GLOBALS["beans"]->queryHelper->executeWriteQuery($this->db, $sql, $parameters);
+	}
 }

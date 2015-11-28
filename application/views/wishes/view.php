@@ -22,6 +22,12 @@
 			</div>
 		</div>
 		<div class="form-group">
+			<label class="col-sm-2 control-label">Status</label>
+			<div class="col-sm-10">
+				<p class="form-control-static"><?php echo $wish->Status ?></p>
+			</div>
+		</div>
+		<div class="form-group">
 			<label class="col-sm-2 control-label">Weight</label>
 			<div class="col-sm-10">
 				<p class="form-control-static"><?php echo $wish->Weight ?></p>
@@ -42,8 +48,12 @@
 		<div class="form-group">
 			<div class="col-sm-offset-2 col-sm-10">
 				<button type="button" id="back" class="btn btn-default">Back</button>
-				<button type="button" id="edit" class="btn btn-default">Edit</button>
-				<button type="button" id="delete" class="btn btn-default">Delete</button>
+				<?php if (strcasecmp("Open", $wish->Status) == 0) { ?>
+					<button type="button" id="edit" class="btn btn-default">Edit</button>
+					<button type="button" id="delete" class="btn btn-default">Delete</button>
+				<?php } elseif (strcasecmp("Accepted", $wish->Status) == 0) { ?>
+					<button type="button" id="close" class="btn btn-default">Close</button>
+				<?php } ?>
 			</div>
 		</div>
 	</div>
@@ -130,16 +140,26 @@
 			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>wishes';
 		});
 
-		$('#edit').click(function(){
-			window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/edit/" . $wishID; ?>';
-		});
+		<?php if (strcasecmp("Open", $wish->Status) == 0) { ?>
+			$('#edit').click(function(){
+				window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/edit/" . $wishID; ?>';
+			});
 
-		$('#delete').click(function(){
-			if (confirm('Are you sure you want to delete this wish?'))
-			{
-				window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/delete/" . $wishID; ?>';
-			}
-		});
+			$('#delete').click(function(){
+				if (confirm('Are you sure you want to delete this wish?'))
+				{
+					window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/delete/" . $wishID; ?>';
+				}
+			});
+
+		<?php } elseif (strcasecmp("Accepted", $wish->Status) == 0) { ?>
+			$('#close').click(function(){
+				if (confirm('Are you sure you want to close this wish?'))
+				{
+					window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/close/" . $wishID; ?>';
+				}
+			});
+		<?php } ?>
 
 		$('td.column-action').find('i.glyphicon-envelope').closest('span').click(function(){
 			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>messages/add/0/' + $(this).attr('data-userID') + '/' + $(this).attr('data-wishID');

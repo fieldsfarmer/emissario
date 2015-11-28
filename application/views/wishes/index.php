@@ -8,6 +8,14 @@
 	
 		<form method="post" class="form-inline table-filter pull-right">
 			<div class="form-group">
+				<label class="sr-only" for="wishStatus">Status</label>
+				<select id="wishStatus" name="wishStatus" class="form-control">
+					<option value="">- Status -</option>
+					<option value="not_closed" <?php if (strcasecmp("not_closed", $wishStatus) == 0) { ?>selected<?php } ?>>Not Closed</option>
+					<option value="closed" <?php if (strcasecmp("closed", $wishStatus) == 0) { ?>selected<?php } ?>>Closed</option>
+				</select>
+			</div>
+			<div class="form-group">
 				<label class="sr-only" for="search">Search</label>
 				<input type="text" id="search" name="search" value="<?php echo $search; ?>" class="form-control" placeholder="Search" />
 			</div>
@@ -23,6 +31,7 @@
 					<th>Description</th>
 					<th>Destination City</th>
 					<th>Destination Country</th>
+					<th>Status</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -35,6 +44,7 @@
 						</td>
 						<td><?php echo $wish->Destination_City ?></td>
 						<td><?php echo $wish->Destination_Country_Name ?></td>
+						<td><?php echo $wish->Status ?></td>
 					</tr>
 				<?php } ?>
 			</tbody>

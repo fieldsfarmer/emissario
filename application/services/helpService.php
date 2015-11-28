@@ -8,9 +8,9 @@ class HelpService extends Service
 		return $this->model->getHelpsForWish($wishID, $wishOwnerID);
 	}
 
-	public function getHelpsForOthers($userID, $helpStatus = "", $search = "")
+	public function getHelpsForOthers($userID, $wishStatus = "", $helpStatus = "", $search = "")
 	{
-		return $this->model->getHelpsForOthers($userID, $helpStatus, $search);
+		return $this->model->getHelpsForOthers($userID, $wishStatus, $helpStatus, $search);
 	}
 
 	public function getHelp($helpID, $userID = "")

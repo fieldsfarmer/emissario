@@ -31,11 +31,12 @@ class HelpModel extends Model
 		return $query->fetchAll();
 	}
 
-	public function getHelpsForOthers($userID, $helpStatus = "", $search = "")
+	public function getHelpsForOthers($userID, $wishStatus = "", $helpStatus = "", $search = "")
 	{
 		$sql = "SELECT Help.*,
 					Wish.Description AS Wish_Description,
 					Wish.Destination_City AS Wish_Destination_City,
+					Wish.Status AS Wish_Status,
 					Country.Country_Name AS Wish_Destination_Country_Name,
 					Owner.First_Name AS Wish_Owner_First_Name,
 					Owner.Last_Name AS Wish_Owner_Last_Name
@@ -44,6 +45,15 @@ class HelpModel extends Model
 				INNER JOIN User Owner ON Owner.ID = Wish.User_ID
 				LEFT JOIN Country ON Country.Country_Code = Wish.Destination_Country
 				WHERE Help.User_ID = :user_id";
+
+		if (strcasecmp($wishStatus, "closed") == 0)
+		{
+			$sql .= " AND Wish.Status = 'Closed'";
+		}
+		else if (strcasecmp($wishStatus, "not_closed") == 0)
+		{
+			$sql .= " AND Wish.Status IN ('Open', 'Accepted')";
+		}
 
 		if (strcasecmp($helpStatus, "accepted") == 0)
 		{
@@ -88,6 +98,7 @@ class HelpModel extends Model
 		$sql = "SELECT Help.*,
 					Wish.Description AS Wish_Description,
 					Wish.Destination_City AS Wish_Destination_City,
+					Wish.Status AS Wish_Status,
 					Wish.Weight AS Wish_Weight,
 					Wish.Compensation AS Wish_Compensation,
 					DATE_FORMAT(Wish.Max_Date, '%m/%d/%Y') AS Wish_Max_Date,

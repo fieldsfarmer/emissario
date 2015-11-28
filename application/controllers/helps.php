@@ -7,6 +7,12 @@ class Helps
 	{
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
 
+		$wishStatus = "not_closed";
+		if (array_key_exists("wishStatus", $_POST))
+		{
+			$wishStatus = $_POST["wishStatus"];
+		}
+
 		$helpStatus = "";
 		if (array_key_exists("helpStatus", $_POST))
 		{
@@ -19,7 +25,7 @@ class Helps
 			$search = $_POST["search"];
 		}
 
-		$helps = $GLOBALS["beans"]->helpService->getHelpsForOthers($userID, $helpStatus, $search);
+		$helps = $GLOBALS["beans"]->helpService->getHelpsForOthers($userID, $wishStatus, $helpStatus, $search);
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/helps/index.php';
