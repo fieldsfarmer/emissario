@@ -26,8 +26,8 @@ else
 				<label class="sr-only" for="recommended">Recommended</label>
 				<select id="recommended" name="recommended" class="form-control">
 					<option value="">- Recommended -</option>
-					<option value="1" <?php if ($recommended == 1) { ?>selected<?php } ?>>Yes</option>
-					<option value="0" <?php if ($recommended == 0) { ?>selected<?php } ?>>No</option>
+					<option value="1" <?php if (is_numeric($recommended) && $recommended == 1) { ?>selected<?php } ?>>Yes</option>
+					<option value="0" <?php if (is_numeric($recommended) && $recommended == 0) { ?>selected<?php } ?>>No</option>
 				</select>
 			</div>
 			<button type="submit" class="btn btn-default btn-sm">Go</button>
