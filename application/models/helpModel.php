@@ -93,11 +93,14 @@ class HelpModel extends Model
 					DATE_FORMAT(Wish.Max_Date, '%m/%d/%Y') AS Wish_Max_Date,
 					Country.Country_Name AS Wish_Destination_Country_Name,
 					Owner.First_Name AS Wish_Owner_First_Name,
-					Owner.Last_Name AS Wish_Owner_Last_Name
+					Owner.Last_Name AS Wish_Owner_Last_Name,
+					Review.Recommended AS Review_Recommended,
+					Review.Comments AS Review_Comments
 				FROM Help
 				INNER JOIN Wish ON Wish.ID = Help.Wish_ID
 				INNER JOIN User Owner ON Owner.ID = Wish.User_ID
 				LEFT JOIN Country ON Country.Country_Code = Wish.Destination_Country
+				LEFT JOIN Review ON Review.Help_ID = Help.ID
 				WHERE Help.ID = :help_id";
 
 		if (is_numeric($userID)) {
