@@ -61,12 +61,22 @@ class MessageModel extends Model
 					Recipient.Last_Name AS Recipient_Last_Name,
 					DATE_FORMAT(Message.Created_On, '%m/%d/%Y %r') AS Formatted_Created_On,
 					Wish.Description AS Wish_Description,
-					Wish.User_ID AS Wish_Owner_ID
-				FROM Message
+					Wish.User_ID AS Wish_Owner_ID";
+
+		if (is_numeric($userID)) {
+			$sql .= " ,(SELECT Help.ID
+					FROM Help
+					WHERE Help.Wish_ID = Wish.ID
+						AND Help.User_ID = :user_id
+					LIMIT 1) AS Help_ID";
+		}
+
+		$sql .= " FROM Message
 				INNER JOIN User Sender ON Sender.ID = Message.Sender_ID
 				INNER JOIN User Recipient ON Recipient.ID = Message.Recipient_ID
 				LEFT JOIN Wish ON Wish.ID = Message.Wish_ID
 				WHERE Message.ID = :message_id";
+
 		if (is_numeric($userID)) {
 			$sql .= " AND (Message.Recipient_ID = :user_id
 						OR Message.Sender_ID = :user_id)";

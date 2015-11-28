@@ -32,6 +32,17 @@
 					</p>
 				</div>
 			</div>
+		<?php } elseif (is_numeric($message->Help_ID)) { ?>
+			<div class="form-group">
+				<label class="col-sm-2 control-label">Help</label>
+				<div class="col-sm-10">
+					<p class="form-control-static">
+						<a href="<?php echo URL_WITH_INDEX_FILE . "helps/view/" . $message->Help_ID; ?>">
+							<?php echo $message->Wish_Description ?>
+						</a>
+					</p>
+				</div>
+			</div>
 		<?php } ?>
 		<div class="form-group">
 			<label class="col-sm-2 control-label">Title</label>
