@@ -2,10 +2,10 @@
 
 class HelpService extends Service
 {
-	public function getWishes($userID)
+
+	public function getHelpsForWish($wishID, $wishOwnerID = "")
 	{
-		return $this->model->getWishes($userID);
+		return $this->model->getHelpsForWish($wishID, $wishOwnerID);
 	}
 
-	
 }

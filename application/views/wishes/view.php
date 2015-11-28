@@ -47,9 +47,44 @@
 			</div>
 		</div>
 	</div>
+
 	<div class="section">
 		<h3 class="page-header">Helps</h3>
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>Helper</th>
+						<th>
+							Status
+							<a id="statusInfo" tabindex="0" role="button" data-toggle="popover" class="info-button">
+								<i class="glyphicon glyphicon-info-sign"></i>
+							</a>
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php foreach ($helps as $help) { ?>
+						<tr>
+							<td><?php echo $help->Helper_First_Name . " " . $help->Helper_Last_Name ?></td>
+							<td>
+								<?php if ($help->Requested == 1 && $help->Offered == 1) {
+									echo "Accepted";
+								}
+								else if ($help->Requested == 1) {
+									echo "Requested";
+								}
+								else if ($help->Offered == 1) {
+									echo "Offered";
+								} ?>
+							</td>
+						</tr>
+					<?php } ?>
+				</tbody>
+			</table>
+		</div>
 	</div>
+
 	<div class="section">
 		<h3 class="page-header">Messages</h3>
 	</div>
@@ -71,5 +106,17 @@
 				window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/delete/" . $wishID; ?>';
 			}
 		});
+
+		$('#statusInfo').popover({
+			container: 'body',
+			html: true,
+			placement: 'auto right',
+			title: 'Status Info',
+			trigger: 'focus',
+			content: '<b>Requested:</b> I have requested for help, but the helper has not accepted the request.<br/>' +
+					'<b>Offered:</b> The helper has offered to help, but I have not accepted the offer.<br/>' +
+					'<b>Accepted:</b> Both the helper and I have agreed on the help.'
+		});
+
 	});
 </script>

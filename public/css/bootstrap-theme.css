@@ -618,3 +618,6 @@ fieldset[disabled] .btn-danger.active {
 .column-action span {
 	cursor:pointer; display:inline-block; padding:0 5px;
 }
+.info-button {
+	margin-left: 5px;
+}
