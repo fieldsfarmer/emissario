@@ -13,16 +13,16 @@ class Home
 
 	public function index()
 	{
-		require APP . 'views/_templates/header.php';
 		if (is_numeric($GLOBALS["beans"]->siteHelper->getSession("userID")))
 		{
-		require APP . 'views/home/index.php';
+			header('location: ' . URL_WITH_INDEX_FILE . 'friends');
 		}
 		else
 		{
+			require APP . 'views/_templates/header.php';
 			require APP . 'views/index.php';
+			require APP . 'views/_templates/footer.php';
 		}
-		require APP . 'views/_templates/footer.php';
 	}
 
 }
