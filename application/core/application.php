@@ -157,6 +157,7 @@ class Application
 		require APP . '/models/helpModel.php';
 		require APP . '/models/messageModel.php';
 		require APP . '/models/resourceModel.php';
+		require APP . '/models/reviewModel.php';
 		require APP . '/models/travelModel.php';
 		require APP . '/models/userModel.php';
 		require APP . '/models/wishModel.php';
@@ -166,6 +167,7 @@ class Application
 		require APP . '/services/helpService.php';
 		require APP . '/services/messageService.php';
 		require APP . '/services/resourceService.php';
+		require APP . '/services/reviewService.php';
 		require APP . '/services/travelService.php';
 		require APP . '/services/userService.php';
 		require APP . '/services/wishService.php';
@@ -174,6 +176,7 @@ class Application
 		$GLOBALS["beans"]->helpService = new HelpService(new HelpModel($this->db));
 		$GLOBALS["beans"]->messageService = new MessageService(new MessageModel($this->db));
 		$GLOBALS["beans"]->resourceService = new ResourceService(new ResourceModel($this->db));
+		$GLOBALS["beans"]->reviewService = new ReviewService(new ReviewModel($this->db));
 		$GLOBALS["beans"]->travelService = new TravelService(new TravelModel($this->db));
 		$GLOBALS["beans"]->userService = new UserService(new UserModel($this->db));
 		$GLOBALS["beans"]->wishService = new WishService(new WishModel($this->db));

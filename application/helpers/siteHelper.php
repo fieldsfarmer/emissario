@@ -11,7 +11,8 @@ class SiteHelper
 				"travels" => "Travels",
 				"wishes" => "Wishes",
 				"messages" => "Messages",
-				"helps" => "Help Others"
+				"helps" => "Help Others",
+				"reviews" => "Reviews"
 			);
 
 		foreach ($views as $view => $viewTitle)
