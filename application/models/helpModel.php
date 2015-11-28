@@ -31,4 +31,56 @@ class HelpModel extends Model
 		return $query->fetchAll();
 	}
 
+	public function getHelpsForOthers($userID, $helpStatus = "", $search = "")
+	{
+		$sql = "SELECT Help.*,
+					Wish.Description AS Wish_Description,
+					Wish.Destination_City AS Wish_Destination_City,
+					Country.Country_Name AS Wish_Destination_Country_Name,
+					Owner.First_Name AS Wish_Owner_First_Name,
+					Owner.Last_Name AS Wish_Owner_Last_Name
+				FROM Help
+				INNER JOIN Wish ON Wish.ID = Help.Wish_ID
+				INNER JOIN User Owner ON Owner.ID = Wish.User_ID
+				LEFT JOIN Country ON Country.Country_Code = Wish.Destination_Country
+				WHERE Help.User_ID = :user_id";
+
+		if (strcasecmp($helpStatus, "accepted") == 0)
+		{
+			$sql .= " AND Help.Requested = 1
+					AND Help.Offered = 1";
+		}
+		else if (strcasecmp($helpStatus, "offered") == 0)
+		{
+			$sql .= " AND Help.Requested = 0
+					AND Help.Offered = 1";
+		}
+		else if (strcasecmp($helpStatus, "requested") == 0)
+		{
+			$sql .= " AND Help.Requested = 1
+					AND Help.Offered = 0";
+		}
+
+		if (trim($search) != "")
+		{
+			$sql .= " AND (Wish.Description LIKE :search
+						OR Wish.Destination_City LIKE :search
+						OR Country.Country_Name LIKE :search
+						OR CONCAT(Owner.First_Name, ' ', Owner.Last_Name) LIKE :search)";
+		}
+
+		$sql .= " ORDER BY Help.Offered DESC, Help.Requested DESC";
+
+		$parameters = array(":user_id" => $userID);
+		if (trim($search) != "")
+		{
+			$parameters[":search"] = "%" . trim($search) . "%";
+		}
+
+		$query = $this->db->prepare($sql);
+		$query->execute($parameters);
+
+		return $query->fetchAll();
+	}
+
 }
