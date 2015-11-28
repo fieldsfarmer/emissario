@@ -31,7 +31,12 @@
 					<th>Destination City</th>
 					<th>Destination Country</th>
 					<th>Owner</th>
-					<th>Help Status</th>
+					<th>
+						Help Status
+						<a id="helpStatusInfo" tabindex="0" role="button" data-toggle="popover" class="info-button">
+							<i class="glyphicon glyphicon-info-sign"></i>
+						</a>
+					</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -67,6 +72,17 @@
 	$(document).ready(function(){
 		$('#clear').click(function(){
 			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>helps';
+		});
+
+		$('#helpStatusInfo').popover({
+			container: 'body',
+			html: true,
+			placement: 'auto right',
+			title: 'Help Status Info',
+			trigger: 'focus',
+			content: '<b>Offered:</b> I have offered to help, but the owner has not accepted the offer.<br/>' +
+					'<b>Requested:</b> The owner has requested for help, but I have not accepted the request.<br/>' +
+					'<b>Accepted:</b> Both the owner and I have agreed on the help.'
 		});
 	});
 </script>
