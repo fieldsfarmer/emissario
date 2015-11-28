@@ -14,6 +14,7 @@ class Friends
 		}
 		elseif ($GLOBALS["beans"]->siteHelper->getSession("friendType") != "") {
 			$friendType = $GLOBALS["beans"]->siteHelper->getSession("friendType");
+			$_SESSION["friendType"] = "";
 		}
 
 		$search = "";
