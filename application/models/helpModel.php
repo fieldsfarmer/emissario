@@ -92,6 +92,7 @@ class HelpModel extends Model
 					Wish.Compensation AS Wish_Compensation,
 					DATE_FORMAT(Wish.Max_Date, '%m/%d/%Y') AS Wish_Max_Date,
 					Country.Country_Name AS Wish_Destination_Country_Name,
+					Owner.ID AS Wish_Owner_ID,
 					Owner.First_Name AS Wish_Owner_First_Name,
 					Owner.Last_Name AS Wish_Owner_Last_Name,
 					Review.Recommended AS Review_Recommended,

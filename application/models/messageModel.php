@@ -90,37 +90,6 @@ class MessageModel extends Model
 		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
 	}
 
-	public function getRecipients($userID)
-	{
-		$sql = "SELECT User.ID, User.First_Name, User.Last_Name
-				FROM (
-					SELECT Sender_ID AS Recipient_ID
-					FROM Message
-					WHERE Message.Recipient_ID = :user_id
-					UNION
-					SELECT Recipient_ID
-					FROM Message
-					WHERE Sender_ID = :user_id
-					UNION
-					SELECT User_ID2 AS Recipient_ID
-					FROM Friend
-					WHERE User_ID1 = :user_id
-					UNION
-					SELECT User_ID1 AS Recipient_ID
-					FROM Friend
-					WHERE User_ID2 = :user_id
-				) Recipient
-				INNER JOIN User ON User.ID = Recipient.Recipient_ID
-				ORDER BY User.First_Name, User.Last_Name";
-
-		$parameters = array(":user_id" => $userID);
-
-		$query = $this->db->prepare($sql);
-		$query->execute($parameters);
-
-		return $query->fetchAll();
-	}
-
 	public function insertMessage() {
 		$sql = "INSERT INTO Message (Sender_ID, Recipient_ID, Title, Content, Wish_ID, Created_On, Modified_On)
 				VALUES (:sender_id, :recipient_id, :title, :content, :wish_id, NOW(), NOW())";
@@ -168,6 +137,47 @@ class MessageModel extends Model
 		$query->execute($parameters);
 
 		return $query->fetchAll();
+	}
+
+	/* If the wish belongs to the user, then the recipient has to be one of the potential helpers.
+	 * If the user is one of the potential helpers for a wish, then the recipient has to be the wish owner.
+	 * Otherwise the wish is not valid for sending a message.
+	 * This is to prevent bad users randomly changing IDs through the address bar. */
+	public function getValidWishForMessage($userID, $wishID, $recipientID)
+	{
+		$sql = "SELECT 'Wish' AS Type,
+					Wish.ID,
+					Wish.Description,
+					Wish.ID AS Link_ID,
+					Recipient.ID AS Valid_Recipient_ID,
+					Recipient.First_Name AS Valid_Recipient_First_Name,
+					Recipient.Last_Name AS Valid_Recipient_Last_Name
+				FROM Wish
+				LEFT JOIN Help ON Help.Wish_ID = Wish.ID AND Help.User_ID = :recipient_id
+				LEFT JOIN User Recipient ON Recipient.ID = Help.User_ID
+				WHERE Wish.ID = :wish_id
+					AND Wish.User_ID = :user_id
+				UNION
+				SELECT 'Help' AS Type,
+					Wish.ID,
+					Wish.Description,
+					Help.ID AS Link_ID,
+					Recipient.ID AS Valid_Recipient_ID,
+					Recipient.First_Name AS Valid_Recipient_First_Name,
+					Recipient.Last_Name AS Valid_Recipient_Last_Name
+				FROM Help
+				INNER JOIN Wish ON Wish.ID = Help.Wish_ID
+				LEFT JOIN User Recipient ON Recipient.ID = Wish.User_ID AND Recipient.ID = :recipient_id
+				WHERE Help.Wish_ID = :wish_id
+					AND Help.User_ID = :user_id";
+
+		$parameters = array(
+				':user_id' => $userID,
+				':wish_id' => $wishID,
+				':recipient_id' => $recipientID
+		);
+
+		return $GLOBALS["beans"]->queryHelper->getSingleRowObject($this->db, $sql, $parameters);
 	}
 
 }

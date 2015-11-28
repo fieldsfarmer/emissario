@@ -36,13 +36,18 @@ class Messages
 		require APP . 'views/_templates/footer.php';
 	}
 
-	public function add($originalMessageID = "", $recipientID = "")
+	public function add($originalMessageID = "", $recipientID = "", $wishID = "")
 	{
 		$userID = $GLOBALS["beans"]->siteHelper->getSession("userID");
 		if (is_numeric($originalMessageID) && $originalMessageID > 0) {
 			$originalMessage = $GLOBALS["beans"]->messageService->getMessage($originalMessageID, $userID);
 		}
-		$recipients = $GLOBALS["beans"]->messageService->getRecipients($userID);
+		elseif (is_numeric($wishID)) {
+			$wish = $GLOBALS["beans"]->messageService->getValidWishForMessage($userID, $wishID, $recipientID);
+		}
+		else {
+			$friends = $GLOBALS["beans"]->friendService->getFriends($userID, "friends");
+		}
 
 		require APP . 'views/_templates/header.php';
 		require APP . 'views/messages/add.php';

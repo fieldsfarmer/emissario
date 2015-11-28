@@ -13,11 +13,6 @@ class MessageService extends Service
 		return $this->model->getMessage($messageID, $userID);
 	}
 
-	public function getRecipients($userID)
-	{
-		return $this->model->getRecipients($userID);
-	}
-
 	public function saveMessage()
 	{
 		return $this->model->insertMessage();
@@ -26,6 +21,11 @@ class MessageService extends Service
 	public function getMessagesForWish($wishID, $userID = "")
 	{
 		return $this->model->getMessagesForWish($wishID, $userID);
+	}
+
+	public function getValidWishForMessage($userID, $wishID, $recipientID)
+	{
+		return $this->model->getValidWishForMessage($userID, $wishID, $recipientID);
 	}
 
 }

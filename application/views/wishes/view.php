@@ -54,6 +54,7 @@
 			<table class="table table-striped">
 				<thead>
 					<tr>
+						<th width="1%">&nbsp;</th>
 						<th>Helper</th>
 						<th>
 							Status
@@ -66,6 +67,11 @@
 				<tbody>
 					<?php foreach ($helps as $help) { ?>
 						<tr>
+							<td width="1%" class="column-action">
+								<span title="Send a Message" data-userID="<?php echo $help->User_ID; ?>" data-wishID="<?php echo $help->Wish_ID; ?>">
+									<i class="glyphicon glyphicon-envelope"></i>
+								</span>
+							</td>
 							<td><?php echo $help->Helper_First_Name . " " . $help->Helper_Last_Name ?></td>
 							<td>
 								<?php if ($help->Requested == 1 && $help->Offered == 1) {
@@ -133,6 +139,10 @@
 			{
 				window.location.href = '<?php echo URL_WITH_INDEX_FILE . "wishes/delete/" . $wishID; ?>';
 			}
+		});
+
+		$('td.column-action').find('i.glyphicon-envelope').closest('span').click(function(){
+			window.location.href = '<?php echo URL_WITH_INDEX_FILE; ?>messages/add/0/' + $(this).attr('data-userID') + '/' + $(this).attr('data-wishID');
 		});
 
 		$('#statusInfo').popover({
